@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "main": "server.js",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "express": "^4.16.2",
+    "mobx-react-form": "^1.32.3",
+    "moment": "^2.20.1",
+    "morgan": "^1.9.0",
+    "node-cron": "^1.2.1",
+    "node-notifier": "^5.2.1",
+    "prop-types": "^15.6.0",
+    "rc-datepicker": "^5.0.10",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.31.5",
+    "react-bootstrap-date-picker": "^5.0.1",
+    "react-burger-menu": "^2.2.3",
+    "react-date-picker": "^6.6.1",
+    "react-dom": "^16.2.0",
+    "react-event-timeline": "^1.4.1",
+    "react-input-mask": "^1.1.0",
+    "react-responsive-modal": "^2.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "socket.io-client": "^2.0.4",
+    "sweetalert": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
