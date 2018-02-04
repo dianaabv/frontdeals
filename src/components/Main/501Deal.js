@@ -68,6 +68,7 @@ import Auth from '../modules/Auth';
   }
 
   render() {
+    console.log('gitttttttttttttt')
     return (
 
     <div className="col-md-6">
