@@ -27,7 +27,7 @@ class MyDealsParent extends React.Component {
         });
     }
     componentDidMount() {
-      //   axios.get('http://localhost:4001/api/getmydashboard',{
+      //   axios.get('http://185.100.67.106:4040/api/getmydashboard',{
       //   responseType: 'json',
       //   headers: {
       //     'Content-type': 'application/x-www-form-urlencoded',

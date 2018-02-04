@@ -26,7 +26,7 @@ class MyDealsParent extends React.Component {
 
     }
     componentDidMount() {
-        axios.get('http://localhost:4001/api/getmydeals',{
+        axios.get('http://185.100.67.106:4040/api/getmydeals',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -50,7 +50,7 @@ class MyDealsParent extends React.Component {
     dealRedirects(event){
       const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
       //console.log(formData, 'formData')
-      axios.post('http://localhost:4001/api/gethistorydeal',formData,{
+      axios.post('http://185.100.67.106:4040/api/gethistorydeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

@@ -15,7 +15,7 @@ class MyKontragents extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          endpoint: "http://localhost:4001",
+          endpoint: "http://185.100.67.106:4040",
             message: '',
             in_requests: [],
             out_requests: []
@@ -29,7 +29,7 @@ class MyKontragents extends React.Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:4001/api/getmyrequests',{
+        axios.get('http://185.100.67.106:4040/api/getmyrequests',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -52,7 +52,7 @@ class MyKontragents extends React.Component {
       });
     }
     acceptfriendship(event){
-      axios.get('http://localhost:4001/api/acceptfriendship?friend_id='+event.target.name,{
+      axios.get('http://185.100.67.106:4040/api/acceptfriendship?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -78,7 +78,7 @@ class MyKontragents extends React.Component {
       });
     }
     refusefriendship(event){
-      axios.get('http://localhost:4001/api/refusefriendship?friend_id='+event.target.name,{
+      axios.get('http://185.100.67.106:4040/api/refusefriendship?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

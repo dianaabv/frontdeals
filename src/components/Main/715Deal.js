@@ -34,7 +34,7 @@ import swal from 'sweetalert'
     this.updateDeal715=this.updateDeal715.bind(this)
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmypersonalinfo',{
+      axios.get('http://185.100.67.106:4040/api/getmypersonalinfo',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -55,7 +55,7 @@ import swal from 'sweetalert'
           });
         }
       });
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -96,7 +96,7 @@ import swal from 'sweetalert'
   }
     updateDeal715(event){
       const formData = `side1=${this.state.side1}&deal715=${JSON.stringify(this.state.deal715)}&duedate=${this.state.duedate}&deadline=${this.state.deadline}&lawid=${this.state.lawid}&loanterm=${this.state.loanterm}`;
-      axios.post('http://localhost:4001/api/createdeal715',formData,{
+      axios.post('http://185.100.67.106:4040/api/createdeal715',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

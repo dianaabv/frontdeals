@@ -35,7 +35,7 @@ class MyDealsParent extends React.Component {
 
     }
     componentDidMount() {
-        axios.get('http://localhost:4001/api/getmydeals',{
+        axios.get('http://185.100.67.106:4040/api/getmydeals',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -64,7 +64,7 @@ class MyDealsParent extends React.Component {
     }
     createPdf(event){
       const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
-      axios.post('http://localhost:4001/pdf/createpdf',formData, {
+      axios.post('http://185.100.67.106:4040/pdf/createpdf',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -99,7 +99,7 @@ class MyDealsParent extends React.Component {
        // console.log(event.target.value, event.target.name)
         const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
         //console.log(formData, 'formData')
-        axios.post('http://localhost:4001/api/getinfodeal',formData, {
+        axios.post('http://185.100.67.106:4040/api/getinfodeal',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
@@ -119,7 +119,7 @@ class MyDealsParent extends React.Component {
           });
         }
       });
-      axios.get('http://localhost:4001/api/getmystatus?deal_id='+event.target.value,{
+      axios.get('http://185.100.67.106:4040/api/getmystatus?deal_id='+event.target.value,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -142,7 +142,7 @@ class MyDealsParent extends React.Component {
         }
       })
        // так нельзя делать убери перенеси в info 715
-      axios.post('http://localhost:4001/api/getolddeal', formData, {
+      axios.post('http://185.100.67.106:4040/api/getolddeal', formData, {
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

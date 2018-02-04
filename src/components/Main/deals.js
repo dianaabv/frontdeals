@@ -31,7 +31,7 @@ import './style.css';
     this.updateDeal=this.updateDeal.bind(this)
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getalldeals',{
+      axios.get('http://185.100.67.106:4040/api/getalldeals',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded'}

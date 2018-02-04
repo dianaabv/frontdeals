@@ -15,7 +15,7 @@ import socketIOClient from "socket.io-client";
     super(props);
 
     this.state = {
-      endpoint: "http://localhost:4001",
+      endpoint: "http://185.100.67.106:4040",
       kontragents: [],
       duedate: '',
       deadline: '',
@@ -39,7 +39,7 @@ import socketIOClient from "socket.io-client";
 
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -110,7 +110,7 @@ import socketIOClient from "socket.io-client";
   }
   updateDeal506(event){
       const formData = `deal506=${JSON.stringify(this.state.deal506)}&duedate=${this.state.duedate}&deadline=${this.state.deadline}&lawid=${this.state.lawid}`;
-      axios.post('http://localhost:4001/api/createdeal506',formData,{
+      axios.post('http://185.100.67.106:4040/api/createdeal506',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

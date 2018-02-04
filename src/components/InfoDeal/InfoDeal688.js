@@ -63,7 +63,7 @@ class MyDealsParent extends React.Component {
    denyDeal() {
     var deal_id=this.props.data.deal_id
     const formData = `deal_id=${deal_id}&reason=${this.state.reason}`
-      axios.post('http://localhost:4001/api/denydeal',formData,{
+      axios.post('http://185.100.67.106:4040/api/denydeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -91,7 +91,7 @@ class MyDealsParent extends React.Component {
     })
     var deal_id=this.props.data.deal_id
     const formData = `deal_id=${deal_id}&status=${this.state.status}`
-      axios.post('http://localhost:4001/api/acceptdeal',formData,{
+      axios.post('http://185.100.67.106:4040/api/acceptdeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -117,7 +117,7 @@ class MyDealsParent extends React.Component {
       // console.log(this.state.status)
       var deal_id=this.props.data.deal_id
       const formData = `deal_id=${deal_id}&status=${'Физическое Лицо'}`
-      axios.post('http://localhost:4001/api/acceptdeal',formData,{
+      axios.post('http://185.100.67.106:4040/api/acceptdeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -141,7 +141,7 @@ class MyDealsParent extends React.Component {
    }
    getDenyReason(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://localhost:4001/api/getdenyreason?deal_id='+deal_id,{
+      axios.get('http://185.100.67.106:4040/api/getdenyreason?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -165,7 +165,7 @@ class MyDealsParent extends React.Component {
    }
    acceptDeny(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://localhost:4001/api/acceptdeny?deal_id='+deal_id,{
+      axios.get('http://185.100.67.106:4040/api/acceptdeny?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -189,7 +189,7 @@ class MyDealsParent extends React.Component {
    }
    denyDeny(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://localhost:4001/api/denydeny?deal_id='+deal_id,{
+      axios.get('http://185.100.67.106:4040/api/denydeny?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -227,7 +227,7 @@ class MyDealsParent extends React.Component {
     }
     updateDeal688(){
       const formData = `deal688=${JSON.stringify(this.state.deal688)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&payday=${this.state.payday}&shippingday=${this.state.shippingday}`
-        axios.post('http://localhost:4001/update/updateDeal688',formData, {
+        axios.post('http://185.100.67.106:4040/update/updateDeal688',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',

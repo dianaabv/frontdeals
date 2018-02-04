@@ -49,7 +49,7 @@ import jwtDecode from 'jwt-decode';
     });
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -83,7 +83,7 @@ import jwtDecode from 'jwt-decode';
           &&(this.state.deal688.shippingprice.length>0)
       &&(this.state.payday>0)&&(this.state.duedate>0)&&(this.state.shippingday>0)){
       const formData = `deal688=${JSON.stringify(this.state.deal688)}&duedate=${this.state.duedate}&payday=${this.state.payday}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
-      axios.post('http://localhost:4001/create/createdeal688',formData,{
+      axios.post('http://185.100.67.106:4040/create/createdeal688',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

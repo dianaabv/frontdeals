@@ -29,7 +29,7 @@ import Auth from '../modules/Auth';
     this.deal683=this.deal683.bind(this)
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',

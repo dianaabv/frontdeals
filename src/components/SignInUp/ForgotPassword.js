@@ -66,7 +66,7 @@ class LoginPage extends React.Component {
     if(name.length!=12 || this.state.pass_err.length!=0){
       swal("Проверьте поля.")
     } else {
-      axios.post('http://localhost:4001/api/changepassword', formData, {
+      axios.post('http://185.100.67.106:4040/api/changepassword', formData, {
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',

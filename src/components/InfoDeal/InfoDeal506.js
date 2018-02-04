@@ -40,7 +40,7 @@ class MyDealsParent extends React.Component {
     }
    componentDidMount() {
       var deal_id=this.props.data[0].deal_id
-      axios.get('http://localhost:4001/api/getmystatus?deal_id='+deal_id,{
+      axios.get('http://185.100.67.106:4040/api/getmystatus?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -65,7 +65,7 @@ class MyDealsParent extends React.Component {
    }
    acceptDeal(){
       var deal_id=this.props.data[0].deal_id
-      axios.get('http://localhost:4001/api/acceptdeal?deal_id='+deal_id,{
+      axios.get('http://185.100.67.106:4040/api/acceptdeal?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -125,7 +125,7 @@ class MyDealsParent extends React.Component {
       const formData = `deal_id=${this.props.data[0].deal_id}&receiver=${JSON.stringify(this.state.receiver)}&presenter=${JSON.stringify(this.state.presenter)}&itemname=${this.state.itemname}&quantity=${this.state.quantity}&additional=${this.state.additional}&deadline=${this.state.deadline}&duedate=${this.state.duedate}`
       
       //console.log(formData,'ddddddddddddds')
-        axios.post('http://localhost:4001/api/updateDeal506',formData, {
+        axios.post('http://185.100.67.106:4040/api/updateDeal506',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',

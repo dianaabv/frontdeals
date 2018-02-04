@@ -13,7 +13,7 @@ class App extends Component {
    constructor(){
     super();
     this.state={
-        endpoint: "http://localhost:4001",
+        endpoint: "http://185.100.67.106:4040",
         userTimeLines: '',
         dealtimelines: '',
         sumNoty: ''
@@ -23,7 +23,7 @@ class App extends Component {
      this.dateFormat=this.dateFormat.bind(this); 
    }
     componentDidMount() {
-            axios.get('http://localhost:4001/api/getmynotifications',{
+            axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -49,7 +49,7 @@ class App extends Component {
      
     }
     getMyNotifications(){
-      axios.get('http://localhost:4001/api/getmynotifications',{
+      axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

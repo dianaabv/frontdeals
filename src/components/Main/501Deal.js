@@ -39,7 +39,7 @@ import Auth from '../modules/Auth';
 
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -68,7 +68,7 @@ import Auth from '../modules/Auth';
   }
 
   render() {
-    console.log('gitttttttttttttt')
+   
     return (
 
     <div className="col-md-6">

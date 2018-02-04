@@ -97,7 +97,7 @@ class SignupBuyer extends React.Component {
          {
               const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday}&issueddate=${this.state.issueddate}&dateregip=${this.state.dateregip}`;
 
-                 axios.post('http://localhost:4001/api/signupip',formData,{
+                 axios.post('http://185.100.67.106:4040/api/signupip',formData,{
          responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded'

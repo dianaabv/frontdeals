@@ -50,7 +50,7 @@ import swal from 'sweetalert';
     });
   }
   componentDidMount() {
-      axios.get('http://localhost:4001/api/getmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -113,7 +113,7 @@ import swal from 'sweetalert';
         &&(this.state.deal616.workcheck.length>0)&&(this.state.deal616.quantity.length>0)
         &&(this.state.payday>0)&&(this.state.duedate>0)&&(this.state.workdeadline>0)){
       const formData = `deal616=${JSON.stringify(this.state.deal616)}&duedate=${this.state.duedate}&payday=${this.state.payday}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
-      axios.post('http://localhost:4001/create/createdeal616',formData,{
+      axios.post('http://185.100.67.106:4040/create/createdeal616',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

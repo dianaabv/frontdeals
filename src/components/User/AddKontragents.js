@@ -18,7 +18,7 @@ class MyKontragents extends React.Component {
             message: '',
             users: [],
             allusers: [],
-            endpoint: "http://localhost:4001",
+            endpoint: "http://185.100.67.106:4040",
             roomname: ''
         },
         this.example = this.example.bind(this)
@@ -27,7 +27,7 @@ class MyKontragents extends React.Component {
 
     }
     addtofriend(event){
-      axios.get('http://localhost:4001/api/addtofriend?friend_id='+event.target.name,{
+      axios.get('http://185.100.67.106:4040/api/addtofriend?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -58,7 +58,7 @@ class MyKontragents extends React.Component {
 
 
     componentDidMount() {
-      axios.get('http://localhost:4001/api/searchmykontragents',{
+      axios.get('http://185.100.67.106:4040/api/searchmykontragents',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
