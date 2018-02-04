@@ -22,32 +22,32 @@ class App extends Component {
     this.getMyNotifications = this.getMyNotifications.bind(this)
      this.dateFormat=this.dateFormat.bind(this); 
    }
-    componentDidMount() {
-            axios.get('http://185.100.67.106:4040/api/getmynotifications',{
-        responseType: 'json',
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-          'Authorization': `bearer ${Auth.getToken()}`
-      }
-      }).then(res => {
-          this.setState({
-           userTimeLines: res.data.userTimeLines,
-           dealtimelines: res.data.dealtimelines,
-           sumNoty: res.data.sumNoty
-          });
-      })
-      .catch(err => {
-        if (err.response) {
-          const errors = err.response ? err.response : {};
-          errors.summary = err.response.data.message;
-          this.setState({
-            errors
-          });
-      }
-  })
+  //   componentDidMount() {
+  //           axios.get('http://185.100.67.106:4040/api/getmynotifications',{
+  //       responseType: 'json',
+  //       headers: {
+  //         'Content-type': 'application/x-www-form-urlencoded',
+  //         'Authorization': `bearer ${Auth.getToken()}`
+  //     }
+  //     }).then(res => {
+  //         this.setState({
+  //          userTimeLines: res.data.userTimeLines,
+  //          dealtimelines: res.data.dealtimelines,
+  //          sumNoty: res.data.sumNoty
+  //         });
+  //     })
+  //     .catch(err => {
+  //       if (err.response) {
+  //         const errors = err.response ? err.response : {};
+  //         errors.summary = err.response.data.message;
+  //         this.setState({
+  //           errors
+  //         });
+  //     }
+  // })
 
      
-    }
+  //   }
     getMyNotifications(){
       axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
