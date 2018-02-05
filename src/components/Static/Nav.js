@@ -23,7 +23,8 @@ class App extends Component {
      this.dateFormat=this.dateFormat.bind(this); 
    }
     componentDidMount() {
-            axios.get('http://185.100.67.106:4040/api/getmynotifications',{
+      if(Auth.isUserAuthenticated()){
+                    axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -45,6 +46,10 @@ class App extends Component {
           });
       }
   })
+    } else{
+      console.log('net')
+    }
+
 
      
     }
