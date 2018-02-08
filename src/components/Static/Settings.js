@@ -21,9 +21,12 @@ class MyDealsParent extends React.Component {
             user: {},
             isChangable: true,
             isChangableIp:true,
-            num_check: '',
-            udv_check: '',
-            email_check: '',
+            udv_err: '',
+            iin_err: '',
+            email_err: '',
+            // num_check: '',
+            // udv_check: '',
+            // email_check: '',
             iin_check: '',
             pass_err: '',
             issueddate: "",
@@ -50,7 +53,6 @@ class MyDealsParent extends React.Component {
                 password: '',
                 password2: ''
             },
-            email_err: '',
             checkContent: false,
             checkContentIp: false
 
@@ -61,7 +63,14 @@ class MyDealsParent extends React.Component {
         this.changeIp = this.changeIp.bind(this)
         this.changePassword = this.changePassword.bind(this)
         this.updatePassword = this.updatePassword.bind(this)
+        this.dateFormat=this.dateFormat.bind(this); 
         // checkContentIp =
+    }
+    dateFormat(date){
+      var fDate = new Date(date);
+      var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
+      var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
     GetTest(){
         axios.get('http://185.100.67.106:4040/api/gettest',{
@@ -87,7 +96,7 @@ class MyDealsParent extends React.Component {
         
     }
     Test(){
-                axios.get('http://185.100.67.106:4040/api/test?test='+this.state.test,{
+      axios.get('http://185.100.67.106:4040/api/test?test='+this.state.test,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -110,7 +119,6 @@ class MyDealsParent extends React.Component {
 
     }
     updatePassword(){
-        console.log('ok')
         const formData = `oldpassword=${this.state.password.oldpassword}&password=${this.state.password.password}`;
         if(this.state.pass_err.length!=0){
             swal("Пароли не совпадают. Информация не обновлена")
@@ -125,6 +133,7 @@ class MyDealsParent extends React.Component {
                 this.setState({
                     message: res.data.message
                 });
+                swal({ text: this.state.message}).then(function(){window.location.reload()})
             })
             .catch(err => {
             if (err.response) {
@@ -186,8 +195,7 @@ class MyDealsParent extends React.Component {
         });
     }
     updatePersonalInfo(){
-    if(this.state.udv_check.length!=0  || this.state.email_check.length!=0 || this.state.iin_check.length!=0){
-        console.log('Проверьте поля. Информация не обновлена')
+    if(this.state.udv_err.length!=0  || this.state.iin_err.length!=0){
         swal("Проверьте поля. Информация не обновлена")
     } else {
         const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday}&issueddate=${this.state.issueddate}`;
@@ -360,8 +368,11 @@ class MyDealsParent extends React.Component {
                            <div className="col-md-4">
                                 <div className="panel ">
                                     <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-pencil-square-o" aria-hidden="true" />Редактировать личную информацию</h3>
+                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-pencil-square-o" aria-hidden="true" />Ред-ать личную инф-цию</h3>
                                     </div>
+                                </div>
+                                <div className="panel ">
+                                
                                     <div className="panel-body container-fluid">
                                         <div className="row">
                                          {(this.state.isChangable=='1')?(                                            <div className="col-12">
@@ -390,7 +401,7 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
-                                                    <label className="form-control-label"> {this.state.user.birthday} </label>
+                                                    <label className="form-control-label"> {this.dateFormat(this.state.user.birthday)} </label>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>№ Удостоверения личности</h4>
@@ -402,7 +413,7 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата выдачи уд-ния личности</h4>
-                                                    <label className="form-control-label">{this.state.user.issueddate}  </label>
+                                                    <label className="form-control-label">{this.dateFormat(this.state.user.issueddate)}  </label>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>ИИН</h4>
@@ -415,8 +426,8 @@ class MyDealsParent extends React.Component {
                                                 <div className="form-group">
                                                     <button className="btn btn-primary btn-block d1" onClick={this.changeRender} >Редактировать</button>
                                                 </div>
-                                            </div>):(                                            <div className="col-12">
-                                           
+                                            </div>):(                                            
+                                            <div className="col-12">
                                                 <div className="form-group">
                                                     <h4>Имя</h4>
                                                     <input type="text" defaultValue={this.state.user.firstname} name='firstname' onChange={this.changePerson} className="form-control"   />
@@ -436,7 +447,7 @@ class MyDealsParent extends React.Component {
                                                                                               </div>*/}
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
-                                                    <label className="form-control-label">{this.state.user.birthday}</label>
+                                                    <label className="form-control-label">{this.dateFormat(this.state.user.birthday)}</label>
                                                        <DatePickerInput
                                                         maxDate={today}
                                                         className='my-react-datepicker'
@@ -447,8 +458,8 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>№ Удостоверения личности</h4>
-                                                    <input type="number" defaultValue={this.state.user.udv} name='udv' onChange={this.changePerson} className="form-control"   />
-                                                    <h5>{this.state.udv_err}</h5>
+                                                    <input type="number" defaultValue={this.state.user.udv} className={"form-control " + (this.state.udv_err.length !=0  ? 'input_err' : '')} name='udv' onChange={this.changePerson}   />
+                                                    <h5 className="err_red">{this.state.udv_err}</h5>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Орган, выдавший уд-ние личности</h4>
@@ -470,8 +481,8 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>ИИН</h4>
-                                                    <input type="number" defaultValue={this.state.user.iin} name='iin' onChange={this.changePerson} className="form-control"   />
-                                                    <h5>{this.state.iin_err}</h5>
+                                                    <input type="number" defaultValue={this.state.user.iin} name='iin' className={"form-control " + (this.state.iin_err.length !=0  ? 'input_err' : '')}  onChange={this.changePerson}   />
+                                                    <h5 className="err_red">{this.state.iin_err}</h5>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Адрес регистрации</h4>
@@ -494,76 +505,76 @@ class MyDealsParent extends React.Component {
                                         <h3 className="panel-title"><i className="panel-title-icon icon fa fa-users" aria-hidden="true" />Настройки Входа</h3>
                                     </div>
                                 </div>
-                                <div className="panel ">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Сменить сотовый телефон </h3>
-                                    </div>
-                                    <div className="panel-body container-fluid">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <h4>Cотовый</h4>
-                                                    <div className="input-group">
-                                                        <span className="input-group-addon">+7</span>
-                                                        <input type="text" defaultValue={this.state.user.username} name='username' onChange={this.changePerson} className="form-control"   />
+                    {/*            <div className="panel ">
+                                                        <div className="panel-heading">
+                                                            <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Сменить сотовый телефон </h3>
+                                                        </div>
+                                                        <div className="panel-body container-fluid">
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <div className="form-group">
+                                                                        <h4>Cотовый</h4>
+                                                                        <div className="input-group">
+                                                                            <span className="input-group-addon">+7</span>
+                                                                            <input type="text" defaultValue={this.state.user.username} name='username' onChange={this.changePerson} className="form-control"   />
+                                                                        </div>
+                                                                        <h5>{this.state.num_err}</h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <h5>{this.state.num_err}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                       <div className="panel ">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Сменить почту </h3>
-                                    </div>
-                                    <div className="panel-body container-fluid">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <h4>Email</h4>
-                                                    <div className="input-group">
-                                                        <input type="text" name='email' onChange={(event)=>{this.setState({email: event.target.value})}} className="form-control"   />
+                                                           <div className="panel ">
+                                                        <div className="panel-heading">
+                                                            <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Сменить почту </h3>
+                                                        </div>
+                                                        <div className="panel-body container-fluid">
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <div className="form-group">
+                                                                        <h4>Email</h4>
+                                                                        <div className="input-group">
+                                                                            <input type="text" name='email' onChange={(event)=>{this.setState({email: event.target.value})}} className="form-control"   />
+                                                                        </div>
+                                                                        <div className="form-group">
+                                                                            <h4>{this.state.email_err}</h4>
+                                                                            <h4>{this.state.message}</h4>
+                                                                            <button className="btn btn-primary btn-block " onClick={this.changeEmail.bind(this)} >Сменить почту</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="form-group">
-                                                        <h4>{this.state.email_err}</h4>
-                                                        <h4>{this.state.message}</h4>
-                                                        <button className="btn btn-primary btn-block " onClick={this.changeEmail.bind(this)} >Сменить почту</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                            <div className="panel ">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Тест</h3>
-                                    </div>
-                                    <div className="panel-body container-fluid">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <h4>Cотовый</h4>
-                                                    <div className="input-group">
-                                                        <span className="input-group-addon">+7</span>
-                                                        <input type="text"  name='username'onChange={(event)=>{
-                                    this.setState({test: event.target.value})
-                                    }} className="form-control"   />
-                                                    </div>
-                                                    <h5>{this.state.num_err}</h5>
-                                                </div>
-                                                  <div className="form-group">
-                                                    <h4>{this.state.message}</h4>
-                                                    <button className="btn btn-primary btn-block " onClick={this.Test.bind(this)} >Тест</button>
-                                                </div>
-                                                <div className="form-group">
-                                                    <h4>{this.state.message}</h4>
-                                                    <button className="btn btn-primary btn-block " onClick={this.GetTest.bind(this)} >get Тест</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                                <div className="panel ">
+                                                        <div className="panel-heading">
+                                                            <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Тест</h3>
+                                                        </div>
+                                                        <div className="panel-body container-fluid">
+                                                            <div className="row">
+                                                                <div className="col-md-12">
+                                                                    <div className="form-group">
+                                                                        <h4>Cотовый</h4>
+                                                                        <div className="input-group">
+                                                                            <span className="input-group-addon">+7</span>
+                                                                            <input type="text"  name='username'onChange={(event)=>{
+                                                        this.setState({test: event.target.value})
+                                                        }} className="form-control"   />
+                                                                        </div>
+                                                                        <h5>{this.state.num_err}</h5>
+                                                                    </div>
+                                                                      <div className="form-group">
+                                                                        <h4>{this.state.message}</h4>
+                                                                        <button className="btn btn-primary btn-block " onClick={this.Test.bind(this)} >Тест</button>
+                                                                    </div>
+                                                                    <div className="form-group">
+                                                                        <h4>{this.state.message}</h4>
+                                                                        <button className="btn btn-primary btn-block " onClick={this.GetTest.bind(this)} >get Тест</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>*/}
                                 <div className="panel ">
                                     <div className="panel-heading">
                                         <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Сменить пароль</h3>
@@ -581,11 +592,11 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Повторите Новый Пароль</h4>
-                                                    <input onChange={this.changePassword}  type="password"  name="password2" className="form-control" placeholder="Повторный пароль" />
-                                                    <p>{this.state.pass_err}</p>
+                                                    <input onChange={this.changePassword}  type="password"  name="password2"className={"form-control " + (this.state.pass_err.length !=0  ? 'input_err' : '')} placeholder="Повторный пароль" />
+                                                
+                                                    <h5 className="err_red">{this.state.pass_err}</h5>
                                                 </div>
                                                  <div className="form-group">
-                                                    <h4>{this.state.message}</h4>
                                                     <button className="btn btn-primary btn-block " onClick={this.updatePassword} >Сменить пароль</button>
                                                 </div>
                                             </div>
@@ -594,11 +605,7 @@ class MyDealsParent extends React.Component {
                                 </div>
                             </div>
                             <div className="col-md-4">
-                                <div className="panel ">
-                                  <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-gavel" aria-hidden="true" />Общая информация о моих сделках</h3>
-                                    </div>
-                                </div>
+
                                       { (this.state.status=='Индивидуальный предприниматель')? (
 
                                 <div className="panel ">
@@ -617,7 +624,7 @@ class MyDealsParent extends React.Component {
                                         </div>
                                         <div className="form-group">
                                                     <h4>Дата гос. регистрации ИП</h4>
-                                                    <label className="form-control-label"> {this.state.user.dateregip} </label>
+                                                    <label className="form-control-label"> {this.dateFormat(this.state.user.dateregip)} </label>
                                         </div>
                                         <div className="form-group">
                                                     <h4>Адрес регистрации в качестве ИП</h4>

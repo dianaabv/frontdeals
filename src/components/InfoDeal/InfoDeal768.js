@@ -252,7 +252,7 @@ class MyDealsParent extends React.Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
 
     render() {
@@ -314,7 +314,7 @@ class MyDealsParent extends React.Component {
                         <label className="form-control-label">{this.dateFormat(this.props.data.duedate)}</label>
                     </div>
                      <div className={"form-group " + (objKeys.includes("additional")  ? 'update_bg' : '')}>
-                        <h4>Дополнительные условия</h4>
+                        <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.data.additional}</label>
                     </div>
                     <div className="form-group">
@@ -327,10 +327,10 @@ class MyDealsParent extends React.Component {
                       {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
-                                     {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Отменить</button>):(<div></div>)}
+                                     {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
-                                     {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отменить</button>):(<div></div>)}
+                                                                          {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отклонить сделку</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
                       {(this.props.status=='acceptor' && this.props.acceptor_status=='requested_deny')?(<button className="btn btn-primary btn-block " onClick={this.getDenyReason}>Просмотреть причину отмены сделки</button>):(<div></div>)}
@@ -395,7 +395,7 @@ class MyDealsParent extends React.Component {
                            <label className="form-control-label">{this.dateFormat(this.props.olddeal.duedate)}</label>
                        </div>
                        <div className="form-group">
-                           <h4>Дополнительные условия</h4>
+                           <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                            <label className="form-control-label">{this.props.olddeal.additional}</label>
                        </div>
    
@@ -463,7 +463,7 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия</h4>
+        <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </h4>
         <input  onChange={this.deal768} type="text" className="form-control"  defaultValue={this.props.data.additional} id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">

@@ -1,4 +1,16 @@
 @charset "UTF-8";
+.my_weight{
+  font-weight: 900;
+}
+.title_border{
+  border: 1px solid #d2c3c3 !important;
+}
+.input_err{
+  border-color: #FABFC7 !important;
+}
+.err_red {
+  color: red;
+}
 .margtop {
   margin-top: 10px;
 }

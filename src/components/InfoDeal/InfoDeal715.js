@@ -204,7 +204,7 @@ const formData = `deal_id=${this.props.data[0].deal_id}&side1=${this.state.side1
                         <label className="form-control-label">{this.props.data[0].duedate}</label>
                     </div>
                      <div className={"form-group " + (objKeys.includes("additional")  ? 'update_bg' : '')}>
-                        <h4>Дополнительные условия</h4>
+                        <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.data[0].additional}</label>
                     </div>
                     <div className="form-group">
@@ -256,7 +256,7 @@ const formData = `deal_id=${this.props.data[0].deal_id}&side1=${this.state.side1
                         <label className="form-control-label">{this.props.olddeal.duedate}</label>
                     </div>
                     <div className="form-group">
-                        <h4>Дополнительные условия</h4>
+                        <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.olddeal.additional}</label>
                     </div>
 
@@ -303,7 +303,7 @@ const formData = `deal_id=${this.props.data[0].deal_id}&side1=${this.state.side1
                               <input type="text" defaultValue={this.state.awardamount} name='awardamount' onChange={this.handleChangesAwardamount}className="form-control"  name="quantity"  />
                           </div>
                           <div className="form-group">
-                              <h4>Дополнительные условия</h4>
+                              <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                               <input type="text" defaultValue={this.state.additional} name='additional' onChange={this.handleChangesAdditional}className="form-control"  name="quantity"  />
                           </div>
                           <div className="form-group">

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Auth from '../modules/Auth';
 import InputElement from 'react-input-mask';
+import swal from 'sweetalert'
 
 class LoginPage extends React.Component {
 
@@ -68,7 +69,9 @@ class LoginPage extends React.Component {
         this.setState({
           errors
         });
-        console.log(errors.summary);
+        swal({text: this.state.errors.summary})
+        //console.log(errors.summary);
+
       }
       });
     }
@@ -78,7 +81,6 @@ class LoginPage extends React.Component {
       <div className="col-md-12" data-animsition-in="fade-in" data-animsition-out="fade-out">
       <div className="col-md-4">
         <div className="page-content">
-                     {this.state.errors.summary && <p style={{ fontSize: '14px', color: 'red' }}>{this.state.errors.summary}</p>}
 
                         <div className="page-brand-info">
                             <div className="brand">

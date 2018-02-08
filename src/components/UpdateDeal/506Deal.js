@@ -192,7 +192,7 @@ import 'moment/locale/ru.js'
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия</label>
+        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

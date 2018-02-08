@@ -18,13 +18,13 @@ import jwtDecode from 'jwt-decode';
       lawid: '688',
       kontragents: [],
       shippingday: '',
-      payday: '',
       duedate: '',
       deal688: {
         сarrier: '',
         sender: '',
         transportableproperty: '',
         shippingaddress: '',
+        payday: '',
         deliveryaddress: '',
         recipientofproperty: '',
         shippingprice: '',
@@ -81,8 +81,8 @@ import jwtDecode from 'jwt-decode';
           (this.state.deal688.transportableproperty.length>0)&&(this.state.deal688.shippingaddress.length>0)
           &&(this.state.deal688.deliveryaddress.length>0)&&(this.state.deal688.recipientofproperty.length>0)
           &&(this.state.deal688.shippingprice.length>0)
-      &&(this.state.payday>0)&&(this.state.duedate>0)&&(this.state.shippingday>0)){
-      const formData = `deal688=${JSON.stringify(this.state.deal688)}&duedate=${this.state.duedate}&payday=${this.state.payday}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
+      &&(this.state.deal688.payday.length>0)&&(this.state.duedate>0)&&(this.state.shippingday>0)){
+      const formData = `deal688=${JSON.stringify(this.state.deal688)}&duedate=${this.state.duedate}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
       axios.post('http://185.100.67.106:4040/create/createdeal688',formData,{
         responseType: 'json',
         headers: {
@@ -221,11 +221,8 @@ import jwtDecode from 'jwt-decode';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Порядок оплаты</label>
-            <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+            <input onChange={this.deal688}  type="text" className="form-control" id="inputNameAddShop" name="payday"   autoComplete="off" />
+
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
@@ -236,7 +233,7 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия</label>
+        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal688}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
          {(this.state.status1=='Индивидуальный предприниматель')?(

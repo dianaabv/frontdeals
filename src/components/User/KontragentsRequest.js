@@ -105,7 +105,7 @@ class MyKontragents extends React.Component {
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa fa-users" aria-hidden="true" />Мои заявки</h3>
                             </div>

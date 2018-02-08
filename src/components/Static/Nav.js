@@ -16,7 +16,8 @@ class App extends Component {
         endpoint: "http://185.100.67.106:4040",
         userTimeLines: '',
         dealtimelines: '',
-        sumNoty: ''
+        sumNoty: '', 
+        firstname:''
     }
     this.notifyMe=this.notifyMe.bind(this)
     this.getMyNotifications = this.getMyNotifications.bind(this)
@@ -24,6 +25,7 @@ class App extends Component {
    }
     componentDidMount() {
       if(Auth.isUserAuthenticated()){
+
                     axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
         headers: {
@@ -46,12 +48,27 @@ class App extends Component {
           });
       }
   })
-    } else{
-      console.log('net')
-    }
-
-
-     
+   axios.get('http://185.100.67.106:4040/api/getmyname',{
+        responseType: 'json',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'Authorization': `bearer ${Auth.getToken()}`
+      }
+      }).then(res => {
+          this.setState({
+            firstname: res.data.firstname
+          });
+      })
+      .catch(err => {
+        if (err.response) {
+          const errors = err.response ? err.response : {};
+          errors.summary = err.response.data.message;
+          this.setState({
+            errors
+          });
+      }
+  })
+    }     
     }
     getMyNotifications(){
       axios.get('http://185.100.67.106:4040/api/getmynotifications',{
@@ -118,7 +135,7 @@ class App extends Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
 
 
@@ -169,23 +186,15 @@ class App extends Component {
               
                     
                         <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
-                            <li className="nav-item dropdown">
-                                <a className="nav-link" data-toggle="dropdown" href="javascript:void(0)" data-animation="scale-up" aria-expanded="false" role="button">
-                                    <span className="flag-icon flag-icon-ru" />
-                                </a>
-                                <div className="dropdown-menu" role="menu">
-                                    <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
-                                        <span className="flag-icon flag-icon-gb" /> English</a>
-                                    <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
-                                        <span className="flag-icon flag-icon-ru" /> Русский</a>
-                                    <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
-                                        <span className="flag-icon flag-icon-kz" /> Қазақша</a>
-                                </div>
-                            </li>
-                          
+       
                         {/* <li><Link to="/logout" className="waves-effect"><i className="fa fa-sign-out fa-lg icons" aria-hidden="true" ></i>
                                               <span className="hidden-menu-style hide-menu ">Выход</span></Link></li>*/}
-             
+            <li className="nav-item dropdown">
+
+                                <a className="nav-link" >
+                                    <span >Здравствуйте, {this.state.firstname}</span>
+                                </a>
+            </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link" data-toggle="dropdown" href="javascript:void(0)" onClick = {this.getMyNotifications} title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
                                     <i className="icon wb-bell" aria-hidden="true" />

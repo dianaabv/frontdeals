@@ -69,12 +69,12 @@ class MyKontragents extends React.Component {
     }
     
     render() {
-        console.log(this.state.users)
+        //console.log(this.state.users)
         return (
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa fa-users" aria-hidden="true" />Мои контрагенты</h3>
                             </div>
@@ -128,27 +128,6 @@ class MyKontragents extends React.Component {
                                 </div>
                                 
                            </div>
-                            <div className="col-md-6">
-                                <div className="panel ">
-                                    <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-user-plus" aria-hidden="true" />Добавить контакты</h3>
-                                    </div>
-                                    <div className="panel-body container-fluid">
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="form-group">
-                                                    <h4>Cотовый</h4>
-                                                    <div className="input-group">
-                                                        <span className="input-group-addon">+7</span>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
 
                         </div>
                     </div>

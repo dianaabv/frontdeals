@@ -21,7 +21,6 @@ class MyKontragents extends React.Component {
             endpoint: "http://185.100.67.106:4040",
             roomname: ''
         },
-        this.example = this.example.bind(this)
         this.handleSearch=this.handleSearch.bind(this)
         this.addtofriend = this.addtofriend.bind(this)
 
@@ -79,32 +78,58 @@ class MyKontragents extends React.Component {
         }
       });
     }
-    example(){
-        console.log('example')
-    }
-
 
     handleSearch(event){
+      var users= this.state.allusers
+//       users = users.filter(function(el){
+
+//         return toString(el.lastname).toLowerCase().search(event.target.value.toLowerCase()) !== -1;
+          
+//       })
+// this.setState({
+//   users:users
+// })
+  //     var FilteredList = React.createClass({
+  // filterList: function(event){
+  //   var updatedList = this.state.initialItems;
+  //   updatedList = updatedList.filter(function(item){
+  //     return item.toLowerCase().search(
+  //       event.target.value.toLowerCase()) !== -1;
+  //   });
+  //   this.setState({items: updatedList});
+  // },
+
+
       var searchQuery = event.target.value.toLowerCase();
       if(searchQuery){
-        var users = this.state.allusers.filter(function(el){
-          var searchValue = el.firstname.toLowerCase()  + ' '+ el.lastname.toLowerCase()  + ' '+ el.udv
-          //console.log(searchValue)
-          return searchValue.indexOf(searchQuery)!== -1;
+        var usr_arr= []
+        var users1 = this.state.allusers.filter(function(el){
+          var udv =' '+ el.udv
+          var username =' '+ el.username
+          if(el.firstname.toLowerCase().startsWith(searchQuery)){
+            return el.firstname.toLowerCase().startsWith(searchQuery);
+          }
+          else if(el.lastname.toLowerCase().startsWith(searchQuery)){
+            return el.lastname.toLowerCase().startsWith(searchQuery);
+          }
+
+          else if(udv.startsWith(' '+searchQuery) ){
+            return udv.startsWith(' '+searchQuery)
+          }  
+          else if(username.startsWith(' '+searchQuery) ){
+            return username.startsWith(' '+searchQuery)
+          }  
         });
         this.setState({
-          users: users
+          users: users1
         });
-      }
-       else {
+      } else {
         this.setState({
           users: []
         });
       }
     }
     render() {
-      console.log(this.state.allusers)
-      //console.log(this.state.users, 'users')
       const socket = socketIOClient(this.state.endpoint);
     
       // socket.on('addtofriend', (push) => { 
@@ -115,7 +140,7 @@ class MyKontragents extends React.Component {
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa fa-users" aria-hidden="true" />Мои контрагенты</h3>
                             </div>
@@ -132,14 +157,14 @@ class MyKontragents extends React.Component {
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group">
-                                                    <label>Поиск может быть совершен по № Удостоверения личности, Фамилии, Имени, либо уникальному id</label>
+                                                    <label>Поиск может быть совершен по № Удостоверения личности, Фамилии, Имени, либо по номеру сотового телефона без плюса.</label>
                                                     <div className="input-search">
                                                         <i className="input-search-icon wb-search" aria-hidden="true" />
                                                         <input onChange={this.handleSearch} type="text" className="form-control" name="site-search" placeholder="Поиск по ключевым словам..." />
                                                         <button type="button" className="input-search-close icon wb-close" data-target="#site-navbar-search" data-toggle="collapse" aria-label="Close" />
                                                     </div>
                                                 </div>
-                                                       {this.state.users.length!=0 ? (  <div className="row">{this.state.allusers.map((request, s) => 
+                                                       {this.state.users.length!=0 ? (  <div className="row">{this.state.users.map((request, s) => 
                                                                                        <div key={s} className="col-md-12 myborder">
                                                                                            <div className="form-group">
                                                                                                <h4>ФИО</h4>

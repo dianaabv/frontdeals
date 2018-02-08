@@ -18,12 +18,12 @@ class MyDealsParent extends React.Component {
             message: '',
             isChangable: true,
             shippingday: '',
-            payday: '',
             duedate: '',
             deal688: {
               сarrier: '',
               sender: '',
               transportableproperty: '',
+              payday: '',
               shippingaddress: '',
               deliveryaddress: '',
               recipientofproperty: '',
@@ -226,7 +226,7 @@ class MyDealsParent extends React.Component {
         })
     }
     updateDeal688(){
-      const formData = `deal688=${JSON.stringify(this.state.deal688)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&payday=${this.state.payday}&shippingday=${this.state.shippingday}`
+      const formData = `deal688=${JSON.stringify(this.state.deal688)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&shippingday=${this.state.shippingday}`
         axios.post('http://185.100.67.106:4040/update/updateDeal688',formData, {
             responseType: 'json',
             headers: {
@@ -254,7 +254,7 @@ class MyDealsParent extends React.Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
 
     render() {
@@ -318,14 +318,14 @@ class MyDealsParent extends React.Component {
                     </div>
                     <div className={"form-group " + (objKeys.includes("payday")  ? 'update_bg' : '')}>
                         <h4>Порядок оплаты</h4>
-                        <label className="form-control-label">{this.dateFormat(this.props.data.payday)}</label>
+                        <label className="form-control-label">{this.props.data.payday}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("duedate")  ? 'update_bg' : '')}>
                         <h4>Срок действия договора</h4>
                         <label className="form-control-label">{this.dateFormat(this.props.data.duedate)}</label>
                     </div>
                      <div className={"form-group " + (objKeys.includes("additional")  ? 'update_bg' : '')}>
-                        <h4>Дополнительные условия</h4>
+                        <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.data.additional}</label>
                     </div>
                     <div className="form-group">
@@ -338,10 +338,10 @@ class MyDealsParent extends React.Component {
                       {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
-                                     {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Отменить</button>):(<div></div>)}
+                                     {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
-                                     {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отменить</button>):(<div></div>)}
+                                                                          {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отклонить сделку</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
                       {(this.props.status=='acceptor' && this.props.acceptor_status=='requested_deny')?(<button className="btn btn-primary btn-block " onClick={this.getDenyReason}>Просмотреть причину отмены сделки</button>):(<div></div>)}
@@ -407,14 +407,14 @@ class MyDealsParent extends React.Component {
                        </div>
                        <div className="form-group">
                            <h4>Порядок оплаты</h4>
-                           <label className="form-control-label">{this.dateFormat(this.props.olddeal.payday)}</label>
+                           <label className="form-control-label">{this.props.olddeal.payday}</label>
                        </div>
                             <div className="form-group">
                            <h4>Срок действия договора</h4>
                            <label className="form-control-label">{this.dateFormat(this.props.olddeal.duedate)}</label>
                        </div>
                             <div className="form-group">
-                           <h4>Дополнительные условия</h4>
+                           <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                            <label className="form-control-label">{this.props.olddeal.additional}</label>
                        </div>
                          </div>) :(<h1>пока нет изменений</h1>)} 
@@ -472,12 +472,8 @@ class MyDealsParent extends React.Component {
       </div>
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Порядок оплаты</h4>
-            <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.payday)}</label>
-            <DatePickerInput    minDate={today}
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+                <input onChange={this.deal688}  defaultValue={this.props.data.payday} type="text" className="form-control" name="payday"   autoComplete="off" />
+
       </div>
             <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</h4>
@@ -489,7 +485,7 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия</h4>
+        <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </h4>
         <input  onChange={this.deal688} type="text" className="form-control"  defaultValue={this.props.data.additional} id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">

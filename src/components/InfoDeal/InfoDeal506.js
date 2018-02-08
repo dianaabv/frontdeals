@@ -194,7 +194,7 @@ class MyDealsParent extends React.Component {
                         <label className="form-control-label">{this.props.data[0].deadline}</label>
                     </div>
                     <div className="form-group">
-                        <h3>Дополнительные условия</h3>
+                        <h3>Дополнительные условия (не обязательное ус-ие)                            </h3>
                         <label className="form-control-label">{this.props.data[0].additional}</label>
                     </div>
                     <div className="form-group">
@@ -265,7 +265,7 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
                     </div>
                     <div className="form-group">
-                        <h3>Дополнительные условия</h3>
+                        <h3>Дополнительные условия (не обязательное ус-ие)                            </h3>
                         <input type="text" defaultValue={this.state.additional} name='additional' onChange={this.handleChangesAdditional}className="form-control"  name="quantity"  />
                     </div>
                     <div className="form-group">

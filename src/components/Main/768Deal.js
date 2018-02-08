@@ -229,7 +229,7 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия</label>
+        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal768}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
       {(this.state.status1=='Индивидуальный предприниматель')?(

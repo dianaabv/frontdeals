@@ -76,7 +76,7 @@ class MyDealsParent extends React.Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
     render() {
       
@@ -86,7 +86,7 @@ class MyDealsParent extends React.Component {
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa-handshake-o" aria-hidden="true" />Ваши Сделки {this.state.userId}</h3>
                             </div>
@@ -117,7 +117,7 @@ class MyDealsParent extends React.Component {
                                                                             <div><i id={s} aria-hidden="true" />{deal.side1.firstname} {deal.side1.lastname}</div>
                                                                             <div><i id={s} aria-hidden="true" />{deal.side2.firstname} {deal.side2.lastname}</div>
                                                                             <div><i id={s} aria-hidden="true" />{deal.status}</div>
-                                                                            {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
+                                                                            {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
                                                                             <div className="col-md-6 pull-right"><a href='#timelime'><button value={deal._id} name={deal.lawid} className="btn btn-primary d1"  onClick={(event) => this.dealRedirects(event)}>Запросить справку</button></a></div> 
                                                                         </div>
                                                                     </div>

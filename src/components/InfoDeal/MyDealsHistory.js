@@ -76,7 +76,7 @@ class MyDealsParent extends React.Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
     render() {
       console.log(this.state.time, 'sss')
@@ -86,7 +86,7 @@ class MyDealsParent extends React.Component {
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa-handshake-o" aria-hidden="true" />Ваши Сделки {this.state.userId}</h3>
                             </div>
@@ -144,7 +144,7 @@ class MyDealsParent extends React.Component {
             >{tl.title=='Внесены изменения в сделку' ?(<p>В следущие поля были внесены изменения : {tl.fields}</p>): (<p></p>)}
             <p>Инициатор действия : {tl.action_initiator.firstname} {tl.action_initiator.lastname}  </p>
             
-            <p>{tl.role_status}</p>
+         
             </TimelineEvent>
 
 )}

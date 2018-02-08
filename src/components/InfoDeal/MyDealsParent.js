@@ -60,7 +60,7 @@ class MyDealsParent extends React.Component {
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
-      return m + "/" + d + "/" + fDate.getFullYear()
+      return d + "/" + m + "/" + fDate.getFullYear()
     }
     createPdf(event){
       const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
@@ -176,7 +176,7 @@ class MyDealsParent extends React.Component {
 
                 <div className="page">
                     <div className="page-content container-fluid">
-                        <div className="panel">
+                        <div className="panel title_border">
                             <div className="panel-heading">
                                 <h3 className="panel-title"><i className="panel-title-icon icon fa-handshake-o" aria-hidden="true" />Ваши Сделки {this.state.userId}</h3>
                             </div>
@@ -200,16 +200,27 @@ class MyDealsParent extends React.Component {
                                     <h5>{this.dateFormat(deal.duedate)}</h5>
                                 </div>
                                 <div className="panel-body">
-                                    <p>Стороны договора: </p>
+                                    
                                     <div className="rating-lg"  />
                                         <div style={{fontSize: '16px'}}>
+                                        <div className="my_weight"><i id={s} aria-hidden="true" />Стороны договора: </div>
                                             <div><i id={s} aria-hidden="true" />{deal.side1.firstname} {deal.side1.lastname}</div>
                                             <div><i id={s} aria-hidden="true" />{deal.side2.firstname} {deal.side2.lastname}</div>
-                                            <div><i id={s} aria-hidden="true" />{deal.status}</div>
-                                            {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
-                                            <div className="col-md-8 pull-right"><a href="#info"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></a></div> 
-                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
-                                            {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div> ) : (<p></p>)}
+                                            {/*<div><i id={s} aria-hidden="true" />{deal.status}</div>*/}
+                                            <div className="my_weight"><i id={s} aria-hidden="true" />Текущее состояние сделки: </div>
+                                            <div>{(deal.status.length != 0) ?(<div>
+                                              {(deal.status=='accepted')?(<p>Сделка вступила в силу </p>):(<p></p>)}
+                                              {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<p></p>)}
+                                              {(deal.status=='requested')?(<p>Сделка запрощена</p>):(<p></p>)}
+                                              {(deal.status=='requested_deny')?(<p>Сделка запрощена на отклонение</p>):(<p></p>)}
+
+                                              </div>
+                                              ):(<p></p>)}
+                                            </div>
+                                            {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
+                                            <div className="col-md-8 pull-right"><a href="#info"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></a></div> 
+                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
+                                            {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
                                         </div>
                                     </div>
                                 </div>

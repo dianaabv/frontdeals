@@ -42,7 +42,8 @@ class SignupBuyer extends React.Component {
         nameip: "",
         noregip: "",
         addressregip: ""
-      }
+      },
+      isChecked: true
     };
    this.changePerson = this.changePerson.bind(this);
   }
@@ -113,12 +114,17 @@ class SignupBuyer extends React.Component {
         }, 1000);
           } else {
               this.setState({message: res.data.message});
-              swal({title: "Упс!", text: this.state.message})
+              swal({text: this.state.message})
           }
         });  
          } else{
             swal("Проверьте поля")
          }
+    }
+        toggleAgree(){
+      this.setState({
+        isChecked: !this.state.isChecked,
+      });
     }
 
   render() {
@@ -130,7 +136,7 @@ class SignupBuyer extends React.Component {
                 <div className="page-content">
                     <div className="page-brand-info">
                         <div className="brand">
-                            <img className="brand-img" src="../../assets/images/logo@2x.png" alt="..." />
+                            {/*<img className="brand-img" src="../../assets/images/logo@2x.png" alt="..." />*/}
                             <h2 className="brand-text font-size-40">Сделки LegCo</h2>
                         </div>
                         <p className="font-size-20">Цифровой способ заключения сделок</p>
@@ -243,18 +249,25 @@ class SignupBuyer extends React.Component {
                                 <input onChange={this.changePerson} value={this.state.person.addressregip} type="text"
                                  className="form-control" id="inputLastname" name="addressregip" placeholder="Адрес регистрации в качестве ИП" />
                             </div>
+                              <div className="form-group">
+                                <a href='policy.pdf'>Политика конфиденциальности</a><br/>
+                                    <Link to='agreement.pdf' target="_blank">Пользовательское соглашение</Link>
+                              </div>
 
                             <div className="form-group clearfix">
+                          
                                 <div className="checkbox-custom checkbox-inline checkbox-primary float-left">
-                                    <input type="checkbox" id="inputCheckbox" name="term" />
+                                    <input type="checkbox" id="inputCheckbox" name="term" checked={this.state.isChecked} onChange={this.toggleAgree.bind(this)} />
                                     <label htmlFor="inputCheckbox" />
+                                    
                                 </div>
                                 <p className="ml-40">Регистрируясь, вы принимаете наши </p>
                             </div>
+                             
                             <button type="button" onClick={this.submit.bind(this)} className="btn btn-primary btn-block">Регистрация</button>
                         </form>
                      
-                        <p>У вас уже есть аккаунт? Пожалуйста,<Link to="/signin" className="waves-effect"  >войдите</Link></p>
+                        <p>У вас уже есть аккаунт? Пожалуйста, <Link to="/signin" className="waves-effect" >войдите</Link></p>
                         <footer className="page-copyright">
                             <p>Сделки LegCo</p>
                             <p>2018. ©  Все права защищены.</p>
