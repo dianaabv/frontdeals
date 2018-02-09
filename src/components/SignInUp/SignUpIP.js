@@ -160,27 +160,27 @@ class SignupBuyer extends React.Component {
          {
           console.log('prowlo')
               const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}`;
-              console.log(formData)
+              
 
-      //            axios.post('http://185.100.67.106:4040/api/signupip',formData,{
-      //    responseType: 'json',
-      //   headers: {
-      //     'Content-type': 'application/x-www-form-urlencoded'
-      // }
+                 axios.post('http://185.100.67.106:4040/api/signupip',formData,{
+         responseType: 'json',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+      }
 
-      // }).then((res) => {
-      //     if (res.data.message==='Вы зарегестрировались! Пройдите по ссылке'){
-      //      setTimeout(function(){ 
-      //       swal("Привет! Вы успешно прошли регистрацию и можете получить ваш пароль на вашем email. Это сделано с целью вашей безопасности. Вы можете поменять его в личном кабинете. Cпасибо").then(function(){
-      //       browserHistory.push('/#/');
-      //       window.location.reload();
-      //       })         
-      //   }, 1000);
-      //     } else {
-      //         this.setState({message: res.data.message});
-      //         swal({text: this.state.message})
-      //     }
-      //   });  
+      }).then((res) => {
+          if (res.data.message==='Вы зарегестрировались! Пройдите по ссылке'){
+           setTimeout(function(){ 
+            swal("Привет! Вы успешно прошли регистрацию и можете получить ваш пароль на вашем email. Это сделано с целью вашей безопасности. Вы можете поменять его в личном кабинете. Cпасибо").then(function(){
+            browserHistory.push('/#/');
+            window.location.reload();
+            })         
+        }, 1000);
+          } else {
+              this.setState({message: res.data.message});
+              swal({text: this.state.message})
+          }
+        });  
          } else{
             swal("Проверьте поля")
          }
@@ -504,6 +504,20 @@ class SignupBuyer extends React.Component {
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("issueddate_year")) ? ('input_err') : (''))}  onChange={this.changePerson} name="issueddate_year"  >
                                     <option value='' >Год</option>
+                                             <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                     <option value="2012">2012</option>
+                                      <option value="2011">2011</option>
+                                       <option value="2010">2010</option>
+                                     <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
                                     <option value="2004">2004</option>
 <option value="2003">2003</option>
 <option value="2002">2002</option>
@@ -698,6 +712,20 @@ class SignupBuyer extends React.Component {
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("dateregip_year")) ? ('input_err') : (''))}  onChange={this.changePerson} name="dateregip_year" >
                                     <option value=''  >Год</option>
+                                             <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                     <option value="2012">2012</option>
+                                      <option value="2011">2011</option>
+                                       <option value="2010">2010</option>
+                                     <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
                                     <option value="2004">2004</option>
 <option value="2003">2003</option>
 <option value="2002">2002</option>
