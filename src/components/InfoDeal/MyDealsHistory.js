@@ -26,6 +26,8 @@ class MyDealsParent extends React.Component {
 
     }
     componentDidMount() {
+     // window.location.reload()
+     console.log('ya tut')
         axios.get('http://185.100.67.106:4040/api/getmydeals',{
         responseType: 'json',
         headers: {
@@ -79,7 +81,7 @@ class MyDealsParent extends React.Component {
       return d + "/" + m + "/" + fDate.getFullYear()
     }
     render() {
-      console.log(this.state.time, 'sss')
+      // console.log(this.state.time, 'sss')
   //    console.log(this.state.deal)
 //console.log(this.state.olddeal, 'this.state.deal[0].lawid')
         return (
@@ -110,13 +112,26 @@ class MyDealsParent extends React.Component {
                                     <h5>{this.dateFormat(deal.duedate)}</h5>
                                 </div>
                                 <div className="panel-body">
-                                    <p>Стороны договора</p>
+                                    
                                     <div className="rating-lg"  />
                                         <div style={{fontSize: '16px'}}>
+                                         <div className="my_weight"><i id={s} aria-hidden="true" />Стороны договора: </div>
                                             <div><i id={s} aria-hidden="true" />{deal.side1.firstname} {deal.side1.lastname}</div>
                                             <div><i id={s} aria-hidden="true" />{deal.side2.firstname} {deal.side2.lastname}</div>
-                                            <div><i id={s} aria-hidden="true" />{deal.status}</div>
-                                            {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
+                                            <div className="my_weight"><i id={s} aria-hidden="true" />Текущее состояние сделки: </div>
+                                            <div>{(deal.status.length != 0) ?(<div>
+                                              {(deal.status=='accepted')?(<p>Сделка вступила в силу </p>):(<span></span>)}
+                                              {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<span></span>)}
+                                              {(deal.status=='requested')?(<p>Сделка запрошена</p>):(<span></span>)}
+                                              {(deal.status=='requested_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
+                                              {(deal.status=='request_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
+
+                                              </div>
+                                              ):(<p></p>)}
+                                            </div>
+
+                                           {/* <div><i id={s} aria-hidden="true" />{deal.status}</div>
+                                           <div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
                                             <div className="col-md-6 pull-right"><a href='#timelime'><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></a></div> 
                                         </div>
                                     </div>

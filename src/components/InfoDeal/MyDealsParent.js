@@ -209,18 +209,18 @@ class MyDealsParent extends React.Component {
                                             {/*<div><i id={s} aria-hidden="true" />{deal.status}</div>*/}
                                             <div className="my_weight"><i id={s} aria-hidden="true" />Текущее состояние сделки: </div>
                                             <div>{(deal.status.length != 0) ?(<div>
-                                              {(deal.status=='accepted')?(<p>Сделка вступила в силу </p>):(<p></p>)}
-                                              {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<p></p>)}
-                                              {(deal.status=='requested')?(<p>Сделка запрощена</p>):(<p></p>)}
-                                              {(deal.status=='requested_deny')?(<p>Сделка запрощена на отклонение</p>):(<p></p>)}
+                                              {(deal.status=='accepted')?(<p>Сделка вступила в силу </p>):(<span></span>)}
+                                              {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<span></span>)}
+                                              {(deal.status=='requested')?(<p>Сделка запрошена</p>):(<span></span>)}
+                                              {(deal.status=='requested_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
 
                                               </div>
                                               ):(<p></p>)}
                                             </div>
                                             {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
                                             <div className="col-md-8 pull-right"><a href="#info"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></a></div> 
-                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
-                                            {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
+                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
+                                            {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
                                         </div>
                                     </div>
                                 </div>

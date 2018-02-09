@@ -1,6 +1,7 @@
 import './style.css';
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import Auth from '../modules/Auth';
 //import jwtDecode from 'jwt-decode';
 import socketIOClient from "socket.io-client";
@@ -14,19 +15,20 @@ class App extends Component {
     super();
     this.state={
         endpoint: "http://185.100.67.106:4040",
-        userTimeLines: '',
-        dealtimelines: '',
+        userTimeLines: [],
+        dealtimelines: [],
         sumNoty: '', 
         firstname:''
     }
     this.notifyMe=this.notifyMe.bind(this)
     this.getMyNotifications = this.getMyNotifications.bind(this)
-     this.dateFormat=this.dateFormat.bind(this); 
+    this.dealtimelines_sort = this.dealtimelines_sort.bind(this)
+    this.dateFormat=this.dateFormat.bind(this); 
    }
     componentDidMount() {
       if(Auth.isUserAuthenticated()){
 
-                    axios.get('http://185.100.67.106:4040/api/getmynotifications',{
+    axios.get('http://185.100.67.106:4040/api/getmynotifications',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -138,8 +140,24 @@ class App extends Component {
       return d + "/" + m + "/" + fDate.getFullYear()
     }
 
+  dealtimelines_sort(my_arr){
+    my_arr.sort(function(a,b){
+                      // Turn your strings into dates, and then subtract them
+                      // to get a value that is either negative, positive, or zero.
+                      // console.log(a, b)
+                      return new Date(b.date) - new Date(a.date);
+                    });
 
+  }
   render() {
+    // var qwe=[]
+    // function sortFunction(a,b){  
+    //   var dateA = new Date(a.date).getTime()
+    //   var dateB = new Date(b.date).getTime()
+    //   return dateA > dateB ? 1 : -1;  
+    // }; 
+
+
     return (
       <div>
       {(Auth.isUserAuthenticated())? (
@@ -207,11 +225,14 @@ class App extends Component {
                                     </div>
                                     <div className="list-group">
                                         <div data-role="container">
-                                            <div data-role="content">
+                                            <div >
                                             {this.state.userTimeLines.length !=0 ?(
                                               <div className="">
-                                              {this.state.userTimeLines.map((user, s) =>
-                                                  <a key={s} className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+
+                                              {this.state.userTimeLines.slice(0,3).map((user, s) =>
+                                                <div>
+                                                {(user.title=='Запрос на добавление в друзья')?(
+                                                  <Link key={s} to="/kontragentrequest" key={s} className="list-group-item dropdown-item" role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">
                                                             <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
@@ -222,14 +243,32 @@ class App extends Component {
                                                             <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </Link>
+                                                  ):(<span></span>)}
+        {(user.title=='Контрагент принял ваш запрос на добавление' || user.title=='Контрагент отклонил ваш запрос на добавление' )?(
+                                                  <Link to="/mykontragents" key={s} className="list-group-item dropdown-item" role="menuitem">
+                                                    <div className="media">
+                                                        <div className="pr-10">
+                                                            <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
+                                                        </div>
+                                                        <div className="media-body">
+                                                            <h6 className="media-heading">{user.title}</h6>
+                                                            <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
+                                                            <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                  ):(<span></span>)}
+</div>
+
+
                                                )}
                                               </div>
-                                            ) :(<p>asd</p>) }
+                                            ) :(<p></p>) }
                                             {this.state.dealtimelines.length !=0 ? (
                                               <div className="">
-                                              {this.state.dealtimelines.map((user, s) =>
-                                                  <a key={s} className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                              {this.state.dealtimelines.slice(0,3).map((user, s) =>
+                                                  <Link to="/dealhistory" key={s} className="list-group-item dropdown-item"  role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">
                                                             <i className="icon wb-order bg-red-600 white icon-circle" aria-hidden="true" />
@@ -240,11 +279,22 @@ class App extends Component {
                                                             <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
                                                         </div>
                                                     </div>
-                                                </a>
+                                                </Link>
                                                )}
                                               </div>) :(<p></p>)}
-
-                                               
+     <div >
+                                  
+                                    </div>
+                                        <div className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
+                                          <div className="media">
+                                            <a className="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
+                                              <i className="icon md-settings" aria-hidden="true" />
+                                            </a>
+                                            <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
+                                              Все уведомления
+                                            </a>
+                                          </div>
+                                        </div>                                          
 { /*                                               <a className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">

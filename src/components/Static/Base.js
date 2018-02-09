@@ -79,7 +79,7 @@ class App extends Component {
                         <li className="site-menu-item has-sub">
                             <Link to="/dealhistory">
                                 <i className="site-menu-icon fa-history" aria-hidden="true" />
-                                <span className="site-menu-title">История сделок</span>
+                                <span className="site-menu-title">История <br/>сделок</span>
                             </Link>
                         </li>
                         <li className="site-menu-item has-sub">
@@ -90,8 +90,8 @@ class App extends Component {
                         </li>
                         <li className="site-menu-item has-sub">
                             <a href="/#/news">
-                                <i className="site-menu-icon fa-newspaper-o" aria-hidden="true" />
-                                <span className="site-menu-title">Помощь</span>
+                                <i className="site-menu-icon fa-inbox" aria-hidden="true" />
+                                <span className="site-menu-title">Уведомления</span>
                             </a>
                         </li>
                     </ul>
