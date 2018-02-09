@@ -147,8 +147,10 @@ class SignupBuyer extends React.Component {
       if(this.state.isChecked!=1){
         swal("Вы не приняли пользовательское соглашение.")
       } else {
+
         const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}`;
         if((this.state.valid_err.length==0) && (this.state.pass_err.length ==0) && (this.state.email_err.length ==0) && (this.state.udv_err.length ==0) && (this.state.iin_err.length ==0)  && (this.state.username_err.length ==0) ){
+          console.log('errrr')
           axios.post('http://185.100.67.106:4040/api/signup',formData,{
             responseType: 'json',
             headers: {
