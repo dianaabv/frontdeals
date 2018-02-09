@@ -166,7 +166,7 @@ class SignupBuyer extends React.Component {
                   this.setState({message: res.data.message});
                   swal({ text: this.state.message})
               }
-          //   });  
+            });  
         } else{
             swal("Проверьте поля")
         }
