@@ -30,7 +30,8 @@ class MyDealsParent extends React.Component {
             },
             reason: '',
             open1: false,
-            status: ''
+            status: '',
+            valid_err: []
         }
         this.deal768 = this.deal768.bind(this)
         this.changeRender = this.changeRender.bind(this)
@@ -347,7 +348,7 @@ class MyDealsParent extends React.Component {
                         <h4 className="form-control-label" htmlFor="inputNameAddShop">Укажите причину по которой вы хотите аннулировать сделку.</h4>
                         <input  onChange={(event)=>{
                                     this.setState({reason: event.target.value})
-                                    }}  type="text" className="form-control" id="inputNameAddShop" name="order"   autoComplete="off" />
+                                    }}  type="text" className="form-control"   name="order"   autoComplete="off" />
                       </div>
                       <button className="btn btn-primary btn-block "onClick={this.denyDeal}>Подтвердить</button>
                     </Modal>
@@ -464,7 +465,7 @@ class MyDealsParent extends React.Component {
       </div>
        <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </h4>
-        <input  onChange={this.deal768} type="text" className="form-control"  defaultValue={this.props.data.additional} id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input  onChange={this.deal768} type="text" className="form-control"  defaultValue={this.props.data.additional}   name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">
                               <button className="btn btn-primary btn-block " onClick={this.updateDeal768}>Внести изменения в сделку</button>

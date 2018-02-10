@@ -74,6 +74,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор мены</h3>
+      <h4>Предмет догвора: Одна сторона передает другой и получает взамен имущество на условиях, указанных в настоящем договоре</h4>
       </div>
    
       <div className="form-group">
@@ -110,23 +111,23 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Наименование имущества подлежащего передаче Стороной 1</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="itemname1"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="itemname1"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Количество товара, подлежащего передаче Стороной 1</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="quantity1"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="quantity1"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Стоимость имущества,  подлежащего передаче Стороной 1</label>
-        <input onChange={this.deal501}  type="number" className="form-control" id="inputNameAddShop" name="price1"   autoComplete="off" />
+        <input onChange={this.deal501}  type="number" className="form-control"   name="price1"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Качество имущества подлежащего передаче Стороной 1</label>
-            <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="quality1"   autoComplete="off" />
+            <input onChange={this.deal501}  type="text" className="form-control"  name="quality1"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Характеристика имущества подлежащего передаче Стороной 1</label>
-            <input onChange={this.deal501} type="text" className="form-control" id="inputNameAddShop" name="description1"   autoComplete="off" />
+            <input onChange={this.deal501} type="text" className="form-control"   name="description1"   autoComplete="off" />
       </div>
  
       <div className="form-group">
@@ -139,27 +140,27 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Наименование имущества, подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="itemname2"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="itemname2"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Количество товара, подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="quantity2"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="quantity2"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Стоимость имущества,  подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501}  type="number" className="form-control" id="inputNameAddShop" name="price2"   autoComplete="off" />
+        <input onChange={this.deal501}  type="number" className="form-control"  name="price2"   autoComplete="off" />
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Качество  имущества подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501} type="text" className="form-control" id="inputNameAddShop" name="quality2"   autoComplete="off" />
+        <input onChange={this.deal501} type="text" className="form-control"   name="quality2"   autoComplete="off" />
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Характеристика имущества подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="description2"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="description2"   autoComplete="off" />
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Cостояние имущества подлежащего передаче Стороной 2</label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="state2"   autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"  name="state2"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок обмена товарами</label>
@@ -179,7 +180,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal501}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal501}  type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>

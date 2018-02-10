@@ -1,4 +1,14 @@
 @charset "UTF-8";
+i.icon-rc-datepicker.icon-rc-datepicker_calendar {
+    padding-left: 28pc !important;
+  }
+/*.icon-rc-datepicker_calendar{
+     padding-left: 0pc !important;
+  }*/
+  .date_input_err{
+        border: 1px solid #fd8484 !important;
+    border-radius: 4px;
+  }
 .cst_btn{
       padding-left: 21px;
     padding-right: 24px;

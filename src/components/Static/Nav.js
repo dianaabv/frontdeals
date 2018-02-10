@@ -230,9 +230,9 @@ class App extends Component {
                                               <div className="">
 
                                               {this.state.userTimeLines.slice(0,3).map((user, s) =>
-                                                <div>
+                                                <div key={s} >
                                                 {(user.title=='Запрос на добавление в друзья')?(
-                                                  <Link key={s} to="/kontragentrequest" key={s} className="list-group-item dropdown-item" role="menuitem">
+                                                  <Link key={s} to="/kontragentrequest" className="list-group-item dropdown-item" role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">
                                                             <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />

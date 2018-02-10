@@ -129,6 +129,7 @@ import swal from 'sweetalert'
     <div className="col-md-6">
      <div className="form-group">
       <h2>Договор займа</h2>
+      <h3>Предмет договора: Займодатель передает, а в случаях, предусмотренных настоящим договором, обязуется передать в собственность деньги или вещи, а заемщик обязуется своевременно возвратитьм займодателю такую же сумму денег или равное количество вещей того же рода и качества, на условиях указанных в настоящем договоре.</h3>
       </div>
    
       <div className="form-group">
@@ -154,7 +155,7 @@ import swal from 'sweetalert'
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Cумма займа*</label><br/>
         <label className="form-control-label" htmlFor="inputNameAddShop">Вы указываете сумму в тенге</label>
-        <input onChange={this.deal715} type="number" className="form-control" id="inputNameAddShop" name="loanamount"   autoComplete="off" />
+        <input onChange={this.deal715} type="number" className="form-control"   name="loanamount"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок займа</label>
@@ -166,7 +167,7 @@ import swal from 'sweetalert'
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Размер вознаграждения</label>
-        <input onChange={this.deal715}  type="number" className="form-control" id="inputNameAddShop" name="awardamount"   autoComplete="off" />
+        <input onChange={this.deal715}  type="number" className="form-control"   name="awardamount"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок выплаты вознаграждения</label>
@@ -186,7 +187,7 @@ import swal from 'sweetalert'
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal715} type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal715} type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <button   disabled={!this.state.checkContent}  type="button" onClick={this.updateDeal715} className="btn btn-primary btn-block btn-round">Продолжить</button>

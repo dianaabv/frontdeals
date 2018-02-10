@@ -158,7 +158,7 @@ class SignupBuyer extends React.Component {
             if((this.state.valid_err.length==0)&& (this.state.pass_err.length ==0) && (this.state.email_err.length ==0) && (this.state.udv_err.length ==0) && (this.state.iin_err.length ==0)  && (this.state.username_err.length ==0) )
          
          {
-          console.log('prowlo')
+         
               const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}`;
               
 
@@ -171,8 +171,8 @@ class SignupBuyer extends React.Component {
       }).then((res) => {
           if (res.data.message==='Вы зарегестрировались! Пройдите по ссылке'){
            setTimeout(function(){ 
-            swal("Привет! Вы успешно прошли регистрацию и можете получить ваш пароль на вашем email. Это сделано с целью вашей безопасности. Вы можете поменять его в личном кабинете. Cпасибо").then(function(){
-            browserHistory.push('/#/');
+            swal("Поздравляем! Вы успешно прошли регистрацию.").then(function(){
+            browserHistory.push('/signin');
             window.location.reload();
             })         
         }, 1000);
@@ -261,15 +261,15 @@ class SignupBuyer extends React.Component {
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("dob_day")) ? ('input_err') : (''))} onChange={this.changePerson} name="dob_day" >
                                     <option value='' >День</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
 <option value="10">10</option>
 <option value="11">11</option>
 <option value="12">12</option>
@@ -450,15 +450,15 @@ class SignupBuyer extends React.Component {
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("issueddate_day")) ? ('input_err') : (''))}  onChange={this.changePerson} name="issueddate_day"  >
                                     <option value='' >День</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
 <option value="10">10</option>
 <option value="11">11</option>
 <option value="12">12</option>
@@ -658,15 +658,15 @@ class SignupBuyer extends React.Component {
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("dateregip_day")) ? ('input_err') : (''))} onChange={this.changePerson} name="dateregip_day" >
                                     <option value='' >День</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
 <option value="10">10</option>
 <option value="11">11</option>
 <option value="12">12</option>

@@ -65,6 +65,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор поручения</h3>
+      <h4>Предмет договора:Поверенный обязуется совершить от имени и за счет другой стороны Доверителя, определенные юридические действия на условиях, указанных в настоящем договоре. По сделке, совершенной поверенным, права и обязанности возникают непосредственно у Доверителя.</h4>
       </div>
    
       <div className="form-group">
@@ -101,7 +102,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Описание поручаемых действий</label>
-        <input onChange={this.deal846}  type="text" className="form-control" id="inputNameAddShop" name="description"   autoComplete="off" />
+        <input onChange={this.deal846}  type="text" className="form-control"  name="description"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок поручения</label>
@@ -113,7 +114,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Размер вознаграждения поверенного</label>
-        <input onChange={this.deal846}  type="number" className="form-control" id="inputNameAddShop" name="priceaward"   autoComplete="off" />
+        <input onChange={this.deal846}  type="number" className="form-control"  name="priceaward"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты вознаграждения</label>
@@ -125,7 +126,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Указания доверителя</label>
-        <input onChange={this.deal846}  type="text" className="form-control" id="inputNameAddShop" name="rules"   autoComplete="off" />
+        <input onChange={this.deal846}  type="text" className="form-control"  name="rules"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
@@ -137,7 +138,7 @@ import Auth from '../modules/Auth';
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal846}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal846}  type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>

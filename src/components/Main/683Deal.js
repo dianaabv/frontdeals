@@ -63,6 +63,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор возмездного оказания услуг</h3>
+      <h4> Предмет договора: Исполнитель обязуется оказать услуги (совершить определенные действия или осуществить определенную деятельность), а Заказчик обязуется оплатить эти услуги на условиях, указанных в настоящем договоре.</h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Исполнитель</label>  

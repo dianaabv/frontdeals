@@ -145,6 +145,7 @@ import socketIOClient from "socket.io-client";
     <div className="col-md-6">
       <div className="form-group">
         <h3>Договор дарения</h3>
+        <h4>Предмет договора: Даритель обязуется передать Одаряемому вещь в собственность либо имущественное право (требование) к себе или третьему лицу, либо освобождает или обязуется освободить ее от имущественной обязанности перед третьим лицом на условиях, указанных в настоящем договоре.</h4>
       </div>
   
    
@@ -196,11 +197,11 @@ import socketIOClient from "socket.io-client";
   
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="itemname" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  name="itemname" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Количество дара</label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="quantity" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  name="quantity" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи дара(момент перехода права собственности)</label>
@@ -220,7 +221,7 @@ import socketIOClient from "socket.io-client";
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>

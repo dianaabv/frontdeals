@@ -343,9 +343,9 @@ class MyDealsParent extends React.Component {
                         <h4 className="form-control-label" htmlFor="inputNameAddShop">Укажите причину по которой вы хотите аннулировать сделку.</h4>
                         <input  onChange={(event)=>{
                                     this.setState({reason: event.target.value})
-                                    }}  type="text" className="form-control" id="inputNameAddShop" name="order"   autoComplete="off" />
+                                    }}  type="text" className="form-control"   name="order"   autoComplete="off" />
                       </div>
-                      <button className="btn btn-primary btn-block "onClick={this.denyDeal}>Подтвердить</button>
+                      <button className="btn btn-primary btn-block " onClick={this.denyDeal}>Подтвердить</button>
                     </Modal>
                 </div>
               </div>
@@ -417,11 +417,11 @@ class MyDealsParent extends React.Component {
                       </div>
                          <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Указания комитента</h4>
-        <input  onChange={this.deal865}  defaultValue={this.props.data.instructionprincipal} type="text" className="form-control" id="inputNameAddShop" name="instructionprincipal"   autoComplete="off" />
+        <input  onChange={this.deal865}  defaultValue={this.props.data.instructionprincipal} type="text" className="form-control"  name="instructionprincipal"   autoComplete="off" />
       </div>
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Размер комиссионного вознаграждения</h4>
-         <input onChange={this.deal865}  defaultValue={this.props.data.sizeaward} type="number" className="form-control" id="inputNameAddShop" name="sizeaward"   autoComplete="off" />
+         <input onChange={this.deal865}  defaultValue={this.props.data.sizeaward} type="number" className="form-control"   name="sizeaward"   autoComplete="off" />
       </div>
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты комиссионного вознаграждения </h4>
@@ -435,7 +435,7 @@ class MyDealsParent extends React.Component {
       </div>
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Порядок возмещения расходов по исполнению комиссионного поручения</h4>
-        <input  onChange={this.deal865}  defaultValue={this.props.data.order} type="text" className="form-control" id="inputNameAddShop" name="order"   autoComplete="off" />
+        <input  onChange={this.deal865}  defaultValue={this.props.data.order} type="text" className="form-control"   name="order"   autoComplete="off" />
       </div>
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</h4>
@@ -448,7 +448,7 @@ class MyDealsParent extends React.Component {
       </div>
        <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </h4>
-        <input  onChange={this.deal865} type="text" className="form-control"  defaultValue={this.props.data.additional} id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input  onChange={this.deal865} type="text" className="form-control"  defaultValue={this.props.data.additional}   name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">
                               <button className="btn btn-primary btn-block " onClick={this.updateDeal865}>Внести изменения в сделку</button>

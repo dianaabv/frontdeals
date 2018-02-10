@@ -64,6 +64,7 @@ deal540(event){
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор имущественного найма (аренды)</h3>
+      <h4>Предмет договора: Наймодатель предоставляет нанимателю имущество за плату во временное владение и пользование на условиях, указанных в настоящем договоре. Внимание: при выборе недвижимого имущества срок договора должен составлять менее года, иначе сделка должна быть выполнена в письменном виде и зарегистрирована в установленном законодательством порядке</h4>
       </div>
    
       <div className="form-group">
@@ -100,7 +101,7 @@ deal540(event){
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Данные, позволяющие установить имущество, подлежащее передаче в аренду</label>
-        <input onChange={this.deal540} type="text" className="form-control" id="inputNameAddShop" name="itemdata"   autoComplete="off" />
+        <input onChange={this.deal540} type="text" className="form-control"  name="itemdata"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Cроки и порядок передачи/возврата имущества</label>
@@ -120,11 +121,11 @@ deal540(event){
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Условия о содержании/улучшении имущества</label>
-        <input onChange={this.deal540}  type="text" className="form-control" id="inputNameAddShop" name="keepcondition"   autoComplete="off" />
+        <input onChange={this.deal540}  type="text" className="form-control"   name="keepcondition"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Условия об использовании имущества (в т.ч. пределах распоряжения)</label>
-        <input onChange={this.deal540} type="text" className="form-control" id="inputNameAddShop" name="usecondition"   autoComplete="off" />
+        <input onChange={this.deal540} type="text" className="form-control"   name="usecondition"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
@@ -136,7 +137,7 @@ deal540(event){
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal540} type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal540} type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>

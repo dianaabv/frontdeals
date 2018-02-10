@@ -17,7 +17,9 @@ import jwtDecode from 'jwt-decode';
       lawid: '865',
       kontragents: [],
       payday: '',
+      payday_err: '',
       duedate: '',
+      duedate_err: '',
       goreceiver: '',
       role: '',
       deal865: {
@@ -28,8 +30,9 @@ import jwtDecode from 'jwt-decode';
         order: '',
         additional: ''
       },
+      valid_err: [],
       status1: '',
-      status: 'Индивидуальный предприниматель'
+      status: 'Физическое лицо'
     }
     this.deal865=this.deal865.bind(this)
     this.updateRole = this.updateRole.bind(this)
@@ -80,24 +83,33 @@ import jwtDecode from 'jwt-decode';
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
     if(event.target.value=='Комиссионер'){
+    if(this.state.deal865.principal.length == 0){
+      this.state.deal865['principal']=''
+    } else{
+      this.state.deal865['principal']=this.state.deal865.agent
+    }
     this.state.deal865['agent']=decoded.sub
-    this.state.deal865['principal']=''
     this.setState({
       role:event.target.value,
       goreceiver: 'ok'
     })
     }
     if(event.target.value=='Комитента'){
-      this.state.deal865['principal']=decoded.sub
+    if(this.state.deal865.agent.length == 0){
       this.state.deal865['agent']=''
+    } else{
+      this.state.deal865['agent']=this.state.deal865.principal
+    }
+
+      this.state.deal865['principal']=decoded.sub
       this.setState({
         goreceiver: 'neok',
         role:event.target.value
       })
     }
     if(event.target.value=='0'){
-      this.state.deal865['receiver']=''
-      this.state.deal865['presenter']=''
+      this.state.deal865['agent']=''
+      this.state.deal865['principal']=''
       this.setState({
         goreceiver: '',
         role:'',
@@ -106,6 +118,37 @@ import jwtDecode from 'jwt-decode';
     }
   }
   updateDeal865(event) {
+      var deal865_z = {
+        agent: this.state.deal865.agent,
+        principal: this.state.deal865.principal,
+        instructionprincipal: this.state.deal865.instructionprincipal,
+        sizeaward: this.state.deal865.sizeaward,
+        order: this.state.deal865.order,
+      }
+      const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
+      var mainobj=removeEmpty(deal865_z)
+      var valid_err = Object.keys(mainobj)
+      this.setState({
+        valid_err: valid_err
+      })
+            if(this.state.duedate==""){
+        this.setState({
+          duedate_err: '1'
+        })
+      } else {
+        this.setState({
+          duedate_err: ''
+        })
+      }
+      if(this.state.payday==""){
+        this.setState({
+          payday_err: '1'
+        })
+      } else {
+        this.setState({
+          payday_err: ''
+        })
+      }
     if((this.state.deal865.principal.length>0)&&(this.state.deal865.agent.length>0)&&(this.state.deal865.instructionprincipal.length>0)&&(this.state.deal865.sizeaward.length>0)&&(this.state.deal865.order.length>0)
       &&(this.state.payday>0)&&(this.state.duedate>0)){
       const formData = `deal865=${JSON.stringify(this.state.deal865)}&duedate=${this.state.duedate}&payday=${this.state.payday}&lawid=${this.state.lawid}&status=${this.state.status}`;
@@ -147,6 +190,7 @@ import jwtDecode from 'jwt-decode';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор комиссии</h3>
+      <h4>Предмет договора:Комиссионер обязуется по поручению Комитента за вознаграждение совершить одну или несколько сделок от своего имени за счет Комитента на условиях, указанных в настоящем договоре. </h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
@@ -162,7 +206,7 @@ import jwtDecode from 'jwt-decode';
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Комитента</label>  
                            {
                                                     this.state.kontragents.length!=0 ?
-                                                    (      <select id="citySelectorAddShopForm" className="form-control" name="principal" onChange={this.deal865}>
+                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("principal")  ? 'input_err' : '')} name="principal" onChange={this.deal865}>
                                                     <option value=''>Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
@@ -180,7 +224,7 @@ import jwtDecode from 'jwt-decode';
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Комиссионер</label>  
                            {
                                                     this.state.kontragents.length!=0 ?
-                                                    (      <select id="citySelectorAddShopForm" className="form-control" name="agent" onChange={this.deal865}>
+                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("agent")  ? 'input_err' : '')} name="agent" onChange={this.deal865}>
                                                     <option value=''>Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
@@ -200,42 +244,43 @@ import jwtDecode from 'jwt-decode';
 
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Указания комитента</label>
-        <input  onChange={this.deal865}  type="text" className="form-control" id="inputNameAddShop" name="instructionprincipal"   autoComplete="off" />
+        <input  onChange={this.deal865}  type="text" className={"form-control " + (this.state.valid_err.includes("instructionprincipal")  ? 'input_err' : '')}  name="instructionprincipal"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Размер комиссионного вознаграждения</label>
-         <input onChange={this.deal865}  type="number" className="form-control" id="inputNameAddShop" name="sizeaward"   autoComplete="off" />
+         <input onChange={this.deal865}  type="number" className={"form-control " + (this.state.valid_err.includes("sizeaward")  ? 'input_err' : '')}  name="sizeaward"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты комиссионного вознаграждения </label>
             <DatePickerInput    minDate={today}
-                                className='my-react-datepicker'
+                                className={"my-react-datepicker " + (this.state.payday_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({payday: jsDate})}
                                 locale='ru'/>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Порядок возмещения расходов по исполнению комиссионного поручения</label>
-        <input  onChange={this.deal865} type="text" className="form-control" id="inputNameAddShop" name="order"   autoComplete="off" />
+        <input  onChange={this.deal865} type="text" className={"form-control " + (this.state.valid_err.includes("order")  ? 'input_err' : '')}  name="order"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
             <DatePickerInput    minDate={today}
-                                className='my-react-datepicker'
+                                className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({duedate: jsDate})}
                                 locale='ru'/>
       </div>
        <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input  onChange={this.deal865} type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input  onChange={this.deal865} type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       {(this.state.status1=='Индивидуальный предприниматель')?(
         <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Ваша роль в этой сделке</label>
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
-            <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>
             <option value='Физическое Лицо'>Физическое Лицо</option>
+            <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>
+            
         </select>
         </div>
         ):(<div></div>)}

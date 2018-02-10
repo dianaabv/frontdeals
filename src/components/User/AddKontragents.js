@@ -7,7 +7,7 @@ import 'moment/locale/ru.js';
 import swal from 'sweetalert'
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import socketIOClient from "socket.io-client";
-
+import { browserHistory } from 'react-router';
 
 
 
@@ -38,7 +38,9 @@ class MyKontragents extends React.Component {
           const socket = socketIOClient(this.state.endpoint);
           socket.emit('join room', this.state.roomname)
 
-          swal({text: this.state.message}).then(function(){window.location.reload()})   
+          swal({text: this.state.message}).then(function(){ 
+            browserHistory.push('/kontragentrequest');
+            window.location.reload()})   
         }
       })
       .catch(err => {

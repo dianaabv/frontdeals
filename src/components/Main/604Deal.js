@@ -67,6 +67,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор безвозмездного пользования имуществом</h3>
+      <h4>Предмет договора: Ссудодатель передает имущество в безвозмездное временное пользование Cсудополучателю на условиях, указанных в настоящем договоре</h4>
       </div>
    
       <div className="form-group">
@@ -103,7 +104,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Данные, позволяющие установить имущество, подлежащее передаче</label>
-        <input onChange={this.deal604}  type="text" className="form-control" id="inputNameAddShop" name="itemdata"   autoComplete="off" />
+        <input onChange={this.deal604}  type="text" className="form-control"   name="itemdata"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи имущества</label>
@@ -123,11 +124,11 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Условия о содержании имущества</label>
-        <input onChange={this.deal604} type="text" className="form-control" id="inputNameAddShop" name="keepcondition"   autoComplete="off" />
+        <input onChange={this.deal604} type="text" className="form-control"   name="keepcondition"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Условия об использовании имущества</label>
-        <input onChange={this.deal604}  type="text" className="form-control" id="inputNameAddShop" name="usecondition"   autoComplete="off" />
+        <input onChange={this.deal604}  type="text" className="form-control"   name="usecondition"   autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
@@ -139,7 +140,7 @@ import Auth from '../modules/Auth';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal604}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal604}  type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>

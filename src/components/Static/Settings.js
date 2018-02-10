@@ -401,7 +401,7 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
-                                                    <label className="form-control-label"> {this.dateFormat(this.state.user.birthday)} </label>
+                                                    <label className="form-control-label"> {this.state.user.birthday} </label>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>№ Удостоверения личности</h4>
@@ -413,7 +413,7 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата выдачи уд-ния личности</h4>
-                                                    <label className="form-control-label">{this.dateFormat(this.state.user.issueddate)}  </label>
+                                                    <label className="form-control-label">{this.state.user.issueddate}  </label>
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>ИИН</h4>

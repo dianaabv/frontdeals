@@ -77,9 +77,9 @@ import './style.css';
                             </div>
                             <div className="panel-body container-fluid">
                                 <div className="row">
-                                    <div className="col-12">
-                                        <p>Заключите сделку прямо сейчас.</p>
-                                    </div>
+                                {/*    <div className="col-12">
+                                                                        <p>Заключите сделку прямо сейчас.</p>
+                                                                    </div>*/}
                                 </div>
                                 <div className="row"> 
                                   <div className="col-md-4">

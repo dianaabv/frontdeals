@@ -169,11 +169,11 @@ import 'moment/locale/ru.js'
   
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="itemname" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  " name="itemname" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Количество дара</label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="quantity" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  " name="quantity" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи дара(момент перехода права собственности)</label>
@@ -193,7 +193,7 @@ import 'moment/locale/ru.js'
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal506}  type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control"  " name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"><br/></label>
