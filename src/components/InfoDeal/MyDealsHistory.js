@@ -158,7 +158,7 @@ class MyDealsParent extends React.Component {
                            icon={<i className="fa fa-pencil"></i>}
             >{tl.title=='Внесены изменения в сделку' ?(<p>В следущие поля были внесены изменения : {tl.fields}</p>): (<p></p>)}
             <p>Инициатор действия : {tl.action_initiator.firstname} {tl.action_initiator.lastname}  </p>
-            {tl.role_status ? (<p>{tl.role_status}</p>) :(<span></span>) }
+            {tl.role_status ? (<p>Статус: {tl.role_status}</p>) :(<span></span>) }
 
             
          

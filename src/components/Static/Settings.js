@@ -29,8 +29,17 @@ class MyDealsParent extends React.Component {
             // email_check: '',
             iin_check: '',
             pass_err: '',
-            issueddate: "",
-            birthday: "",
+            // issueddate: "",
+            birthday: {
+              dob_day: '',
+              dob_month: '',
+              dob_year: ''
+            },
+            issueddate:{
+              issueddate_day: '',
+              issueddate_month: '',
+              issueddate_year: ''
+            },
             email: '',
             person: {
                 firstname: "",
@@ -54,7 +63,9 @@ class MyDealsParent extends React.Component {
                 password2: ''
             },
             checkContent: false,
-            checkContentIp: false
+            checkContentIp: false,
+            valid_err: [],
+            valid_err1: []
 
         },
         this.changeRender = this.changeRender.bind(this)
@@ -64,6 +75,8 @@ class MyDealsParent extends React.Component {
         this.changePassword = this.changePassword.bind(this)
         this.updatePassword = this.updatePassword.bind(this)
         this.dateFormat=this.dateFormat.bind(this); 
+        this.changeDob=this.changeDob.bind(this);
+        this.changeIssuedDate=this.changeIssuedDate.bind(this);
         // checkContentIp =
     }
     dateFormat(date){
@@ -195,10 +208,13 @@ class MyDealsParent extends React.Component {
         });
     }
     updatePersonalInfo(){
-    if(this.state.udv_err.length!=0  || this.state.iin_err.length!=0){
+    if(this.state.valid_err.length!=0 ||this.state.valid_err1.length!=0 ||this.state.udv_err.length!=0  || this.state.iin_err.length!=0){
         swal("Проверьте поля. Информация не обновлена")
     } else {
-        const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday}&issueddate=${this.state.issueddate}`;
+
+        
+        const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday.dob_day+'/'+this.state.birthday.dob_month+'/'+this.state.birthday.dob_year}&issueddate=${this.state.issueddate.issueddate_day+'/'+this.state.issueddate.issueddate_month+'/'+this.state.issueddate.issueddate_year}`;
+        console.log(formData)
         axios.post('http://185.100.67.106:4040/api/updatepersonalinfo',formData,{
             responseType: 'json',
             headers: {
@@ -222,6 +238,48 @@ class MyDealsParent extends React.Component {
         });
     }
     }
+    changeDob(event){
+        this.setState({
+            checkContent: true
+        })
+        const field = event.target.name;
+        const dob = this.state.birthday;
+        dob[field] = event.target.value; 
+               var birthday1 =  {
+          dob_day: this.state.birthday.dob_day,
+          dob_month: this.state.birthday.dob_month,
+          dob_year: this.state.birthday.dob_year
+             
+        }
+      const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
+      var mainobj=removeEmpty(birthday1)
+      var valid_err = Object.keys(mainobj)
+      this.setState({
+        valid_err: valid_err
+      })
+    }
+    changeIssuedDate(event){
+        this.setState({
+            checkContent: true
+        })
+        const field = event.target.name;
+        const issueddate = this.state.issueddate;
+        issueddate[field] = event.target.value; 
+               var birthday1 =  {
+          issueddate_day: this.state.issueddate.issueddate_day,
+          issueddate_month: this.state.issueddate.issueddate_month,
+          issueddate_year: this.state.issueddate.issueddate_year
+             
+        }
+      const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
+      var mainobj=removeEmpty(birthday1)
+      var valid_err1 = Object.keys(mainobj)
+      this.setState({
+        valid_err1: valid_err1
+      })
+
+    }
+
     changeIp(event){
         this.setState({
             checkContentIp: true
@@ -238,9 +296,9 @@ class MyDealsParent extends React.Component {
         const person = this.state.person;
         person[field] = event.target.value;
         if(field =='udv'){
-            if(String(this.state.person.udv).length!=12){
+            if(String(this.state.person.udv).length!=9){
                 this.setState({
-                    udv_err: '№ Удостоверения личности должен состоять из 12 цифр'
+                    udv_err: '№ Удостоверения личности должен состоять из 9 цифр'
                 })
             } else{
                 this.setState({
@@ -250,9 +308,9 @@ class MyDealsParent extends React.Component {
 
         }
         if(field =='iin'){
-            if(String(this.state.person.iin).length!=9){
+            if(String(this.state.person.iin).length!=12){
                 this.setState({
-                    iin_err: 'ИИН должен состоять из 9 цифр'
+                    iin_err: 'ИИН должен состоять из 12 цифр'
                 })
             } else{
                 this.setState({
@@ -447,14 +505,181 @@ class MyDealsParent extends React.Component {
                                                                                               </div>*/}
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
-                                                    <label className="form-control-label">{this.state.user.birthday}</label>
-                                                       <DatePickerInput
-                                                        maxDate={today}
-                                                        className='my-react-datepicker'
-                                                        value={this.state.value}
-                                                        onChange={(jsDate) => this.setState({birthday: jsDate, checkContent: true})}
-                                                        locale='ru'
-                                                        placeholder="Дата Рождения"/>
+                                                    <label className="form-control-label">Текущие данные: {this.state.user.birthday}</label>
+                                                       
+                            <div className="row">
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err.includes("dob_day")) ? ('input_err') : (''))} onChange={this.changeDob} name="dob_day" >
+                                    <option value='' >День</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+
+                                  </select>
+                                </div>
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err.includes("dob_month")) ? ('input_err') : (''))}  onChange={this.changeDob} name="dob_month"  >
+                                    <option  value=''>Месяц</option>
+<option value="01">Январь</option>
+<option value="02">Февраль</option>
+<option value="03">Март</option>
+<option value="04">Апрель</option>
+<option value="05">Май</option>
+<option value="06">Июнь</option>
+<option value="07">Июль</option>
+<option value="08">Август</option>
+<option value="09">Сентябрь</option>
+<option value="10">Октябрь</option>
+<option value="11">Ноябрь</option>
+<option value="12">Декабрь</option>
+                                  </select>
+                                </div>
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err.includes("dob_year")) ? ('input_err') : (''))}  onChange={this.changeDob} name="dob_year" >
+                                    <option value=''  >Год</option>
+                                    <option value="2004">2004</option>
+<option value="2003">2003</option>
+<option value="2002">2002</option>
+<option value="2001">2001</option>
+<option value="2000">2000</option>
+<option value="1999">1999</option>
+<option value="1998">1998</option>
+<option value="1997">1997</option>
+<option value="1996">1996</option>
+<option value="1995">1995</option>
+<option value="1994">1994</option>
+<option value="1993">1993</option>
+<option value="1992">1992</option>
+<option value="1991">1991</option>
+<option value="1990">1990</option>
+<option value="1989">1989</option>
+<option value="1988">1988</option>
+<option value="1987">1987</option>
+<option value="1986">1986</option>
+<option value="1985">1985</option>
+<option value="1984">1984</option>
+<option value="1983">1983</option>
+<option value="1982">1982</option>
+<option value="1981">1981</option>
+<option value="1980">1980</option>
+<option value="1979">1979</option>
+<option value="1978">1978</option>
+<option value="1977">1977</option>
+<option value="1976">1976</option>
+<option value="1975">1975</option>
+<option value="1974">1974</option>
+<option value="1973">1973</option>
+<option value="1972">1972</option>
+<option value="1971">1971</option>
+<option value="1970">1970</option>
+<option value="1969">1969</option>
+<option value="1968">1968</option>
+<option value="1967">1967</option>
+<option value="1966">1966</option>
+<option value="1965">1965</option>
+<option value="1964">1964</option>
+<option value="1963">1963</option>
+<option value="1962">1962</option>
+<option value="1961">1961</option>
+<option value="1960">1960</option>
+<option value="1959">1959</option>
+<option value="1958">1958</option>
+<option value="1957">1957</option>
+<option value="1956">1956</option>
+<option value="1955">1955</option>
+<option value="1954">1954</option>
+<option value="1953">1953</option>
+<option value="1952">1952</option>
+<option value="1951">1951</option>
+<option value="1950">1950</option>
+<option value="1949">1949</option>
+<option value="1948">1948</option>
+<option value="1947">1947</option>
+<option value="1946">1946</option>
+<option value="1945">1945</option>
+<option value="1944">1944</option>
+<option value="1943">1943</option>
+<option value="1942">1942</option>
+<option value="1941">1941</option>
+<option value="1940">1940</option>
+<option value="1939">1939</option>
+<option value="1938">1938</option>
+<option value="1937">1937</option>
+<option value="1936">1936</option>
+<option value="1935">1935</option>
+<option value="1934">1934</option>
+<option value="1933">1933</option>
+<option value="1932">1932</option>
+<option value="1931">1931</option>
+<option value="1930">1930</option>
+<option value="1929">1929</option>
+<option value="1928">1928</option>
+<option value="1927">1927</option>
+<option value="1926">1926</option>
+<option value="1925">1925</option>
+<option value="1924">1924</option>
+<option value="1923">1923</option>
+<option value="1922">1922</option>
+<option value="1921">1921</option>
+<option value="1920">1920</option>
+<option value="1919">1919</option>
+<option value="1918">1918</option>
+<option value="1917">1917</option>
+<option value="1916">1916</option>
+<option value="1915">1915</option>
+<option value="1914">1914</option>
+<option value="1913">1913</option>
+<option value="1912">1912</option>
+<option value="1911">1911</option>
+<option value="1910">1910</option>
+<option value="1909">1909</option>
+<option value="1908">1908</option>
+<option value="1907">1907</option>
+<option value="1906">1906</option>
+<option value="1905">1905</option>
+<option value="1904">1904</option>
+<option value="1903">1903</option>
+<option value="1902">1902</option>
+<option value="1901">1901</option>
+
+                                  </select>
+                                </div>
+                            </div>
+                                                {/*       <DatePickerInput
+                                                                                                        maxDate={today}
+                                                                                                        className='my-react-datepicker'
+                                                                                                        value={this.state.value}
+                                                                                                        onChange={(jsDate) => this.setState({birthday: jsDate, checkContent: true})}
+                                                                                                        locale='ru'
+                                                                                                        placeholder="Дата Рождения"/>*/}
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>№ Удостоверения личности</h4>
@@ -471,16 +696,199 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата выдачи уд-ния личности</h4>
-                                                        <DatePickerInput
-                                                        maxDate={today}
-                                                        className='my-react-datepicker'
-                                                        value={this.state.value}
-                                                        onChange={(jsDate) => this.setState({issueddate: jsDate, checkContent: true})}
-                                                        locale='ru'
-                                                        placeholder="Дата выдачи уд-ния личности"/>
+                                                    <label className="form-control-label">Текущие данные: {this.state.user.issueddate}</label>
+                                                          
+                            <div className="row">
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err1.includes("issueddate_day")) ? ('input_err') : (''))}  onChange={this.changeIssuedDate} name="issueddate_day"  >
+                                    <option value='' >День</option>
+<option value="01">1</option>
+<option value="02">2</option>
+<option value="03">3</option>
+<option value="04">4</option>
+<option value="05">5</option>
+<option value="06">6</option>
+<option value="07">7</option>
+<option value="08">8</option>
+<option value="09">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+
+                                  </select>
+                                </div>
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err1.includes("issueddate_month")) ? ('input_err') : (''))}  onChange={this.changeIssuedDate} name="issueddate_month"  >
+                                    <option value='' >Месяц</option>
+<option value="01">Январь</option>
+<option value="02">Февраль</option>
+<option value="03">Март</option>
+<option value="04">Апрель</option>
+<option value="05">Май</option>
+<option value="06">Июнь</option>
+<option value="07">Июль</option>
+<option value="08">Август</option>
+<option value="09">Сентябрь</option>
+<option value="10">Октябрь</option>
+<option value="11">Ноябрь</option>
+<option value="12">Декабрь</option>
+                                  </select>
+                                </div>
+                                <div className="col-md-4">
+                                  <select className={"form-control " + (( this.state.valid_err1.includes("issueddate_year")) ? ('input_err') : (''))}  onChange={this.changeIssuedDate} name="issueddate_year"  >
+                                    <option value='' >Год</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2013">2013</option>
+                                     <option value="2012">2012</option>
+                                      <option value="2011">2011</option>
+                                       <option value="2010">2010</option>
+                                     <option value="2009">2009</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2006">2006</option>
+                                    <option value="2005">2005</option>
+<option value="2004">2004</option>
+<option value="2003">2003</option>
+<option value="2002">2002</option>
+<option value="2001">2001</option>
+<option value="2000">2000</option>
+<option value="1999">1999</option>
+<option value="1998">1998</option>
+<option value="1997">1997</option>
+<option value="1996">1996</option>
+<option value="1995">1995</option>
+<option value="1994">1994</option>
+<option value="1993">1993</option>
+<option value="1992">1992</option>
+<option value="1991">1991</option>
+<option value="1990">1990</option>
+<option value="1989">1989</option>
+<option value="1988">1988</option>
+<option value="1987">1987</option>
+<option value="1986">1986</option>
+<option value="1985">1985</option>
+<option value="1984">1984</option>
+<option value="1983">1983</option>
+<option value="1982">1982</option>
+<option value="1981">1981</option>
+<option value="1980">1980</option>
+<option value="1979">1979</option>
+<option value="1978">1978</option>
+<option value="1977">1977</option>
+<option value="1976">1976</option>
+<option value="1975">1975</option>
+<option value="1974">1974</option>
+<option value="1973">1973</option>
+<option value="1972">1972</option>
+<option value="1971">1971</option>
+<option value="1970">1970</option>
+<option value="1969">1969</option>
+<option value="1968">1968</option>
+<option value="1967">1967</option>
+<option value="1966">1966</option>
+<option value="1965">1965</option>
+<option value="1964">1964</option>
+<option value="1963">1963</option>
+<option value="1962">1962</option>
+<option value="1961">1961</option>
+<option value="1960">1960</option>
+<option value="1959">1959</option>
+<option value="1958">1958</option>
+<option value="1957">1957</option>
+<option value="1956">1956</option>
+<option value="1955">1955</option>
+<option value="1954">1954</option>
+<option value="1953">1953</option>
+<option value="1952">1952</option>
+<option value="1951">1951</option>
+<option value="1950">1950</option>
+<option value="1949">1949</option>
+<option value="1948">1948</option>
+<option value="1947">1947</option>
+<option value="1946">1946</option>
+<option value="1945">1945</option>
+<option value="1944">1944</option>
+<option value="1943">1943</option>
+<option value="1942">1942</option>
+<option value="1941">1941</option>
+<option value="1940">1940</option>
+<option value="1939">1939</option>
+<option value="1938">1938</option>
+<option value="1937">1937</option>
+<option value="1936">1936</option>
+<option value="1935">1935</option>
+<option value="1934">1934</option>
+<option value="1933">1933</option>
+<option value="1932">1932</option>
+<option value="1931">1931</option>
+<option value="1930">1930</option>
+<option value="1929">1929</option>
+<option value="1928">1928</option>
+<option value="1927">1927</option>
+<option value="1926">1926</option>
+<option value="1925">1925</option>
+<option value="1924">1924</option>
+<option value="1923">1923</option>
+<option value="1922">1922</option>
+<option value="1921">1921</option>
+<option value="1920">1920</option>
+<option value="1919">1919</option>
+<option value="1918">1918</option>
+<option value="1917">1917</option>
+<option value="1916">1916</option>
+<option value="1915">1915</option>
+<option value="1914">1914</option>
+<option value="1913">1913</option>
+<option value="1912">1912</option>
+<option value="1911">1911</option>
+<option value="1910">1910</option>
+<option value="1909">1909</option>
+<option value="1908">1908</option>
+<option value="1907">1907</option>
+<option value="1906">1906</option>
+<option value="1905">1905</option>
+<option value="1904">1904</option>
+<option value="1903">1903</option>
+<option value="1902">1902</option>
+<option value="1901">1901</option>
+
+                                  </select>
+                                </div>
+                            </div>
+                                                    {/*    <DatePickerInput
+                                                                                                            maxDate={today}
+                                                                                                            className='my-react-datepicker'
+                                                                                                            value={this.state.value}
+                                                                                                            onChange={(jsDate) => this.setState({issueddate: jsDate, checkContent: true})}
+                                                                                                            locale='ru'
+                                                                                                            placeholder="Дата выдачи уд-ния личности"/>*/}
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>ИИН</h4>
+
                                                     <input type="number" defaultValue={this.state.user.iin} name='iin' className={"form-control " + (this.state.iin_err.length !=0  ? 'input_err' : '')}  onChange={this.changePerson}   />
                                                     <h5 className="err_red">{this.state.iin_err}</h5>
                                                 </div>
