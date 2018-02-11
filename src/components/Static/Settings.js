@@ -424,7 +424,7 @@ class MyDealsParent extends React.Component {
                                                     <label className="form-control-label">{this.state.user.address}  </label>
                                                 </div>
                                                 <div className="form-group">
-                                                    <button className="btn btn-primary btn-block d1" onClick={this.changeRender} >Редактировать</button>
+                                                    <button className="btn btn-primary btn-block " onClick={this.changeRender} >Редактировать</button>
                                                 </div>
                                             </div>):(                                            
                                             <div className="col-12">
@@ -440,14 +440,14 @@ class MyDealsParent extends React.Component {
                                                     <h4>Отчество</h4>
                                                     <input type="text" defaultValue={this.state.user.midname} name='midname' onChange={this.changePerson} className="form-control"   />
                                                 </div>
-                                              {/*  <div className="form-group">
+                                              {/*<div className="form-group">
                                                                                                   <h4>Email</h4>
                                                                                                   <input type="text" defaultValue={this.state.user.email} name='email' onChange={this.changePerson} className="form-control"   />
                                                                                                   <h5>{this.state.email_err}</h5>
                                                                                               </div>*/}
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
-                                                    <label className="form-control-label">{this.dateFormat(this.state.user.birthday)}</label>
+                                                    <label className="form-control-label">{this.state.user.birthday}</label>
                                                        <DatePickerInput
                                                         maxDate={today}
                                                         className='my-react-datepicker'
@@ -489,10 +489,10 @@ class MyDealsParent extends React.Component {
                                                     <input type="text" defaultValue={this.state.user.address} name='address' onChange={this.changePerson} className="form-control"   />
                                                 </div>
                                                 <div className="form-group">
-                                                    <button className="btn btn-primary btn-block d1" disabled={!this.state.checkContent}  onClick={this.updatePersonalInfo.bind(this)}>Сохранить изменения</button>
+                                                    <button className="btn btn-primary btn-block " disabled={!this.state.checkContent}  onClick={this.updatePersonalInfo.bind(this)}>Сохранить изменения</button>
                                                 </div>
                                                 <div className="form-group">
-                                                    <button className="btn btn-primary btn-block d1" onClick={this.changeRender} >Отменить изменения</button>
+                                                    <button className="btn btn-primary btn-block " onClick={this.changeRender} >Отменить изменения</button>
                                                 </div>
                                             </div>)}
                                         </div>
@@ -641,7 +641,7 @@ class MyDealsParent extends React.Component {
                                         </div>
                                         <div className="form-group">
                                                     <h4>Номер свидетельства о гос. регистрации ИП</h4>
-                                                    <input type="text" defaultValue={this.state.user.noregip} name='noregip' onChange={this.changeIp} className="form-control"   />
+                                                    <input type="number" defaultValue={this.state.user.noregip} name='noregip' onChange={this.changeIp} className="form-control"   />
                                         </div>
                                         <div className="form-group">
                                                     <h4>Дата гос. регистрации ИП</h4>

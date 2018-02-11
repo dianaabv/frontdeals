@@ -313,7 +313,7 @@ class MyDealsParent extends React.Component {
                         <label className="form-control-label">{this.dateFormat(this.props.data.shippingday)}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("shippingprice")  ? 'update_bg' : '')}>
-                        <h4>Цена доставки (тенге) (тенге)</h4>
+                        <h4>Цена доставки  (тенге)</h4>
                         <label className="form-control-label">{this.props.data.shippingprice}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("payday")  ? 'update_bg' : '')}>
@@ -402,7 +402,7 @@ class MyDealsParent extends React.Component {
                            <label className="form-control-label">{this.dateFormat(this.props.olddeal.shippingday)}</label>
                        </div>
                         <div className="form-group">
-                           <h4>Цена доставки (тенге) (тенге)</h4>
+                           <h4>Цена доставки (тенге)</h4>
                            <label className="form-control-label">{this.props.olddeal.shippingprice}</label>
                        </div>
                        <div className="form-group">

@@ -156,7 +156,7 @@ import jwtDecode from 'jwt-decode';
     if(this.state.deal768.bailor.length == 0){
       this.state.deal768['bailor']=''
     } else{
-      this.state.deal768['bailor']=this.state.deal616.keeper
+      this.state.deal768['bailor']=this.state.deal768.keeper
     }
     this.state.deal768['keeper']=decoded.sub
     this.setState({
@@ -168,7 +168,7 @@ import jwtDecode from 'jwt-decode';
       if(this.state.deal768.keeper==0){
         this.state.deal768['keeper']=''
       } else{
-        this.state.deal768['keeper']=this.state.deal616.bailor
+        this.state.deal768['keeper']=this.state.deal768.bailor
       }
       this.state.deal768['bailor']=decoded.sub
       this.setState({
