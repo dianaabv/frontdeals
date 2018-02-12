@@ -194,7 +194,8 @@ import swal from 'sweetalert';
   }
 
   render() {
-
+  const today=new Date();
+    today.setDate(today.getDate() + 1)
      //console.log(this.state.valid_err)
    
     return (
@@ -265,7 +266,7 @@ import swal from 'sweetalert';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок выполнения работ</label>
-         <DatePickerInput
+         <DatePickerInput       minDate={today}
                                 className={"my-react-datepicker " + (this.state.workdeadline_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({workdeadline: jsDate})}
@@ -277,7 +278,7 @@ import swal from 'sweetalert';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты</label>
-              <DatePickerInput
+              <DatePickerInput  minDate={today}
                                 className={"my-react-datepicker " + (this.state.payday_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({payday: jsDate})}
@@ -293,7 +294,7 @@ import swal from 'sweetalert';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
-            <DatePickerInput
+            <DatePickerInput    minDate={today}
                                className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({duedate: jsDate})}

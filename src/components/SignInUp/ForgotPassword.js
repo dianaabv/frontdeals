@@ -59,12 +59,12 @@ class LoginPage extends React.Component {
     var name=this.state.user.username.replace(/[{()}]/g, '')
     name=name.replace(/[{ }]/g, '');
     name=name.replace(/-/g, '');
-    
-    console.log(name.length)
     const formData = `username=${name}&password=${this.state.user.password}`;
-    console.log(formData,'formData')
-    if(name.length!=12 || this.state.pass_err.length!=0){
-      swal("Проверьте поля.")
+    if(name.length!=12 ){
+      swal("Проверьте сотовый")
+    }
+    if(this.state.pass_err.length!=0){
+      swal("Пароли должны совпадать.")
     } else {
       axios.post('http://185.100.67.106:4040/api/changepassword', formData, {
       responseType: 'json',

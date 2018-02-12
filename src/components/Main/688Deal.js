@@ -184,6 +184,8 @@ import jwtDecode from 'jwt-decode';
     }
   }
   render() {
+      const today=new Date();
+    today.setDate(today.getDate() + 1)
     return (
 
     <div className="col-md-6">
@@ -256,7 +258,7 @@ import jwtDecode from 'jwt-decode';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок доставки</label>
-          <DatePickerInput
+          <DatePickerInput      minDate={today}
                                 className={"my-react-datepicker " + (this.state.shippingday_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({shippingday: jsDate})}
@@ -273,7 +275,7 @@ import jwtDecode from 'jwt-decode';
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
-            <DatePickerInput
+            <DatePickerInput    minDate={today}
                                 className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({duedate: jsDate})}

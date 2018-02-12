@@ -431,7 +431,7 @@ class MyDealsParent extends React.Component {
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Срок хранения</h4>
         <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.shelfdate)}</label>
-         <DatePickerInput
+         <DatePickerInput       minDate={today}
                                 className='my-react-datepicker'
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({shelfdate: jsDate})}
@@ -444,7 +444,7 @@ class MyDealsParent extends React.Component {
       <div className="form-group">
         <h4 className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты</h4>
         <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.payday)}</label>
-            <DatePickerInput
+            <DatePickerInput    minDate={today}
                                 className='my-react-datepicker'
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({payday: jsDate})}
