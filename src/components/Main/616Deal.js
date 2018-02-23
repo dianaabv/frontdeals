@@ -19,12 +19,13 @@ import swal from 'sweetalert';
       duedate_err: '',
       workdeadline: '',
       workdeadline_err: '',
-      payday: '',
-      payday_err: '',
+      // payday: '',
+      // payday_err: '',
       deal616: {
         employer: '',
         employee: '',
         workdescription: '',
+        payday: '',
         workaddress: '',
         workprice: '',
         workcheck: '',
@@ -96,7 +97,7 @@ import swal from 'sweetalert';
     })
     }
     if(event.target.value=='Заказчик'){
-      if(this.state.deal616.employee==0){
+      if(this.state.deal616.employer==0){
         this.state.deal616['employer']=''
       } else{
         this.state.deal616['employer']=this.state.deal616.employee
@@ -127,6 +128,7 @@ import swal from 'sweetalert';
         workprice: this.state.deal616.workprice,
         workcheck: this.state.deal616.workcheck,
         quantity: this.state.deal616.quantity,
+        payday: this.state.deal616.payday
       }
       const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
       var mainobj=removeEmpty(deal616_z)
@@ -152,20 +154,12 @@ import swal from 'sweetalert';
           workdeadline_err: ''
         })
       }
-      if(this.state.payday==""){
-        this.setState({
-          payday_err: '1'
-        })
-      } else {
-        this.setState({
-          payday_err: ''
-        })
-      }
+
       if((this.state.deal616.employer.length>0)&&(this.state.deal616.employee.length>0)
         &&(this.state.deal616.workdescription.length>0)&&(this.state.deal616.workaddress.length>0)&&(this.state.deal616.workprice.length>0)
         &&(this.state.deal616.workcheck.length>0)&&(this.state.deal616.quantity.length>0)
-        &&(this.state.payday>0)&&(this.state.duedate>0)&&(this.state.workdeadline>0)){
-      const formData = `deal616=${JSON.stringify(this.state.deal616)}&duedate=${this.state.duedate}&payday=${this.state.payday}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
+    &&(this.state.duedate>0)&&(this.state.workdeadline>0)){
+      const formData = `deal616=${JSON.stringify(this.state.deal616)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
       console.log(this.state.deal616)
       axios.post('http://185.100.67.106:4040/create/createdeal616',formData,{
         responseType: 'json',
@@ -202,16 +196,16 @@ import swal from 'sweetalert';
 
     <div className="col-md-6">
      <div className="form-group">
-      <h3>Договор подряда</h3>
-      <h4>Предмет договора: Подрядчик обязуется выполнить по заданию Заказчика определенную работу, а Заказчик обязуется оплатить такую работу на условиях, указанных в настоящем договоре.</h4>
+      <h3 >Договор подряда</h3>
+      <h4><b className="cust_weigh"><b className="cust_weigh">Предмет договора: </b> </b>Подрядчик обязуется выполнить по заданию Заказчика определенную работу, а Заказчик обязуется оплатить такую работу на условиях, указанных в настоящем договоре.</h4>
 
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
-        <option value="Подрядчик">Подрядчик</option>
-        <option value="Заказчик">Заказчик</option>
+        <option value="Подрядчик">Подрядчиком</option>
+        <option value="Заказчик">Заказчиком</option>
         </select>
       </div>
             {(this.state.goreceiver=='ok')?(
@@ -257,15 +251,15 @@ import swal from 'sweetalert';
       
 
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Описание работ</label>
+        <label className="form-control-label"  >Описание работ</label>
         <input onChange={this.deal616}  type="text" className={"form-control " + (this.state.valid_err.includes("workdescription")  ? 'input_err' : '')}   name="workdescription"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Адрес объекта при проведении работ по ремонту</label>
+        <label className="form-control-label"  >Адрес объекта при проведении работ по ремонту</label>
         <input onChange={this.deal616}  type="text" className={"form-control " + (this.state.valid_err.includes("workaddress")  ? 'input_err' : '')}  name="workaddress"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок выполнения работ</label>
+        <label className="form-control-label"  >Срок выполнения работ</label>
          <DatePickerInput       minDate={today}
                                 className={"my-react-datepicker " + (this.state.workdeadline_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -273,27 +267,23 @@ import swal from 'sweetalert';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Цена работ</label>
-        <input onChange={this.deal616}  type="number" className={"form-control " + (this.state.valid_err.includes("workprice")  ? 'input_err' : '')}  name="workprice"   autoComplete="off" />
+        <label className="form-control-label"  >Цена работ, тенге</label>
+        <input onChange={this.deal616}  type="number" className={"form-control " + (this.state.valid_err.includes("workprice")  ? 'input_err' : '')}  name="workprice"    />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты</label>
-              <DatePickerInput  minDate={today}
-                                className={"my-react-datepicker " + (this.state.payday_err=="1"  ? 'date_input_err' : '')}
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты</label>
+              <input onChange={this.deal616}  type="text" className={"form-control " + (this.state.valid_err.includes("payday")  ? 'input_err' : '')}  name="payday"    />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Порядок приема работ</label>
-        <input onChange={this.deal616}  type="text"className={"form-control " + (this.state.valid_err.includes("workcheck")  ? 'input_err' : '')}   name="workcheck"   autoComplete="off" />
+        <label className="form-control-label"  >Порядок приема работ</label>
+        <input onChange={this.deal616}  type="text"className={"form-control " + (this.state.valid_err.includes("workcheck")  ? 'input_err' : '')}   name="workcheck"   />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Качество работ (гарантия качества работ)</label>
-        <input onChange={this.deal616}  type="text" className={"form-control " + (this.state.valid_err.includes("quantity")  ? 'input_err' : '')}   name="quantity"   autoComplete="off" />
+        <label className="form-control-label"  >Качество работ (гарантия качества работ)</label>
+        <input onChange={this.deal616}  type="text" className={"form-control " + (this.state.valid_err.includes("quantity")  ? 'input_err' : '')}   name="quantity"    />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
                                className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -301,12 +291,12 @@ import swal from 'sweetalert';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal616}  type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       {(this.state.status1=='Индивидуальный предприниматель')?(
         <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Ваша роль в этой сделке</label>
+        <label className="form-control-label"  >Ваша роль в этой сделке</label>
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
              <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>

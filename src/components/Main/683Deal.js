@@ -15,7 +15,7 @@ import Auth from '../modules/Auth';
     this.state = {
       kontragents: [],
       deadline: '',
-      paydeadline: '',
+      // paydeadline: '',
       duedate: '',
       deal683: {
         executor: '',
@@ -23,6 +23,7 @@ import Auth from '../modules/Auth';
         description: '',
         price: '',
         quality: '',
+        paydeadline: '',
         additional: ''
       }
     }
@@ -63,7 +64,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор возмездного оказания услуг</h3>
-      <h4> Предмет договора: Исполнитель обязуется оказать услуги (совершить определенные действия или осуществить определенную деятельность), а Заказчик обязуется оплатить эти услуги на условиях, указанных в настоящем договоре.</h4>
+      <h4> <b className="cust_weigh">Предмет договора: </b> Исполнитель обязуется оказать услуги (совершить определенные действия или осуществить определенную деятельность), а Заказчик обязуется оплатить эти услуги на условиях, указанных в настоящем договоре.</h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Исполнитель</label>  
@@ -98,11 +99,11 @@ import Auth from '../modules/Auth';
                                                   }
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Описание услуг</label>
+        <label className="form-control-label"  >Описание услуг</label>
         <input onChange={this.deal683}  type="text" className="form-control" id="inputNameAddShop" name="description"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок оказания услуг</label>
+        <label className="form-control-label"  >Срок оказания услуг</label>
           <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -110,23 +111,21 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Цена услуг</label>
+        <label className="form-control-label"  >Цена услуг, тенге</label>
         <input onChange={this.deal683}  type="number" className="form-control" id="inputNameAddShop" name="price"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты</label>
-            <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({paydeadline: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты</label>
+            <input onChange={this.deal683}  type="text" className="form-control" id="inputNameAddShop" name="paydeadline"   autoComplete="off" />
+
+
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Качество услуг</label>
+        <label className="form-control-label"  >Качество услуг</label>
            <input onChange={this.deal683}  type="text" className="form-control" id="inputNameAddShop" name="quality"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -134,7 +133,7 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal683} type="text" className="form-control" id="inputNameAddShop" name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

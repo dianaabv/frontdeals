@@ -8,13 +8,16 @@ import 'rc-datepicker/lib/style.css';
 import 'moment/locale/ru.js' 
 import Auth from '../modules/Auth';
 
+
+import swal from 'sweetalert'
+
  class Deals extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       kontragents: [],
-      giveawaydeadline: '',
+      //giveawaydeadline: '',
       usedeadline: '',
       duedate: '',
       deal604: {
@@ -23,7 +26,8 @@ import Auth from '../modules/Auth';
         itemdata: '',
         keepcondition: '',
         usecondition: '',
-        additional: ''
+        additional: '',
+        giveawaydeadline: ''
       }
 
     }
@@ -31,6 +35,7 @@ import Auth from '../modules/Auth';
 
   }
   componentDidMount() {
+    swal("Cделка будет недействительной в случае передачи в безвозмездное пользование недвижимого имущества на срок от одного года и более. В таком случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
       axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
@@ -67,7 +72,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор безвозмездного пользования имуществом</h3>
-      <h4>Предмет договора: Ссудодатель передает имущество в безвозмездное временное пользование Cсудополучателю на условиях, указанных в настоящем договоре</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b> Ссудодатель передает имущество в безвозмездное временное пользование Cсудополучателю на условиях, указанных в настоящем договоре</h4>
       </div>
    
       <div className="form-group">
@@ -103,19 +108,18 @@ import Auth from '../modules/Auth';
                                                   }
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Данные, позволяющие установить имущество, подлежащее передаче</label>
+        <label className="form-control-label"  >Данные, позволяющие установить имущество, подлежащее передаче</label>
         <input onChange={this.deal604}  type="text" className="form-control"   name="itemdata"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи имущества</label>
-         <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({giveawaydeadline: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок передачи имущества</label>
+                <input onChange={this.deal604}  type="text" className="form-control"   name="giveawaydeadline"   autoComplete="off" />
+
+
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок пользования имуществом</label>
+        <label className="form-control-label"  >Срок пользования имуществом</label>
+
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -123,15 +127,15 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Условия о содержании имущества</label>
+        <label className="form-control-label"  >Условия о содержании имущества</label>
         <input onChange={this.deal604} type="text" className="form-control"   name="keepcondition"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Условия об использовании имущества</label>
+        <label className="form-control-label"  >Условия об использовании имущества</label>
         <input onChange={this.deal604}  type="text" className="form-control"   name="usecondition"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -139,7 +143,7 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal604}  type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

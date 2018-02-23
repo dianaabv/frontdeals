@@ -9,7 +9,7 @@ import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import 'moment/locale/ru.js' ;
 import socketIOClient from "socket.io-client";
-
+import swal from 'sweetalert'
  class Deals extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ import socketIOClient from "socket.io-client";
       endpoint: "http://185.100.67.106:4040",
       kontragents: [],
       duedate: '',
-      deadline: '',
+      //deadline: '',
       goreceiver: '',
       lawid: '506',
       role: '',
@@ -27,7 +27,8 @@ import socketIOClient from "socket.io-client";
         receiver: '',
         itemname: '',
         quantity: '',
-        additional: ''
+        additional: '',
+        deadline: ''
       },
       message: '',
       checkContent: false
@@ -38,7 +39,8 @@ import socketIOClient from "socket.io-client";
     this.send=this.send.bind(this);
 
   }
-  componentDidMount() {
+  componentDidMount() { 
+    swal("Cделка действительна только в случае дарения движимого имущества. В ином случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
       axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
@@ -109,7 +111,7 @@ import socketIOClient from "socket.io-client";
     }
   }
   updateDeal506(event){
-      const formData = `deal506=${JSON.stringify(this.state.deal506)}&duedate=${this.state.duedate}&deadline=${this.state.deadline}&lawid=${this.state.lawid}`;
+      const formData = `deal506=${JSON.stringify(this.state.deal506)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}`;
       axios.post('http://185.100.67.106:4040/api/createdeal506',formData,{
         responseType: 'json',
         headers: {
@@ -132,9 +134,9 @@ import socketIOClient from "socket.io-client";
       });
   }
   send = () => {
-    var deal506=JSON.stringify(this.state.deal506)
-    const socket = socketIOClient(this.state.endpoint);
-    socket.emit('createdeal506', {deal506 : deal506, duedate: this.state.duedate, deadline: this.state.deadline}) // change 'red' to this.state.color
+     // var deal506=JSON.stringify(this.state.deal506)
+    // const socket = socketIOClient(this.state.endpoint);
+    // socket.emit('createdeal506', {deal506 : deal506, duedate: this.state.duedate, deadline: this.state.deadline}) // change 'red' to this.state.color
   }
 
   render() {
@@ -145,7 +147,7 @@ import socketIOClient from "socket.io-client";
     <div className="col-md-6">
       <div className="form-group">
         <h3>Договор дарения</h3>
-        <h4>Предмет договора: Даритель обязуется передать Одаряемому вещь в собственность либо имущественное право (требование) к себе или третьему лицу, либо освобождает или обязуется освободить ее от имущественной обязанности перед третьим лицом на условиях, указанных в настоящем договоре.</h4>
+        <h4><b className="cust_weigh">Предмет договора: </b> Даритель обязуется передать Одаряемому вещь в собственность либо имущественное право (требование) к себе или третьему лицу, либо освобождает или обязуется освободить ее от имущественной обязанности перед третьим лицом на условиях, указанных в настоящем договоре.</h4>
       </div>
   
    
@@ -153,8 +155,8 @@ import socketIOClient from "socket.io-client";
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
         <select className="form-control" name="role" onChange={this.updateRole}>
          <option value='0' >Выберите</option>
-        <option value="Даритель">Даритель</option>
-        <option value="Одаряемый">Одаряемый</option>
+        <option value="Даритель">Дарителем</option>
+        <option value="Одаряемый">Одаряемыем</option>
         </select>
       </div>
       {(this.state.goreceiver=='ok')?(
@@ -196,23 +198,20 @@ import socketIOClient from "socket.io-client";
         )}
   
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
+        <label className="form-control-label"  >Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
         <input onChange={this.deal506}  type="text" className="form-control"  name="itemname" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Количество дара</label>
+        <label className="form-control-label"  >Количество дара</label>
         <input onChange={this.deal506}  type="text" className="form-control"  name="quantity" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи дара(момент перехода права собственности)</label>
-            <DatePickerInput    minDate={today}
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({deadline: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок передачи дара(момент перехода права собственности)</label>
+            <input onChange={this.deal506}  type="text" className="form-control"  name="deadline" placeholder="Имя" autoComplete="off" />
+
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -220,7 +219,7 @@ import socketIOClient from "socket.io-client";
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal506}  type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

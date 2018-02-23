@@ -3,9 +3,10 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import Auth from '../modules/Auth';
-//import jwtDecode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import socketIOClient from "socket.io-client";
 import axios from 'axios';
+
 
 
 
@@ -17,40 +18,31 @@ class App extends Component {
         endpoint: "http://185.100.67.106:4040",
         userTimeLines: [],
         dealtimelines: [],
-        sumNoty: '', 
-        firstname:''
+        firstname:'',
+        message: ''
     }
-    this.notifyMe=this.notifyMe.bind(this)
-    this.getMyNotifications = this.getMyNotifications.bind(this)
-    this.dealtimelines_sort = this.dealtimelines_sort.bind(this)
+    // this.notifyMe=this.notifyMe.bind(this)
     this.dateFormat=this.dateFormat.bind(this); 
+    this.changeIsOpen=this.changeIsOpen.bind(this); 
+    this.ok = this.ok.bind(this)
    }
+   //console.log(DealParent.privet())
+   ok(){
+    console.log('okkkkk')
+    this.child.privet()
+   }
+   //ok()
     componentDidMount() {
+      var end = this.state.endpoint
       if(Auth.isUserAuthenticated()){
-
-    axios.get('http://185.100.67.106:4040/api/getmynotifications',{
-        responseType: 'json',
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-          'Authorization': `bearer ${Auth.getToken()}`
-      }
-      }).then(res => {
-          this.setState({
-           userTimeLines: res.data.userTimeLines,
-           dealtimelines: res.data.dealtimelines,
-           sumNoty: res.data.sumNoty
-          });
-      })
-      .catch(err => {
-        if (err.response) {
-          const errors = err.response ? err.response : {};
-          errors.summary = err.response.data.message;
-          this.setState({
-            errors
-          });
-      }
-  })
-   axios.get('http://185.100.67.106:4040/api/getmyname',{
+    var send = function() {
+      const socket = socketIOClient(end);
+      var token = Auth.getToken();
+      var decoded = jwtDecode(token);
+      socket.emit('change color', decoded.sub) 
+    }
+    send();
+       axios.get('http://185.100.67.106:4040/api/getmyname',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -72,19 +64,19 @@ class App extends Component {
   })
     }     
     }
-    getMyNotifications(){
-      axios.get('http://185.100.67.106:4040/api/getmynotifications',{
+    changeIsOpen(event, id){
+      //console.log(id, 'aaa')
+      axios.get('http://185.100.67.106:4040/api/handleisOpen?id='+id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
           'Authorization': `bearer ${Auth.getToken()}`
       }
-      }).then(res => {
-          this.setState({
-           userTimeLines: res.data.userTimeLines,
-           dealtimelines: res.data.dealtimelines,
-           sumNoty: res.data.sumNoty
-          });
+      }).then(res => { 
+          window.location.reload();
+          // this.setState({
+          //   message: res.data.message
+          // });
       })
       .catch(err => {
         if (err.response) {
@@ -95,67 +87,61 @@ class App extends Component {
           });
       }
   })
+    }
 
-    }
-    send = () => {
-      const socket = socketIOClient(this.state.endpoint);
-      var token = Auth.getToken();
-      //var decoded = jwtDecode(token);
-     // socket.emit('register', decoded.sub) // change 'red' to this.state.color
-    }
   // static propTypes = {}
   // static defaultProps = {}
   // state = {}
-  notifyMe(){
-    console.log('noty')
-   // Проверка поддерживаемости браузером уведомлений
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification");
-  }
+  // notifyMe(){
+  //   console.log('noty')
+  //  // Проверка поддерживаемости браузером уведомлений
+  // if (!("Notification" in window)) {
+  //   alert("This browser does not support desktop notification");
+  // }
 
-  // Проверка разрешения на отправку уведомлений
-  else if (Notification.permission === "granted") {
-    // Если разрешено то создаем уведомлений
-    var notification = new Notification("Hi there!");
-  }
+  // // Проверка разрешения на отправку уведомлений
+  // else if (Notification.permission === "granted") {
+  //   // Если разрешено то создаем уведомлений
+  //   var notification = new Notification("Hi there!");
+  // }
 
-  // В противном случает мы запрашиваем разрешение
-  else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-      // Если пользователь разрешил, то создаем уведомление 
-      if (permission === "granted") {
-        var notification = new Notification("Hi there!");
-      }
-    });
-  }
+  // // В противном случает мы запрашиваем разрешение
+  // else if (Notification.permission !== 'denied') {
+  //   Notification.requestPermission(function (permission) {
+  //     // Если пользователь разрешил, то создаем уведомление 
+  //     if (permission === "granted") {
+  //       var notification = new Notification("Hi there!");
+  //     }
+  //   });
+  // }
 
-  // В конечном счете если пользователь отказался от получения 
-  // уведомлений, то стоит уважать его выбор и не беспокоить его 
-  // по этому поводу .
-  }
-      dateFormat(date){
+  // // В конечном счете если пользователь отказался от получения 
+  // // уведомлений, то стоит уважать его выбор и не беспокоить его 
+  // // по этому поводу .
+  // }
+  dateFormat(date){
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
       var d = ((fDate.getDate() * 1) < 10) ? ("0" + (fDate.getDate() * 1)) : (fDate.getDate() * 1);
       return d + "/" + m + "/" + fDate.getFullYear()
-    }
-
-  dealtimelines_sort(my_arr){
-    my_arr.sort(function(a,b){
-                      // Turn your strings into dates, and then subtract them
-                      // to get a value that is either negative, positive, or zero.
-                      // console.log(a, b)
-                      return new Date(b.date) - new Date(a.date);
-                    });
-
   }
+
   render() {
-    // var qwe=[]
-    // function sortFunction(a,b){  
-    //   var dateA = new Date(a.date).getTime()
-    //   var dateB = new Date(b.date).getTime()
-    //   return dateA > dateB ? 1 : -1;  
-    // }; 
+       //console.log(this.state.message)
+  
+      // var token = Auth.getToken();
+      // var decoded = jwtDecode(token);
+
+    const socket = socketIOClient(this.state.endpoint)
+
+    //  socket.emit('change color', decoded.sub) 
+
+    socket.on('change color', (dealtimelines, sumNoty) => {
+      this.setState({
+        dealtimelines: dealtimelines
+      });
+    })
+  console.log(this.state.dealtimelines)
 
 
     return (
@@ -204,7 +190,7 @@ class App extends Component {
               
                     
                         <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
-       
+
                         {/* <li><Link to="/logout" className="waves-effect"><i className="fa fa-sign-out fa-lg icons" aria-hidden="true" ></i>
                                               <span className="hidden-menu-style hide-menu ">Выход</span></Link></li>*/}
             <li className="nav-item dropdown">
@@ -216,85 +202,113 @@ class App extends Component {
                             <li className="nav-item dropdown">
                                 <a className="nav-link" data-toggle="dropdown" href="javascript:void(0)" onClick = {this.getMyNotifications} title="Notifications" aria-expanded="false" data-animation="scale-up" role="button">
                                     <i className="icon wb-bell" aria-hidden="true" />
-                                    <span className="badge badge-pill badge-danger up">{this.state.sumNoty}</span>
+                                    <span className="badge badge-pill badge-danger up">{this.state.dealtimelines.length}</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right dropdown-menu-media" role="menu">
                                     <div className="dropdown-menu-header">
                                         <h5>УВЕДОМЛЕНИЯ</h5>
-                                        <span className="badge badge-round badge-danger">Новых {this.state.sumNoty}</span>
+                                        <span className="badge badge-round badge-danger">Новых {this.state.dealtimelines.length}</span>
                                     </div>
                                     <div className="list-group">
                                         <div data-role="container">
                                             <div >
+
+                                            {/*    
                                             {this.state.userTimeLines.length !=0 ?(
                                               <div className="">
 
-                                              {this.state.userTimeLines.slice(0,3).map((user, s) =>
-                                                <div key={s} >
-                                                {(user.title=='Запрос на добавление в друзья')?(
-                                                  <Link key={s} to="/kontragentrequest" className="list-group-item dropdown-item" role="menuitem">
-                                                    <div className="media">
-                                                        <div className="pr-10">
-                                                            <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
-                                                        </div>
-                                                        <div className="media-body">
-                                                            <h6 className="media-heading">{user.title}</h6>
-                                                            <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
-                                                            <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                                  ):(<span></span>)}
-        {(user.title=='Контрагент принял ваш запрос на добавление' || user.title=='Контрагент отклонил ваш запрос на добавление' )?(
-                                                  <Link to="/mykontragents" key={s} className="list-group-item dropdown-item" role="menuitem">
-                                                    <div className="media">
-                                                        <div className="pr-10">
-                                                            <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
-                                                        </div>
-                                                        <div className="media-body">
-                                                            <h6 className="media-heading">{user.title}</h6>
-                                                            <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
-                                                            <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                                  ):(<span></span>)}
+                                        {this.state.userTimeLines.slice(0,3).map((user, s) =>
+                                              <div key={s} >
+                                              {(user.title=='Запрос на добавление в друзья')?(
+                                                <Link key={s} to="/kontragentrequest" className="list-group-item dropdown-item" role="menuitem">
+                                                  <div className="media">
+                                                      <div className="pr-10">
+                                                          <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
+                                                      </div>
+                                                      <div className="media-body">
+                                                          <h6 className="media-heading">{user.title}</h6>
+                                                          <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
+                                                          <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                      </div>
+                                                  </div>
+                                              </Link>
+                                                ):(<span></span>)}
+      {(user.title=='Контрагент принял ваш запрос на добавление' || user.title=='Контрагент отклонил ваш запрос на добавление' )?(
+                                                <Link to="/mykontragents" key={s} className="list-group-item dropdown-item" role="menuitem">
+                                                  <div className="media">
+                                                      <div className="pr-10">
+                                                          <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
+                                                      </div>
+                                                      <div className="media-body">
+                                                          <h6 className="media-heading">{user.title}</h6>
+                                                          <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
+                                                          <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                      </div>
+                                                  </div>
+                                              </Link>
+                                                ):(<span></span>)}
 </div>
 
 
-                                               )}
-                                              </div>
-                                            ) :(<p></p>) }
+                                             )}
+                                            </div>
+                                          ) :(<p></p>) }
+
+
+*/}
                                             {this.state.dealtimelines.length !=0 ? (
                                               <div className="">
-                                              {this.state.dealtimelines.slice(0,3).map((user, s) =>
-                                                  <Link to="/dealhistory" key={s} className="list-group-item dropdown-item"  role="menuitem">
-                                                    <div className="media">
-                                                        <div className="pr-10">
-                                                            <i className="icon wb-order bg-red-600 white icon-circle" aria-hidden="true" />
+                                              {this.state.dealtimelines.map((user, s) =>
+                                                <div key={s} >
+                                                {(user.action_initiator) ?(
+                                                      <Link  onClick={(event) => this.changeIsOpen(event, user._id)} to={`/mydeals/${user.deal_id._id}/${user.deal_id.lawid}`} className="list-group-item dropdown-item" role="menuitem">
+                                                        <div className="media">
+                                                            <div className="pr-10">
+                                                                <i className="icon wb-order bg-red-600 white icon-circle" aria-hidden="true" />
+                                                            </div>
+                                                            <div className="media-body">
+                                                                <h6 className="media-heading">{user.title}</h6>
+                                                                <h6 className="media-heading">{user.action_initiator.firstname} {user.action_initiator.lastname}</h6>
+                                                                <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                            </div>
                                                         </div>
-                                                        <div className="media-body">
-                                                            <h6 className="media-heading">{user.title}</h6>
-                                                            <h6 className="media-heading">{user.action_initiator.firstname} {user.action_initiator.lastname}</h6>
-                                                            <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                    </Link>
+                                                ):(<span></span>)}
+                                                {(user.title=='Запрос на добавление в друзья')?(
+                                                      <Link key={s} to="/kontragentrequest"   onClick={(event) => this.changeIsOpen(event, user._id)} className="list-group-item dropdown-item" role="menuitem">
+                                                        <div className="media">
+                                                            <div className="pr-10">
+                                                                <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
+                                                            </div>
+                                                            <div className="media-body">
+                                                                <h6 className="media-heading">{user.title}</h6>
+                                                                <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
+                                                                <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </Link>
+                                                    </Link>
+                                                ):(<span></span>)}
+                                                {(user.title=='Контрагент принял ваш запрос на добавление' || user.title=='Контрагент отклонил ваш запрос на добавление' )?(
+                                                    <Link to="/mykontragents"  onClick={(event) => this.changeIsOpen(event, user._id)}  className="list-group-item dropdown-item" role="menuitem">
+                                                      <div className="media">
+                                                          <div className="pr-10">
+                                                              <i className="icon wb-user bg-green-600 white icon-circle" aria-hidden="true" />
+                                                          </div>
+                                                          <div className="media-body">
+                                                              <h6 className="media-heading">{user.title}</h6>
+                                                              <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
+                                                              <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                          </div>
+                                                      </div>
+                                                    </Link>
+                                                ):(<span></span>)}
+                                                </div>
+                       
                                                )}
                                               </div>) :(<p></p>)}
-     <div >
-                                  
+                                    <div>
                                     </div>
-                                        <div className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
-                                          <div className="media">
-                                            <a className="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
-                                              <i className="icon md-settings" aria-hidden="true" />
-                                            </a>
-                                            <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
-                                              Все уведомления
-                                            </a>
-                                          </div>
-                                        </div>                                          
+                                        
 { /*                                               <a className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">
@@ -342,14 +356,25 @@ class App extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="dropdown-menu-footer">
+                                       {this.state.dealtimelines.length ==0 ? (
+                                         <div className="dropdown-menu-footer">
                                         <a className="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
                                             <i className="icon md-settings" aria-hidden="true" />
                                         </a>
                                         <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
-                                            All notifications
+                                            У вас нет новых уведомлений
                                         </a>
-                                    </div>
+                                    </div>):(<span></span>)}
+                                     {this.state.dealtimelines.length >=5 ? (
+                                         <div className="dropdown-menu-footer">
+                                        <a className="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
+                                            <i className="icon md-settings" aria-hidden="true" />
+                                        </a>
+                                        <a className="dropdown-item" href="javascript:void(0)" role="menuitem">
+                                            Все Уведомления
+                                        </a>
+                                    </div>):(<span></span>)}
+                                 
                                 </div>
                             </li>
                             <li className="nav-item dropdown">

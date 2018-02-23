@@ -49,8 +49,18 @@ const Routes = (props) => (
             <SignIn />
           )
         )}/>
-    <Route path="/signin" component={SignIn} />
-    <Route path="/signup" component={SignUp} />
+ {/*   <Route path="/signin" component={SignIn} />
+     <Route path="/signup" component={SignUp} />*/}
+    <Route path="/signup" render={() =>(!Auth.isUserAuthenticated() ? (<SignUp />
+               ) : (
+                 <Dashboard />
+               )
+             )} />
+        <Route path="/signin" render={() =>(!Auth.isUserAuthenticated() ? (<SignIn />
+               ) : (
+                 <Dashboard />
+               )
+             )} />
     <Route path="/signupip" component={SignUpIP} />
     <Route path="/mykontragents" component={MyKontragents} />
     <Route path="/addkontragents" component={AddKontragents} />
@@ -60,12 +70,13 @@ const Routes = (props) => (
    
     <Route path="/deals" component={Deals} />
     <Route path="/finisheddeals" component={FinishedDeals} />
-    
-    <Route path="/mydeals" render={() =>(Auth.isUserAuthenticated() ? (<MyDealsParent />
-          ) : (
-            <SignIn />
-          )
-        )} />
+   <Route path="/mydeals/:deal_id?/:lawid?" component={MyDealsParent} />
+ 
+     {/*<Route path="/mydeals" render={() =>(Auth.isUserAuthenticated() ? (<MyDealsParent />
+               ) : (
+                 <SignIn />
+               )
+             )} />*/}
      <Route path="/dashboard" render={() =>(Auth.isUserAuthenticated() ? (<Dashboard />
           ) : (
             <SignIn />

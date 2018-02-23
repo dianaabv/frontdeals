@@ -7,6 +7,7 @@ import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import 'moment/locale/ru.js' 
 import Auth from '../modules/Auth';
+import swal from 'sweetalert'
 
  class Deals extends React.Component {
   constructor(props) {
@@ -14,8 +15,8 @@ import Auth from '../modules/Auth';
 
     this.state = {
       kontragents: [],
-      deadline: '',
-      payday: '',
+      // deadline: '',
+      // payday: '',
       duedate: '',
       deal540: {
         employer: '',
@@ -23,12 +24,15 @@ import Auth from '../modules/Auth';
         itemdata: '',
         keepcondition: '',
         usecondition: '',
-        additional: ''
+        additional: '',
+        payday: '',
+        deadline: ''
       }
     }
     this.deal540=this.deal540.bind(this)
   }
   componentDidMount() {
+    swal("Cделка будет недействительной в случае найма недвижимого имущества на срок от одного года и более. В таком случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
       axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
@@ -64,7 +68,7 @@ deal540(event){
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор имущественного найма (аренды)</h3>
-      <h4>Предмет договора: Наймодатель предоставляет нанимателю имущество за плату во временное владение и пользование на условиях, указанных в настоящем договоре. Внимание: при выборе недвижимого имущества срок договора должен составлять менее года, иначе сделка должна быть выполнена в письменном виде и зарегистрирована в установленном законодательством порядке</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b> Наймодатель предоставляет нанимателю имущество за плату во временное владение и пользование на условиях, указанных в настоящем договоре. Внимание: при выборе недвижимого имущества срок договора должен составлять менее года, иначе сделка должна быть выполнена в письменном виде и зарегистрирована в установленном законодательством порядке</h4>
       </div>
    
       <div className="form-group">
@@ -100,35 +104,29 @@ deal540(event){
                                                   }
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Данные, позволяющие установить имущество, подлежащее передаче в аренду</label>
+        <label className="form-control-label"  >Данные, позволяющие установить имущество, подлежащее передаче в аренду</label>
         <input onChange={this.deal540} type="text" className="form-control"  name="itemdata"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Cроки и порядок передачи/возврата имущества</label>
-         <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({deadline: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Cроки и порядок передачи/возврата имущества</label>
+          <input onChange={this.deal540} type="text" className="form-control"  name="deadline"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты</label>
-            <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты</label>
+                <input onChange={this.deal540} type="text" className="form-control"  name="payday"   autoComplete="off" />
+
+           
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Условия о содержании/улучшении имущества</label>
+        <label className="form-control-label"  >Условия о содержании/улучшении имущества</label>
         <input onChange={this.deal540}  type="text" className="form-control"   name="keepcondition"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Условия об использовании имущества (в т.ч. пределах распоряжения)</label>
+        <label className="form-control-label"  >Условия об использовании имущества (в т.ч. пределах распоряжения)</label>
         <input onChange={this.deal540} type="text" className="form-control"   name="usecondition"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -136,7 +134,7 @@ deal540(event){
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal540} type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

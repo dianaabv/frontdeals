@@ -5,6 +5,9 @@ i.icon-rc-datepicker.icon-rc-datepicker_calendar {
 /*.icon-rc-datepicker_calendar{
      padding-left: 0pc !important;
   }*/
+  .cust_weigh{
+    font-weight: 600;
+  }
   .date_input_err{
         border: 1px solid #fd8484 !important;
     border-radius: 4px;
@@ -17,7 +20,8 @@ i.icon-rc-datepicker.icon-rc-datepicker_calendar {
   font-weight: 900;
 }
 .title_border{
-  border: 1px solid #d2c3c3 !important;
+  /*border: 1px solid #d2c3c3 !important;*/
+  background-color: #ced5ff !important;
 }
 .input_err{
   border-color: #FABFC7 !important;

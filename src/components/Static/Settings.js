@@ -426,12 +426,15 @@ class MyDealsParent extends React.Component {
                            <div className="col-md-4">
                                 <div className="panel ">
                                     <div className="panel-heading">
-                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-pencil-square-o" aria-hidden="true" />Ред-ать личную инф-цию</h3>
+                                        <h3 className="panel-title"><i className="panel-title-icon icon fa fa-pencil-square-o" aria-hidden="true" />Мой профиль</h3>
                                     </div>
                                 </div>
                                 <div className="panel ">
-                                
+                                <div className="panel-heading">
+                                        <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Редактировать личную информацию</h3>
+                                    </div>
                                     <div className="panel-body container-fluid">
+
                                         <div className="row">
                                          {(this.state.isChangable=='1')?(                                            <div className="col-12">
                                                 <div className="form-group">

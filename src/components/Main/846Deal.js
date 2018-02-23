@@ -65,7 +65,7 @@ import Auth from '../modules/Auth';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор поручения</h3>
-      <h4>Предмет договора:Поверенный обязуется совершить от имени и за счет другой стороны Доверителя, определенные юридические действия на условиях, указанных в настоящем договоре. По сделке, совершенной поверенным, права и обязанности возникают непосредственно у Доверителя.</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b>Поверенный обязуется совершить от имени и за счет другой стороны Доверителя, определенные юридические действия на условиях, указанных в настоящем договоре. По сделке, совершенной поверенным, права и обязанности возникают непосредственно у Доверителя.</h4>
       </div>
    
       <div className="form-group">
@@ -101,11 +101,11 @@ import Auth from '../modules/Auth';
                                                   }
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Описание поручаемых действий</label>
+        <label className="form-control-label"  >Описание поручаемых действий</label>
         <input onChange={this.deal846}  type="text" className="form-control"  name="description"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок поручения</label>
+        <label className="form-control-label"  >Срок поручения</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -113,23 +113,21 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Размер вознаграждения поверенного</label>
+        <label className="form-control-label"  >Размер вознаграждения поверенного, тенге</label>
         <input onChange={this.deal846}  type="number" className="form-control"  name="priceaward"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты вознаграждения</label>
-          <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты вознаграждения</label>
+                  <input onChange={this.deal846}  type="text" className="form-control"  name="payday"   autoComplete="off" />
+
+ 
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Указания доверителя</label>
+        <label className="form-control-label"  >Указания доверителя</label>
         <input onChange={this.deal846}  type="text" className="form-control"  name="rules"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -137,7 +135,7 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal846}  type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

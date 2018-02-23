@@ -16,8 +16,6 @@ import jwtDecode from 'jwt-decode';
     this.state = {
       lawid: '865',
       kontragents: [],
-      payday: '',
-      payday_err: '',
       duedate: '',
       duedate_err: '',
       goreceiver: '',
@@ -25,6 +23,7 @@ import jwtDecode from 'jwt-decode';
       deal865: {
         agent: '',
         principal: '',
+        payday: '',
         instructionprincipal: '',
         sizeaward: '',
         order: '',
@@ -124,6 +123,7 @@ import jwtDecode from 'jwt-decode';
         instructionprincipal: this.state.deal865.instructionprincipal,
         sizeaward: this.state.deal865.sizeaward,
         order: this.state.deal865.order,
+        payday: this.state.deal865.payday
       }
       const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
       var mainobj=removeEmpty(deal865_z)
@@ -140,18 +140,18 @@ import jwtDecode from 'jwt-decode';
           duedate_err: ''
         })
       }
-      if(this.state.payday==""){
-        this.setState({
-          payday_err: '1'
-        })
-      } else {
-        this.setState({
-          payday_err: ''
-        })
-      }
+      // if(this.state.payday==""){
+      //   this.setState({
+      //     payday_err: '1'
+      //   })
+      // } else {
+      //   this.setState({
+      //     payday_err: ''
+      //   })
+      // }
     if((this.state.deal865.principal.length>0)&&(this.state.deal865.agent.length>0)&&(this.state.deal865.instructionprincipal.length>0)&&(this.state.deal865.sizeaward.length>0)&&(this.state.deal865.order.length>0)
-      &&(this.state.payday>0)&&(this.state.duedate>0)){
-      const formData = `deal865=${JSON.stringify(this.state.deal865)}&duedate=${this.state.duedate}&payday=${this.state.payday}&lawid=${this.state.lawid}&status=${this.state.status}`;
+      &&(this.state.duedate>0)){
+      const formData = `deal865=${JSON.stringify(this.state.deal865)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}`;
       axios.post('http://185.100.67.106:4040/api/createdeal865',formData,{
         responseType: 'json',
         headers: {
@@ -190,14 +190,14 @@ import jwtDecode from 'jwt-decode';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор комиссии</h3>
-      <h4>Предмет договора:Комиссионер обязуется по поручению Комитента за вознаграждение совершить одну или несколько сделок от своего имени за счет Комитента на условиях, указанных в настоящем договоре. </h4>
+      <h4><b className="cust_weigh">Предмет договора: </b>Комиссионер обязуется по поручению Комитента за вознаграждение совершить одну или несколько сделок от своего имени за счет Комитента на условиях, указанных в настоящем договоре. </h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
         <select className="form-control" name="role" onChange={this.updateRole}>
          <option value='0' >Выберите</option>
-        <option value="Комиссионер">Комиссионер</option>
-        <option value="Комитента">Комитента</option>
+        <option value="Комиссионер">Комиссионером</option>
+        <option value="Комитента">Комитентом</option>
         </select>
       </div>
 
@@ -243,27 +243,24 @@ import jwtDecode from 'jwt-decode';
 
 
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Указания комитента</label>
+        <label className="form-control-label"  >Указания комитента</label>
         <input  onChange={this.deal865}  type="text" className={"form-control " + (this.state.valid_err.includes("instructionprincipal")  ? 'input_err' : '')}  name="instructionprincipal"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Размер комиссионного вознаграждения</label>
+        <label className="form-control-label"  >Размер комиссионного вознаграждения, тенге</label>
          <input onChange={this.deal865}  type="number" className={"form-control " + (this.state.valid_err.includes("sizeaward")  ? 'input_err' : '')}  name="sizeaward"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты комиссионного вознаграждения </label>
-            <DatePickerInput    minDate={today}
-                                className={"my-react-datepicker " + (this.state.payday_err=="1"  ? 'date_input_err' : '')}
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты комиссионного вознаграждения </label>
+            <input onChange={this.deal865}  type="text" className={"form-control " + (this.state.valid_err.includes("payday")  ? 'input_err' : '')}  name="payday"   autoComplete="off" />
+
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Порядок возмещения расходов по исполнению комиссионного поручения</label>
+        <label className="form-control-label"  >Порядок возмещения расходов по исполнению комиссионного поручения</label>
         <input  onChange={this.deal865} type="text" className={"form-control " + (this.state.valid_err.includes("order")  ? 'input_err' : '')}  name="order"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
                                 className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -271,12 +268,12 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input  onChange={this.deal865} type="text" className="form-control"  name="additional"  autoComplete="off" />
       </div>
       {(this.state.status1=='Индивидуальный предприниматель')?(
         <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Ваша роль в этой сделке</label>
+        <label className="form-control-label"  >Ваша роль в этой сделке</label>
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
             <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>

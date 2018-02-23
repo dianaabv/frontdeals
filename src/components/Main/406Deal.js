@@ -7,21 +7,27 @@ import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import 'moment/locale/ru.js' 
 import Auth from '../modules/Auth';
-
+import swal from 'sweetalert';
  class Deals extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       kontragents: [],
-      payday: '',
-      getbackday:'',
       duedate:'',
-
+      rek: '',
       deal406: {
         seller: '',
         buyer: '',
+        itemname: '',
+        quantity: '',
+        price: '',
+        payday: '',
+        getbackday:'',
         quality: '',
+        description: '',
+        state: '',
+        expire: '',
         complexity: '',
         additional:''
       }
@@ -29,6 +35,7 @@ import Auth from '../modules/Auth';
     this.deal406=this.deal406.bind(this)
   }
   componentDidMount() { 
+    swal("Cделка действительна только в случае купли-продажи движимого имущества. В ином случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
     axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
       headers: {
@@ -54,18 +61,29 @@ import Auth from '../modules/Auth';
     const field = event.target.name;
     const deal406 = this.state.deal406;
     deal406[field] = event.target.value;
-    console.log(this.state.deal406, this.state.payday, this.state.getbackday, this.state.duedate)
-    const formData = `deal406=${JSON.stringify(this.state.deal406)}&payday=${this.state.payday}&getbackday=${this.state.getbackday}&duedate=${this.state.duedate}`;
+    if(field=='state' && deal406[field]=='Новое'){
+      this.setState({
+        rek:'1'
+      }) 
+    } else{
+      this.setState({
+        rek: ''
+      })
+    }
+    //console.log(this.state.deal406, this.state.payday, this.state.getbackday, this.state.duedate)
+    const formData = `deal406=${JSON.stringify(this.state.deal406)}&duedate=${this.state.duedate}`;
   }
 
  
   render() {
+
+    console.log(this.state.deal406)
     return (
 
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор купли-продажи</h3>
-      <h4>Предмет договора: Продавец передает, а Покупатель обязуется принять товар (имущество), указанный в настоящем договоре, на условиях, предусмотренных настоящим договором.</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b> Продавец передает, а Покупатель обязуется принять товар (имущество), указанный в настоящем договоре, на условиях, предусмотренных настоящим договором.</h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Продавец</label>  
@@ -101,59 +119,62 @@ import Auth from '../modules/Auth';
                                                   }
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Наименование (ассортимент) товара</label>
+        <label className="form-control-label"  >Наименование (ассортимент) товара</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="itemname"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Количество товара</label>
+        <label className="form-control-label" >Количество товара</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="quantity"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Цена товара</label>
+        <label className="form-control-label"  >Цена товара, тенге</label>
         <input onChange={this.deal406}  type="number" className="form-control"  name="price"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты товара</label>
-            <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты товара</label>
+            <input onChange={this.deal406}  type="text" className="form-control"  name="payday"   autoComplete="off" />
+
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи товара</label>
-            <DatePickerInput
-                                className='my-react-datepicker'
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({getbackday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок передачи товара</label>
+            <input onChange={this.deal406}  type="text" className="form-control"  name="getbackday"   autoComplete="off" />
+
+    
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Качество товара</label>
+        <label className="form-control-label"  >Качество товара</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="quality"  autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Характеристика товара</label>
+        <label className="form-control-label"  >Характеристика товара</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="description"  autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Cостояние товара (б/у или новое)</label>
+        <label className="form-control-label"  >Cостояние товара (б/у или новое)</label>
         <select className="form-control" name="state" onChange={this.deal406} >
-         <option selected disabled>Выберите</option>
+         <option  value="">Выберите</option>
         <option value="Б/У">Б/У</option>
         <option value="Новое">Новое</option>
         </select>
       </div>
-      <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок годности товара/гарантии (если применимо)</label>
+      {
+        (this.state.rek=='1')?(
+  <div className="form-group">
+        <label className="form-control-label"  >Срок годности товара/гарантии (если применимо)</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="expire"  autoComplete="off" />
       </div>
+          ):(
+          <div></div>
+
+          )
+      }
+    
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Комплектность товара (если применимо)</label>
+        <label className="form-control-label"  >Комплектность товара (если применимо)</label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="complexity"  autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -161,7 +182,7 @@ import Auth from '../modules/Auth';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal406}  type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

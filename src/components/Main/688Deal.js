@@ -191,13 +191,13 @@ import jwtDecode from 'jwt-decode';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор перевозки</h3>
-      <h4>Предмет договора: Перевозчик обязуется доставить вверенный ему Отправителем груз в пункт назначения и выдать уполномоченному на получение груза лицу (получателю), а отправитель обязуется уплатить за перевозку груза плату на условиях, указанных в настоящем договоре.</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b> Перевозчик обязуется доставить вверенный ему Отправителем груз в пункт назначения и выдать уполномоченному на получение груза лицу (получателю), а отправитель обязуется уплатить за перевозку груза плату на условиях, указанных в настоящем договоре.</h4>
       </div>
    <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
-        <option value="Перевозчик">Перевозчик</option>
+        <option value="Перевозчик">Перевозчиком</option>
         <option value="Отправителем">Отправителем</option>
         </select>
       </div>
@@ -241,23 +241,23 @@ import jwtDecode from 'jwt-decode';
         )}
 
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Перевозимое имущество</label>
+        <label className="form-control-label"  >Перевозимое имущество</label>
         <input onChange={this.deal688} type="text"  className={"form-control " + (this.state.valid_err.includes("transportableproperty")  ? 'input_err' : '')}    name="transportableproperty"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Адрес отправки</label>
+        <label className="form-control-label"  >Адрес отправки</label>
         <input onChange={this.deal688}  type="text" className={"form-control " + (this.state.valid_err.includes("shippingaddress")  ? 'input_err' : '')}     name="shippingaddress"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Адрес доставки</label>
+        <label className="form-control-label"  >Адрес доставки</label>
         <input onChange={this.deal688} type="text" className={"form-control " + (this.state.valid_err.includes("deliveryaddress")  ? 'input_err' : '')}    name="deliveryaddress"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Получатель имущества</label>
+        <label className="form-control-label"  >Получатель имущества</label>
         <input onChange={this.deal688}  type="text" className={"form-control " + (this.state.valid_err.includes("recipientofproperty")  ? 'input_err' : '')}    name="recipientofproperty"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок доставки</label>
+        <label className="form-control-label"  >Срок доставки</label>
           <DatePickerInput      minDate={today}
                                 className={"my-react-datepicker " + (this.state.shippingday_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -265,16 +265,16 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Цена доставки (тенге)</label>
+        <label className="form-control-label"  >Цена доставки, тенге</label>
         <input onChange={this.deal688}  type="number" className={"form-control " + (this.state.valid_err.includes("shippingprice")  ? 'input_err' : '')}     name="shippingprice"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Порядок оплаты</label>
+        <label className="form-control-label"  >Порядок оплаты</label>
             <input onChange={this.deal688}  type="text" className={"form-control " + (this.state.valid_err.includes("payday")  ? 'input_err' : '')}     name="payday"   autoComplete="off" />
 
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
                                 className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -282,12 +282,12 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal688}  type="text" className="form-control"   name="additional"  autoComplete="off" />
       </div>
          {(this.state.status1=='Индивидуальный предприниматель')?(
         <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Ваша роль в этой сделке</label>
+        <label className="form-control-label"  >Ваша роль в этой сделке</label>
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
             <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>

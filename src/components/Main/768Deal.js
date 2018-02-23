@@ -20,8 +20,8 @@ import jwtDecode from 'jwt-decode';
       kontragents: [],
       shelfdate: '',
       shelfdate_err: '',
-      payday: '',
-      payday_err: '',
+      // payday: '',
+      // payday_err: '',
       duedate: '',
       duedate_err: '',
       deal768:{
@@ -30,7 +30,8 @@ import jwtDecode from 'jwt-decode';
         itemname: '',
         awardamount: '',
         responsibility: '',
-        additional: ''
+        additional: '',
+        payday: ''
       },
       status1: '',
       status: 'Физическое лицо',
@@ -85,7 +86,8 @@ import jwtDecode from 'jwt-decode';
         bailor: this.state.deal768.bailor,
         itemname: this.state.deal768.itemname,
         awardamount: this.state.deal768.awardamount,
-        responsibility: this.state.deal768.responsibility
+        responsibility: this.state.deal768.responsibility,
+        payday: this.state.deal768.payday
       }
       const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
       var mainobj=removeEmpty(deal768_z)
@@ -111,19 +113,19 @@ import jwtDecode from 'jwt-decode';
           shelfdate_err: ''
         })
       }
-      if(this.state.payday==""){
-        this.setState({
-          payday_err: '1'
-        })
-      } else {
-        this.setState({
-          payday_err: ''
-        })
-      }
+      // if(this.state.payday==""){
+      //   this.setState({
+      //     payday_err: '1'
+      //   })
+      // } else {
+      //   this.setState({
+      //     payday_err: ''
+      //   })
+      // }
       if((this.state.deal768.keeper.length>0)&&(this.state.deal768.bailor.length>0)
         &&(this.state.deal768.itemname.length>0)&&(this.state.deal768.awardamount.length>0)&&(this.state.deal768.responsibility.length>0)
-        &&(this.state.payday>0)&&(this.state.duedate>0)&&(this.state.shelfdate>0)){
-      const formData = `deal768=${JSON.stringify(this.state.deal768)}&duedate=${this.state.duedate}&payday=${this.state.payday}&lawid=${this.state.lawid}&status=${this.state.status}&shelfdate=${this.state.shelfdate}`;
+        &&(this.state.duedate>0)&&(this.state.shelfdate>0)){
+      const formData = `deal768=${JSON.stringify(this.state.deal768)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}&shelfdate=${this.state.shelfdate}`;
       axios.post('http://185.100.67.106:4040/create/createdeal768',formData,{
         responseType: 'json',
         headers: {
@@ -195,13 +197,13 @@ import jwtDecode from 'jwt-decode';
     <div className="col-md-6">
      <div className="form-group">
       <h3>Договор хранения</h3>
-      <h4>Предмет договора: Хранитель обязуется хранить вещь, переданную на хранение Поклажедателем и возвратить эту вещь в сохранности на условиях, указанных в настоящем договоре.</h4>
+      <h4><b className="cust_weigh">Предмет договора: </b> Хранитель обязуется хранить вещь, переданную на хранение Поклажедателем и возвратить эту вещь в сохранности на условиях, указанных в настоящем договоре.</h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
-        <option value="Хранитель">Хранитель</option>
+        <option value="Хранитель">Хранителем</option>
         <option value="Поклажедателем">Поклажедателем</option>
         </select>
       </div>
@@ -247,11 +249,11 @@ import jwtDecode from 'jwt-decode';
 
  
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Вещь, передаваемая на хранение</label>
+        <label className="form-control-label"  >Вещь, передаваемая на хранение</label>
         <input onChange={this.deal768}  type="text" className={"form-control " + (this.state.valid_err.includes("itemname")  ? 'input_err' : '')}   name="itemname"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок хранения</label>
+        <label className="form-control-label"  >Срок хранения</label>
          <DatePickerInput       minDate={today}
                                 className={"my-react-datepicker " + (this.state.shelfdate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -259,23 +261,19 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Вознаграждение и возмещение расходов хранителю</label>
+        <label className="form-control-label"  >Вознаграждение и возмещение расходов хранителю</label>
         <input onChange={this.deal768}  type="number" className={"form-control " + (this.state.valid_err.includes("awardamount")  ? 'input_err' : '')}  name="awardamount"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок оплаты  </label>
-          <DatePickerInput      minDate={today}
-                                className={"my-react-datepicker " + (this.state.payday_err=="1"  ? 'date_input_err' : '')}
-                                value={this.state.value}
-                                onChange={(jsDate) => this.setState({payday: jsDate})}
-                                locale='ru'/>
+        <label className="form-control-label"  >Сроки и порядок оплаты  </label>
+                <input onChange={this.deal768}  type="text" className={"form-control " + (this.state.valid_err.includes("payday")  ? 'input_err' : '')}  name="payday"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Ответственность за несохранность</label>
+        <label className="form-control-label"  >Ответственность за несохранность</label>
         <input onChange={this.deal768}  type="text" className={"form-control " + (this.state.valid_err.includes("responsibility")  ? 'input_err' : '')}  name="responsibility"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
                                 className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -283,12 +281,12 @@ import jwtDecode from 'jwt-decode';
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal768}  type="text" className="form-control "  name="additional"  autoComplete="off" />
       </div>
       {(this.state.status1=='Индивидуальный предприниматель')?(
         <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Ваша роль в этой сделке</label>
+        <label className="form-control-label"  >Ваша роль в этой сделке</label>
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
             <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>

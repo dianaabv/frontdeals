@@ -328,20 +328,36 @@ class MyDealsParent extends React.Component {
                         <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.data.additional}</label>
                     </div>
+                    {(this.props.create_as_ip.length==0)?(
+                      <div>
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-primary btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как Физ. лицо</button>):(<div></div>)}
+                        {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'> Физ. лицо </b></button>):(<div></div>)}
                     </div>
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель')?(<button className="btn btn-primary btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как ИП</button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'>ИП</b></button>):(<div></div>)}
                     </div>
+                    </div>
+                    ):(
+                    <div>
+                    {(this.props.create_as_ip=='accept_as_ip')?(
+                    <div className="form-group">
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель' && this.props.create_as_ip=='accept_as_ip')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'> ИП</b></button>):(<div></div>)}
+                    </div>):(
+                    <div className="form-group">
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'>Физ. лицо</b></button>):(<div></div>)}
+                    </div>
+                    )}
+                    </div>
+
+                    )}
                     <div className="form-group">
                       {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
-                                     {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
+                      {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
-                                                                          {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отклонить сделку</button>):(<div></div>)}
+                      {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.denyDeal} >Отклонить сделку</button>):(<div></div>)}
                     </div>
                     <div className="form-group">
                       {(this.props.status=='acceptor' && this.props.acceptor_status=='requested_deny')?(<button className="btn btn-primary btn-block " onClick={this.getDenyReason}>Просмотреть причину отмены сделки</button>):(<div></div>)}
@@ -355,7 +371,7 @@ class MyDealsParent extends React.Component {
                     <Modal open={this.state.open1} onClose={this.onCloseModal} little>
                       <h2>Расторжение сделки</h2>
                       <div className="form-group">
-                        <h4 className="form-control-label" htmlFor="inputNameAddShop">Укажите причину по которой вы хотите аннулировать сделку.</h4>
+                        <h4 className="form-control-label"  >Укажите причину по которой вы хотите аннулировать сделку.</h4>
                         <input  onChange={(event)=>{
                                     this.setState({reason: event.target.value})
                                     }}  type="text" className="form-control"  name="order"   autoComplete="off" />
@@ -442,23 +458,23 @@ class MyDealsParent extends React.Component {
                           </div>
                       </div>
                          <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Перевозимое имущество</h4>
+        <h4 className="form-control-label"  >Перевозимое имущество</h4>
         <input  onChange={this.deal688}  defaultValue={this.props.data.transportableproperty} type="text" className="form-control"  name="transportableproperty"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Адрес отправки</h4>
+        <h4 className="form-control-label"  >Адрес отправки</h4>
         <input onChange={this.deal688}  defaultValue={this.props.data.shippingaddress} type="text" className="form-control" name="shippingaddress"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Адрес доставки</h4>
+        <h4 className="form-control-label"  >Адрес доставки</h4>
            <input onChange={this.deal688}  defaultValue={this.props.data.deliveryaddress} type="text" className="form-control" name="deliveryaddress"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Получатель имущества</h4>
+        <h4 className="form-control-label"  >Получатель имущества</h4>
         <input onChange={this.deal688}  defaultValue={this.props.data.recipientofproperty} type="text" className="form-control" name="recipientofproperty"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Срок доставки</h4>
+        <h4 className="form-control-label"  >Срок доставки</h4>
             <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.shippingday)}</label>
             <DatePickerInput    minDate={today}
                                 className='my-react-datepicker'
@@ -467,16 +483,16 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Цена доставки (тенге) (тенге)</h4>
+        <h4 className="form-control-label"  >Цена доставки (тенге) (тенге)</h4>
         <input onChange={this.deal688}  defaultValue={this.props.data.shippingprice} type="text" className="form-control" name="shippingprice"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Порядок оплаты</h4>
+        <h4 className="form-control-label"  >Порядок оплаты</h4>
                 <input onChange={this.deal688}  defaultValue={this.props.data.payday} type="text" className="form-control" name="payday"   autoComplete="off" />
 
       </div>
             <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</h4>
+        <h4 className="form-control-label"  >Срок действия договора</h4>
          <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.duedate)}</label>
             <DatePickerInput    minDate={today}
                                 className='my-react-datepicker'
@@ -485,7 +501,7 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <h4 className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </h4>
+        <h4 className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </h4>
         <input  onChange={this.deal688} type="text" className="form-control"  defaultValue={this.props.data.additional}   name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">

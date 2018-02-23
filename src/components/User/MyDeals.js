@@ -169,15 +169,15 @@ import 'moment/locale/ru.js'
         )}
   
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
+        <label className="form-control-label"  >Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
         <input onChange={this.deal506}  type="text" className="form-control"  " name="itemname" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Количество дара</label>
+        <label className="form-control-label"  >Количество дара</label>
         <input onChange={this.deal506}  type="text" className="form-control"  " name="quantity" placeholder="Имя" autoComplete="off" />
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Сроки и порядок передачи дара(момент перехода права собственности)</label>
+        <label className="form-control-label"  >Сроки и порядок передачи дара(момент перехода права собственности)</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -185,7 +185,7 @@ import 'moment/locale/ru.js'
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Срок действия договора</label>
+        <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput
                                 className='my-react-datepicker'
                                 value={this.state.value}
@@ -193,7 +193,7 @@ import 'moment/locale/ru.js'
                                 locale='ru'/>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="inputNameAddShop">Дополнительные условия (не обязательное ус-ие)                            </label>
+        <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
         <input onChange={this.deal506}  type="text" className="form-control"  " name="additional"  autoComplete="off" />
       </div>
       <div className="form-group">

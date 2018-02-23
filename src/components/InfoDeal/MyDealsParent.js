@@ -1,3 +1,4 @@
+import './style.css';
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -26,15 +27,60 @@ class MyDealsParent extends React.Component {
             acceptor_status:'',
             dealstatus: '',
             status: '',
-            olddeal: {}
+            olddeal: {},
+            create_as_ip: ''
 
         },
         this.dealRedirects=this.dealRedirects.bind(this)
         this.createPdf = this.createPdf.bind(this)
         this.dateFormat=this.dateFormat.bind(this);
+        this.privet=this.privet.bind(this)
 
     }
     componentDidMount() {
+
+      const { match: { params } } = this.props;
+      if(params.deal_id){
+        console.log(params.deal_id)
+        console.log(params.lawid)
+              this.setState({
+       deal :{},
+       acceptor_status: '',
+       dealstatus: '',
+       status: '',
+       olddeal: {},
+       create_as_ip: ''
+      })
+       // console.log(event.target.value, event.target.name)
+        const formData = `lawid=${params.lawid}&dealid=${params.deal_id}`;
+        //console.log(formData, 'formData')
+        axios.post('http://185.100.67.106:4040/api/getinfodeal',formData, {
+            responseType: 'json',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(res => {
+            this.setState({
+                deal: res.data.deal
+            });
+        })
+        .catch(err => {
+        if (err.response) {
+          const errors = err.response ? err.response : {};
+          errors.summary = err.response.data.message;
+          this.setState({
+            errors
+          });
+        }
+      });
+
+
+      } else {
+        console.log('et param')
+      }
+
+     // this.privet()
         axios.get('http://185.100.67.106:4040/api/getmydeals',{
         responseType: 'json',
         headers: {
@@ -55,6 +101,9 @@ class MyDealsParent extends React.Component {
           });
         }
       });
+    }
+    privet(){
+      console.log('ok')
     }
     dateFormat(date){
       var fDate = new Date(date);
@@ -94,7 +143,8 @@ class MyDealsParent extends React.Component {
        acceptor_status: '',
        dealstatus: '',
        status: '',
-       olddeal: {}
+       olddeal: {},
+       create_as_ip: ''
       })
        // console.log(event.target.value, event.target.name)
         const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
@@ -129,7 +179,8 @@ class MyDealsParent extends React.Component {
           this.setState({
            status: res.data.status,
            dealstatus: res.data.dealstatus,
-           acceptor_status: res.data.acceptor_status
+           acceptor_status: res.data.acceptor_status,
+           create_as_ip: res.data.create_as_ip
           });
       })
       .catch(err => {
@@ -167,6 +218,7 @@ class MyDealsParent extends React.Component {
     //     document.getElementById('body').className='animsition';
     // }
     render() {
+  // console.log(this.state.create_as_ip, 'pppp')
       //console.log(this.state.deals)
    // console.log(this.state.status, 'status', this.state.dealstatus, 'dealstatus', this.state.acceptor_status, 'acceptor_status')
     // console.log(this.state.deals, 'sss')
@@ -218,7 +270,7 @@ class MyDealsParent extends React.Component {
                                               ):(<p></p>)}
                                             </div>
                                             {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
-                                            <div className="col-md-8 pull-right"><a href="#info"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></a></div> 
+                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></div> 
                                             <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
                                             {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
                                         </div>
@@ -241,10 +293,10 @@ class MyDealsParent extends React.Component {
                                 {(Object.keys(this.state.deal).length != 0) ? (<div>
                                                                 {(this.state.deal.lawid =='506')?(<InfoDeal506 data={this.state.deal} name={this.state.deal.status} />): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='715')?(<InfoDeal715 data={this.state.deal} name={this.state.deal.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
-                                                                {(this.state.deal.lawid =='865')?(<InfoDeal865 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
-                                                                {(this.state.deal.lawid =='768')?(<InfoDeal768 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
-                                                                {(this.state.deal.lawid =='688')?(<InfoDeal688 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
-                                                                {(this.state.deal.lawid =='616')?(<InfoDeal616 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='865')?(<InfoDeal865 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='768')?(<InfoDeal768 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='688')?(<InfoDeal688 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='616')?(<InfoDeal616 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 </div>) :(<div className="panel-heading">
                                     <h3 className="panel-title">Пока ничего не выбрано</h3>
                                 </div>)}
