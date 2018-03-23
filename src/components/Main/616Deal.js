@@ -41,7 +41,7 @@ import swal from 'sweetalert';
     }
     this.deal616=this.deal616.bind(this)
   }
-    componentWillMount(){
+  componentWillMount(){
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
     this.setState({
@@ -159,8 +159,8 @@ import swal from 'sweetalert';
         &&(this.state.deal616.workdescription.length>0)&&(this.state.deal616.workaddress.length>0)&&(this.state.deal616.workprice.length>0)
         &&(this.state.deal616.workcheck.length>0)&&(this.state.deal616.quantity.length>0)
     &&(this.state.duedate>0)&&(this.state.workdeadline>0)){
-      const formData = `deal616=${JSON.stringify(this.state.deal616)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
-      console.log(this.state.deal616)
+      const formData = `deal616=${JSON.stringify(this.state.deal616)}&employer=${this.state.deal616.employer}&employee=${this.state.deal616.employee}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
+    
       axios.post('http://185.100.67.106:4040/create/createdeal616',formData,{
         responseType: 'json',
         headers: {

@@ -10,6 +10,7 @@ import InfoDeal865 from './InfoDeal865'
 import InfoDeal768 from './InfoDeal768'
 import InfoDeal688 from './InfoDeal688'
 import InfoDeal616 from './InfoDeal616'
+import InfoDeal683 from './InfoDeal683'
 import swal from 'sweetalert'
 
 
@@ -34,50 +35,28 @@ class MyDealsParent extends React.Component {
         this.dealRedirects=this.dealRedirects.bind(this)
         this.createPdf = this.createPdf.bind(this)
         this.dateFormat=this.dateFormat.bind(this);
-        this.privet=this.privet.bind(this)
+        //this.privet=this.privet.bind(this)
 
     }
     componentDidMount() {
 
       const { match: { params } } = this.props;
       if(params.deal_id){
-        console.log(params.deal_id)
-        console.log(params.lawid)
-              this.setState({
-       deal :{},
-       acceptor_status: '',
-       dealstatus: '',
-       status: '',
-       olddeal: {},
-       create_as_ip: ''
-      })
-       // console.log(event.target.value, event.target.name)
-        const formData = `lawid=${params.lawid}&dealid=${params.deal_id}`;
-        //console.log(formData, 'formData')
-        axios.post('http://185.100.67.106:4040/api/getinfodeal',formData, {
-            responseType: 'json',
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded'
-            }
+        // console.log(params.deal_id)
+        // console.log(params.lawid)
+        this.setState({
+          deal :{},
+          acceptor_status: '',
+          dealstatus: '',
+          status: '',
+          olddeal: {},
+          create_as_ip: ''
         })
-        .then(res => {
-            this.setState({
-                deal: res.data.deal
-            });
-        })
-        .catch(err => {
-        if (err.response) {
-          const errors = err.response ? err.response : {};
-          errors.summary = err.response.data.message;
-          this.setState({
-            errors
-          });
-        }
-      });
-
-
+        this.getinfodeal(params.lawid,params.deal_id)
+        this.getmystatus(params.deal_id)
+        this.getolddeal(params.lawid, params.deal_id)
       } else {
-        console.log('et param')
+        console.log('net param')
       }
 
      // this.privet()
@@ -102,9 +81,9 @@ class MyDealsParent extends React.Component {
         }
       });
     }
-    privet(){
-      console.log('ok')
-    }
+    // privet(){
+    //   console.log('ok')
+    // }
     dateFormat(date){
       var fDate = new Date(date);
       var m = ((fDate.getMonth() * 1 + 1) < 10) ? ("0" + (fDate.getMonth() * 1 + 1)) : (fDate.getMonth() * 1 + 1);
@@ -136,18 +115,8 @@ class MyDealsParent extends React.Component {
         }
       })
     }
-    dealRedirects(event){
-      // data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal}
-      this.setState({
-       deal :{},
-       acceptor_status: '',
-       dealstatus: '',
-       status: '',
-       olddeal: {},
-       create_as_ip: ''
-      })
-       // console.log(event.target.value, event.target.name)
-        const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
+    getinfodeal(lawid, dealid){
+      const formData = `lawid=${lawid}&dealid=${dealid}`;
         //console.log(formData, 'formData')
         axios.post('http://185.100.67.106:4040/api/getinfodeal',formData, {
             responseType: 'json',
@@ -169,7 +138,9 @@ class MyDealsParent extends React.Component {
           });
         }
       });
-      axios.get('http://185.100.67.106:4040/api/getmystatus?deal_id='+event.target.value,{
+    }
+    getmystatus(dealid){
+      axios.get('http://185.100.67.106:4040/api/getmystatus?deal_id='+dealid,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -192,7 +163,9 @@ class MyDealsParent extends React.Component {
           });
         }
       })
-       // так нельзя делать убери перенеси в info 715
+    }
+    getolddeal(lawid, dealid){
+      const formData = `lawid=${lawid}&dealid=${dealid}`;
       axios.post('http://185.100.67.106:4040/api/getolddeal', formData, {
         responseType: 'json',
         headers: {
@@ -214,16 +187,21 @@ class MyDealsParent extends React.Component {
         }
       });
     }
-    // componentWillMount(){
-    //     document.getElementById('body').className='animsition';
-    // }
+    dealRedirects(event){
+      this.setState({
+       deal :{},
+       acceptor_status: '',
+       dealstatus: '',
+       status: '',
+       olddeal: {},
+       create_as_ip: ''
+      })
+      this.getinfodeal(event.target.name, event.target.value)
+      this.getmystatus(event.target.value)
+      this.getolddeal(event.target.name, event.target.value)
+    }
+
     render() {
-  // console.log(this.state.create_as_ip, 'pppp')
-      //console.log(this.state.deals)
-   // console.log(this.state.status, 'status', this.state.dealstatus, 'dealstatus', this.state.acceptor_status, 'acceptor_status')
-    // console.log(this.state.deals, 'sss')
-    //    console.log(this.state.deal)
-    //console.log(this.state.olddeal, 'this.state.deal[0].lawid')
         return (
 
                 <div className="page">
@@ -291,8 +269,10 @@ class MyDealsParent extends React.Component {
                                     <h3 className="panel-title"><i className="panel-title-icon icon fa-pencil-square-o" aria-hidden="true" />Полная информация о сделке</h3>
                                 </div>
                                 {(Object.keys(this.state.deal).length != 0) ? (<div>
-                                                                {(this.state.deal.lawid =='506')?(<InfoDeal506 data={this.state.deal} name={this.state.deal.status} />): (<h1></h1>)}
-                                                                {(this.state.deal.lawid =='715')?(<InfoDeal715 data={this.state.deal} name={this.state.deal.status} olddeal={this.state.olddeal}/>): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='683')?(<InfoDeal683 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+
+                                                                {(this.state.deal.lawid =='506')?(<InfoDeal506 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip}/>): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='715')?(<InfoDeal715 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip}/>): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='865')?(<InfoDeal865 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='768')?(<InfoDeal768 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='688')?(<InfoDeal688 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}

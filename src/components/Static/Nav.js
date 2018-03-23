@@ -31,38 +31,37 @@ class App extends Component {
     console.log('okkkkk')
     this.child.privet()
    }
-   //ok()
-    componentDidMount() {
-      var end = this.state.endpoint
-      if(Auth.isUserAuthenticated()){
-    var send = function() {
-      const socket = socketIOClient(end);
+    send() {
+      const socket = socketIOClient(this.state.endpoint);
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
       socket.emit('change color', decoded.sub) 
     }
-    send();
-       axios.get('http://185.100.67.106:4040/api/getmyname',{
-        responseType: 'json',
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-          'Authorization': `bearer ${Auth.getToken()}`
-      }
-      }).then(res => {
-          this.setState({
-            firstname: res.data.firstname
-          });
-      })
-      .catch(err => {
-        if (err.response) {
-          const errors = err.response ? err.response : {};
-          errors.summary = err.response.data.message;
-          this.setState({
-            errors
-          });
-      }
-  })
-    }     
+   //ok()
+    componentDidMount() {
+      if(Auth.isUserAuthenticated()){
+         this.send();
+         axios.get('http://185.100.67.106:4040/api/getmyname',{
+          responseType: 'json',
+          headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+            'Authorization': `bearer ${Auth.getToken()}`
+        }
+        }).then(res => {
+            this.setState({
+              firstname: res.data.firstname
+            });
+        })
+        .catch(err => {
+          if (err.response) {
+            const errors = err.response ? err.response : {};
+            errors.summary = err.response.data.message;
+            this.setState({
+              errors
+            });
+          }
+        })
+      }     
     }
     changeIsOpen(event, id){
       //console.log(id, 'aaa')
@@ -127,21 +126,13 @@ class App extends Component {
   }
 
   render() {
-       //console.log(this.state.message)
-  
-      // var token = Auth.getToken();
-      // var decoded = jwtDecode(token);
-
     const socket = socketIOClient(this.state.endpoint)
-
-    //  socket.emit('change color', decoded.sub) 
-
-    socket.on('change color', (dealtimelines, sumNoty) => {
+    socket.on('change color', (dealtimelines) => {
       this.setState({
         dealtimelines: dealtimelines
       });
     })
-  console.log(this.state.dealtimelines)
+
 
 
     return (

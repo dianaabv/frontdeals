@@ -119,7 +119,9 @@ import jwtDecode from 'jwt-decode';
           &&(this.state.deal688.deliveryaddress.length>0)&&(this.state.deal688.recipientofproperty.length>0)
           &&(this.state.deal688.shippingprice.length>0)
       &&(this.state.deal688.payday.length>0)&&(this.state.duedate>0)&&(this.state.shippingday>0)){
-      const formData = `deal688=${JSON.stringify(this.state.deal688)}&duedate=${this.state.duedate}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
+
+const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.state.deal688.сarrier}&sender=${this.state.deal688.sender}&duedate=${this.state.duedate}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
+      
       axios.post('http://185.100.67.106:4040/create/createdeal688',formData,{
         responseType: 'json',
         headers: {

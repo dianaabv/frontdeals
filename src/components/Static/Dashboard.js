@@ -50,6 +50,7 @@ class MyDealsParent extends React.Component {
     }
 
     render() {
+      console.log(Auth.getToken())
         const today=new Date();
         const yesterday = new Date();
         yesterday.setFullYear(yesterday.getFullYear() -18)  

@@ -285,11 +285,11 @@ class MyDealsParent extends React.Component {
                       <h4>Текущие условия сделки</h4>
                     </div>
                     <div className="form-group">
-                        <h4>Перевозчик</h4>
+                        <h4>Отправитель</h4>
                         <label className="form-control-label">{this.props.data.sender.firstname} {this.props.data.sender.lastname}</label>
                     </div>
                     <div className="form-group">
-                        <h4>Отправитель</h4>
+                        <h4>Перевозчик</h4>
                         <label className="form-control-label">{this.props.data.сarrier.firstname} {this.props.data.сarrier.lastname}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("transportableproperty")  ? 'update_bg' : '')}>

@@ -15,7 +15,6 @@ class MyDealsParent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           //deals: [],
             message: '',
             isChangable: true,
             duedate:'',
@@ -50,13 +49,13 @@ class MyDealsParent extends React.Component {
    // componentDidMount() {
    //    var deal_id=this.props.data[0].deal_id
    // }
-  componentWillMount(){
-    var token = Auth.getToken();
-    var decoded = jwtDecode(token);
-    this.setState({
-      status: decoded.userstatus
-    });
-  }
+    componentWillMount(){
+      var token = Auth.getToken();
+      var decoded = jwtDecode(token);
+      this.setState({
+        status: decoded.userstatus
+      });
+    }
    deal616(event){
     const field = event.target.name;
     const deal616 = this.state.deal616;
@@ -229,7 +228,7 @@ class MyDealsParent extends React.Component {
     }
     updatedeal616(){
       const formData = `deal616=${JSON.stringify(this.state.deal616)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&workdeadline=${this.state.workdeadline}`
-        console.log(formData)
+
         axios.post('http://185.100.67.106:4040/update/updateDeal616',formData, {
             responseType: 'json',
             headers: {
@@ -273,7 +272,6 @@ class MyDealsParent extends React.Component {
       } 
       var z = compareDeals(this.props.olddeal, this.props.data)
       var objKeys=Object.keys(z)
-      console.log(this.props.create_as_ip.length, 'myprops')
       return (
        <div>
        {(this.state.isChangable=='1')?(
@@ -334,20 +332,20 @@ class MyDealsParent extends React.Component {
                     {(this.props.create_as_ip.length==0)?(
                       <div>
                     <div className="form-group">
-                        {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-primary btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'>Физ. лицо</b></button>):(<div></div>)}
+                        {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'>Физ. лицо</b></button>):(<div></div>)}
                     </div>
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель')?(<button className="btn btn-primary btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'>ИП</b></button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'>ИП</b></button>):(<div></div>)}
                     </div>
                     </div>
                     ):(
                     <div>
                     {(this.props.create_as_ip=='accept_as_ip')?(
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель' && this.props.create_as_ip=='accept_as_ip')?(<button className="btn btn-primary btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'> ИП </b></button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель' && this.props.create_as_ip=='accept_as_ip')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'> ИП </b></button>):(<div></div>)}
                     </div>):(
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-primary btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'> Физ. лицо </b></button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'> Физ. лицо </b></button>):(<div></div>)}
                     </div>
                     )}
                     </div>

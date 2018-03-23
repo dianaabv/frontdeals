@@ -8,7 +8,6 @@ import './style.css';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
 import 'moment/locale/ru.js' ;
-import socketIOClient from "socket.io-client";
 import swal from 'sweetalert'
  class Deals extends React.Component {
   constructor(props) {
@@ -30,14 +29,32 @@ import swal from 'sweetalert'
         additional: '',
         deadline: ''
       },
+      duedate_err: '',
+      deadline: '',
       message: '',
-      checkContent: false
+      checkContent: false,
+      lawid: '506',
+      status1: '',
+      status: 'Физическое лицо',
+      valid_err: []
     }
     this.deal506=this.deal506.bind(this)
-    this.updateDeal506=this.updateDeal506.bind(this)
+    this.updateDeal=this.updateDeal.bind(this)
     this.updateRole=this.updateRole.bind(this)
-    this.send=this.send.bind(this);
 
+  }
+  componentWillMount(){
+    var token = Auth.getToken();
+    var decoded = jwtDecode(token);
+    this.setState({
+      status1: decoded.userstatus
+    })
+  }
+    handleOptionChangeFiz(event){
+    //console.log(event.target.value)
+    this.setState({
+      status: event.target.value
+    });
   }
   componentDidMount() { 
     swal("Cделка действительна только в случае дарения движимого имущества. В ином случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
@@ -85,16 +102,25 @@ import swal from 'sweetalert'
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
     if(event.target.value=='Даритель'){
+    if(this.state.deal506.receiver.length == 0){
+      this.state.deal506['receiver']=''
+    } else{
+      this.state.deal506['receiver']=this.state.deal506.presenter
+    }
     this.state.deal506['presenter']=decoded.sub
-    this.state.deal506['receiver']=''
     this.setState({
       role:event.target.value,
       goreceiver: 'ok'
     })
     }
     if(event.target.value=='Одаряемый'){
+
+      if(this.state.deal506.presenter==0){
+        this.state.deal506['presenter']=''
+      } else{
+        this.state.deal506['presenter']=this.state.deal506.receiver
+      }
       this.state.deal506['receiver']=decoded.sub
-      this.state.deal506['presenter']=''
       this.setState({
         goreceiver: 'neok',
         role:event.target.value
@@ -110,9 +136,32 @@ import swal from 'sweetalert'
       })
     }
   }
-  updateDeal506(event){
-      const formData = `deal506=${JSON.stringify(this.state.deal506)}&duedate=${this.state.duedate}&lawid=${this.state.lawid}`;
-      axios.post('http://185.100.67.106:4040/api/createdeal506',formData,{
+  updateDeal(event){
+     var deal506_z = {
+        presenter: this.state.deal506.presenter,
+        receiver: this.state.deal506.receiver,
+        itemname: this.state.deal506.itemname,
+        quantity: this.state.deal506.quantity,
+        deadline: this.state.deal506.deadline
+      }
+      const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
+      var mainobj=removeEmpty(deal506_z)
+      var valid_err = Object.keys(mainobj)
+      this.setState({
+        valid_err: valid_err
+      })
+      if(this.state.duedate==""){
+        this.setState({
+          duedate_err: '1'
+        })
+      } else {
+        this.setState({
+          duedate_err: ''
+        })
+      }
+      if(valid_err.length == 0 && this.state.duedate_err!='1'){
+        const formData = `deal506=${JSON.stringify(this.state.deal506)}&presenter=${this.state.deal506.presenter}&receiver=${this.state.deal506.receiver}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}`;
+        axios.post('http://185.100.67.106:4040/create/createdeal506',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -122,6 +171,7 @@ import swal from 'sweetalert'
           this.setState({
            message: res.data.message
           });
+           swal({text: this.state.message}).then(function(){window.location.reload()}) 
       })
       .catch(err => {
         if (err.response) {
@@ -132,12 +182,11 @@ import swal from 'sweetalert'
           });
         }
       });
+      } else{
+        swal('Проверьте Поля')
+      }
   }
-  send = () => {
-     // var deal506=JSON.stringify(this.state.deal506)
-    // const socket = socketIOClient(this.state.endpoint);
-    // socket.emit('createdeal506', {deal506 : deal506, duedate: this.state.duedate, deadline: this.state.deadline}) // change 'red' to this.state.color
-  }
+
 
   render() {
   const today=new Date();
@@ -164,7 +213,7 @@ import swal from 'sweetalert'
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Одаряемый </label> <br/ >
          {
                                                     this.state.kontragents.length!=0 ?
-                                                    (      <select id="citySelectorAddShopForm" className="form-control" name="receiver"  onChange={this.deal506}>
+                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("receiver")  ? 'input_err' : '')} name="receiver"  onChange={this.deal506}>
                                                     <option value=''>Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
@@ -181,7 +230,7 @@ import swal from 'sweetalert'
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Даритель </label> <br/ >
          {
                                                     this.state.kontragents.length!=0 ?
-                                                    (      <select id="citySelectorAddShopForm" className="form-control" name="presenter"  onChange={this.deal506}>
+                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("presenter")  ? 'input_err' : '')} name="presenter"  onChange={this.deal506}>
                                                     <option value=''>Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
@@ -199,34 +248,43 @@ import swal from 'sweetalert'
   
       <div className="form-group">
         <label className="form-control-label"  >Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
-        <input onChange={this.deal506}  type="text" className="form-control"  name="itemname" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className={"form-control " + (this.state.valid_err.includes("itemname")  ? 'input_err' : '')}  name="itemname"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"  >Количество дара</label>
-        <input onChange={this.deal506}  type="text" className="form-control"  name="quantity" placeholder="Имя" autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className={"form-control " + (this.state.valid_err.includes("quantity")  ? 'input_err' : '')}  name="quantity"  autoComplete="off" />
       </div>
       <div className="form-group">
         <label className="form-control-label"  >Сроки и порядок передачи дара(момент перехода права собственности)</label>
-            <input onChange={this.deal506}  type="text" className="form-control"  name="deadline" placeholder="Имя" autoComplete="off" />
+            <input onChange={this.deal506}  type="text" className={"form-control " + (this.state.valid_err.includes("deadline")  ? 'input_err' : '')}  name="deadline"  autoComplete="off" />
 
       </div>
       <div className="form-group">
         <label className="form-control-label"  >Срок действия договора</label>
             <DatePickerInput    minDate={today}
-                                className='my-react-datepicker'
+                                className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
                                 onChange={(jsDate) => this.setState({duedate: jsDate})}
                                 locale='ru'/>
       </div>
       <div className="form-group">
         <label className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </label>
-        <input onChange={this.deal506}  type="text" className="form-control"  name="additional"  autoComplete="off" />
+        <input onChange={this.deal506}  type="text" className="form-control " name="additional"  autoComplete="off" />
       </div>
+            {(this.state.status1=='Индивидуальный предприниматель')?(
+        <div className="form-group">
+        <label className="form-control-label"  >Ваша роль в этой сделке</label>
+        <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
+             <option value='Физическое Лицо'>Физическое Лицо</option>
+            <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>
+        </select>
+        </div>
+        ):(<div></div>)}
       <div className="form-group">
         <label className="form-control-label"><br/></label>
-        <button   type="button" onClick={this.send} className="btn btn-primary btn-block btn-round">Socket</button>
-        <button  disabled={!this.state.checkContent} type="button" onClick={this.updateDeal506} className="btn btn-primary btn-block btn-round">Продолжить</button>
+        <button   type="button" onClick={this.updateDeal.bind(this)} className="btn btn-primary btn-block btn-round">Продолжить</button>
       </div>
+    
     </div>
  
                    );

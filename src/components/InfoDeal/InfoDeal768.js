@@ -225,7 +225,7 @@ class MyDealsParent extends React.Component {
         })
     }
     updateDeal768(){
-      const formData = `deal768=${JSON.stringify(this.state.deal768)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&payday=${this.state.payday}&shelfdate=${this.state.shelfdate}`
+      const formData = `deal768=${JSON.stringify(this.state.deal768)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&shelfdate=${this.state.shelfdate}`
         axios.post('http://185.100.67.106:4040/update/updateDeal768',formData, {
             responseType: 'json',
             headers: {
@@ -459,7 +459,6 @@ class MyDealsParent extends React.Component {
       </div>
       <div className="form-group">
         <h4 className="form-control-label"  >Сроки и порядок оплаты</h4>
-        <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.payday)}</label>
                    <input onChange={this.deal768}  defaultValue={this.props.data.payday} type="text" className="form-control" name="payday"   autoComplete="off" />
 
     

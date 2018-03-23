@@ -127,7 +127,7 @@ class MyDealsParent extends React.Component {
                                                     
                                                 )}
                                         </div>):(<div className="panel-heading">
-                                                                <h3 className="panel-title">У вас пока нет сделок</h3>
+                                                                <h3 className="panel-title">У вас пока нет завершенных сделок</h3>
                                                   </div>
                                         )}
                             </div>

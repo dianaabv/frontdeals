@@ -132,7 +132,7 @@ class MyDealsParent extends React.Component {
 
                                            {/* <div><i id={s} aria-hidden="true" />{deal.status}</div>
                                            <div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
-                                            <div className="col-md-6 pull-right"><a href='#timelime'><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></a></div> 
+                                            <div className="col-md-6 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></div> 
                                         </div>
                                     </div>
                                 </div>

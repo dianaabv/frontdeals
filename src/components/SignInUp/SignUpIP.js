@@ -159,7 +159,7 @@ class SignupBuyer extends React.Component {
          
          {
          
-              const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}`;
+              const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}&username=${this.state.person.username}`;
               
 
                  axios.post('http://185.100.67.106:4040/api/signupip',formData,{
@@ -440,8 +440,8 @@ class SignupBuyer extends React.Component {
                             <div className="form-group">
                                   <select className={"form-control " + (this.state.valid_err.includes("issuedby")  ? 'input_err' : '')} onChange={this.changePerson} name="issuedby" value={this.state.person.issuedby}>
                                   <option value="" >Орган, выдавший уд-ние личности</option>
-                                    <option value="МВД РК" >МВД РК</option>
-                                    <option value="Министерство юстиции Республики Казахстан">Министерство юстиции Республики Казахстан</option>
+                                    <option value="mvd" >МВД РК</option>
+                                    <option value="murk">Министерство юстиции Республики Казахстан</option>
                                   </select>
                             </div>
                             <div className="form-group">
@@ -642,7 +642,7 @@ class SignupBuyer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}  type="text"
-                                 className={"form-control " + (this.state.valid_err.includes("address")  ? 'input_err' : '')}id="inputLastname" name="address" placeholder="Адрес регистрации" />
+                                 className={"form-control " + (this.state.valid_err.includes("address")  ? 'input_err' : '')}id="inputLastname" name="address" placeholder="Адрес регистрации (область, город, улица, № дома, № квартиры)" />
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}  type="text"
@@ -844,7 +844,7 @@ class SignupBuyer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson} type="text"
-                                 className={"form-control " + (( this.state.valid_err.includes("addressregip")) ? ('input_err') : (''))} id="inputLastname" name="addressregip" placeholder="Адрес регистрации в качестве ИП" />
+                                 className={"form-control " + (( this.state.valid_err.includes("addressregip")) ? ('input_err') : (''))} id="inputLastname" name="addressregip" placeholder="Адрес регистрации ИП (область, город, улица, № дома, № квартиры) " />
                             </div>
                               <div className="form-group">
                                 <a href='policy.pdf'>Политика конфиденциальности</a><br/>
