@@ -24,6 +24,8 @@ import FinishedDeals from './components/Main/finished_deals'
 //get info about deal
 import MyDealsParent from './components/InfoDeal/MyDealsParent'
 import MyDealsHistory from './components/InfoDeal/MyDealsHistory'
+import mymess from './components/Main/mymessages'
+
 // import DealInfoRedirect from './components/InfoDeal/DealInfoRedirect'
 //not found doesnt work yets
 import NotFound from './components/NotFound';
@@ -67,11 +69,11 @@ const Routes = (props) => (
     <Route path="/kontragentrequest" component={KontragentsRequest} />
     <Route path="/forgotpassword" component={ForgotPassword} />
 
-   
+
     <Route path="/deals" component={Deals} />
     <Route path="/finisheddeals" component={FinishedDeals} />
    <Route path="/mydeals/:deal_id?/:lawid?" component={MyDealsParent} />
- 
+
      {/*<Route path="/mydeals" render={() =>(Auth.isUserAuthenticated() ? (<MyDealsParent />
                ) : (
                  <SignIn />
@@ -93,7 +95,7 @@ const Routes = (props) => (
           )
         )} />
 
-   
+   <Route path="/messages" component={mymess} />
     <Route path="/color" component={Color} />
     <Route path="/logout" render={() => { Auth.deauthenticateUser(); return <Redirect to="/"/>; } }/>
     </div>

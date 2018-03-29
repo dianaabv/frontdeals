@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Auth from '../modules/Auth';
+import DealParent from '../InfoDeal/MyDealsParent'
 //calendar
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
@@ -14,27 +15,26 @@ class MyDealsParent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           //deals: [],
             message: '',
             isChangable: true,
-           // olddeal: {},
-            deal865: {
-              agent: '',
-              principal: '',
-              instructionprincipal: '',
-              sizeaward: '',
-              payday: '',
-              order: '',
-              additional: ''
+            duedate:'',
+
+            deal540: {
+              lender: '',
+              borrower: '',
+              itemdata: '',
+              keepcondition: '',
+              usecondition: '',
+              additional: '',
+              giveawaydeadline: ''
             },
-            duedate: '',
             reason: '',
             open1: false,
             status: ''
         }
-        this.deal865 = this.deal865.bind(this)
+        this.deal540 = this.deal540.bind(this)
         this.changeRender = this.changeRender.bind(this)
-        this.updateDeal865 = this.updateDeal865.bind(this)
+        this.updatedeal540 = this.updatedeal540.bind(this)
         this.acceptDeal = this.acceptDeal.bind(this)
         this.acceptDealIp = this.acceptDealIp.bind(this)
         this.denyDeal = this.denyDeal.bind(this)
@@ -46,17 +46,17 @@ class MyDealsParent extends React.Component {
    // componentDidMount() {
    //    var deal_id=this.props.data[0].deal_id
    // }
-  componentWillMount(){
-    var token = Auth.getToken();
-    var decoded = jwtDecode(token);
-    this.setState({
-      status: decoded.userstatus
-    });
-  }
-   deal865(event){
+    componentWillMount(){
+      var token = Auth.getToken();
+      var decoded = jwtDecode(token);
+      this.setState({
+        status: decoded.userstatus
+      });
+    }
+   deal540(event){
     const field = event.target.name;
-    const deal865 = this.state.deal865;
-    deal865[field] = event.target.value;
+    const deal540 = this.state.deal540;
+    deal540[field] = event.target.value;
    }
    denyDeal() {
     var deal_id=this.props.data.deal_id
@@ -223,9 +223,10 @@ class MyDealsParent extends React.Component {
             isChangable:  !this.state.isChangable
         })
     }
-    updateDeal865(){
-      const formData = `deal865=${JSON.stringify(this.state.deal865)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}`
-        axios.post('http://185.100.67.106:4040/api/updateDeal865',formData, {
+    updatedeal540(){
+      const formData = `deal540=${JSON.stringify(this.state.deal540)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}`
+
+        axios.post('http://185.100.67.106:4040/update/updateDeal540',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -276,34 +277,38 @@ class MyDealsParent extends React.Component {
             <div className="col-md-6">
                 <div className="col-md-12">
                     <div className="form-group">
-                      <h3>Договор комиссии</h3>
+                      <h3>Договор подряда</h3>
                     </div>
                     <div className="form-group">
-                      <h3>Текущие условия сделки</h3>
+                      <h4>Текущие условия сделки</h4>
                     </div>
                     <div className="form-group">
-                        <h4>Комитент</h4>
-                        <label className="form-control-label">{this.props.data.principal.firstname} {this.props.data.principal.lastname}</label>
+                        <h4>Наниматель</h4>
+                        <label className="form-control-label">{this.props.data.employee.firstname} {this.props.data.employee.lastname}</label>
                     </div>
                     <div className="form-group">
-                        <h4>Комиссионер</h4>
-                        <label className="form-control-label">{this.props.data.agent.firstname} {this.props.data.agent.lastname}</label>
+                        <h4>Наймодатель</h4>
+                        <label className="form-control-label">{this.props.data.employer.firstname} {this.props.data.employer.lastname}</label>
                     </div>
-                    <div className={"form-group " + (objKeys.includes("instructionprincipal")  ? 'update_bg' : '')}>
-                        <h4>Указания комитента</h4>
-                        <label className="form-control-label">{this.props.data.instructionprincipal}</label>
+                    <div className={"form-group " + (objKeys.includes("itemdata")  ? 'update_bg' : '')}>
+                        <h4>Данные, позволяющие установить имущество, подлежащее передаче в аренду</h4>
+                        <label className="form-control-label">{this.props.data.itemdata}</label>
                     </div>
-                    <div className={"form-group " + (objKeys.includes("sizeaward")  ? 'update_bg' : '')}>
-                        <h4>Размер комиссионного вознаграждения</h4>
-                        <label className="form-control-label">{this.props.data.sizeaward}</label>
+                    <div className={"form-group " + (objKeys.includes("deadline")  ? 'update_bg' : '')}>
+                        <h4>Cроки и порядок передачи/возврата имущества</h4>
+                        <label className="form-control-label">{this.props.data.deadline}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("payday")  ? 'update_bg' : '')}>
-                        <h4>Сроки и порядок оплаты комиссионного вознаграждения</h4>
+                        <h4>Сроки и порядок оплаты</h4>
                         <label className="form-control-label">{this.props.data.payday}</label>
                     </div>
-                    <div className={"form-group " + (objKeys.includes("order")  ? 'update_bg' : '')}>
-                        <h4>Порядок возмещения расходов по исполнению комиссионного поручения</h4>
-                        <label className="form-control-label">{this.props.data.order}</label>
+                    <div className={"form-group " + (objKeys.includes("keepcondition")  ? 'update_bg' : '')}>
+                        <h4>Условия о содержании/улучшении имущества</h4>
+                        <label className="form-control-label">{this.props.data.keepcondition}</label>
+                    </div>
+                    <div className={"form-group " + (objKeys.includes("usecondition")  ? 'update_bg' : '')}>
+                        <h4>Условия об использовании имущества (в т.ч. пределах распоряжения)</h4>
+                        <label className="form-control-label">{this.props.data.usecondition}</label>
                     </div>
                     <div className={"form-group " + (objKeys.includes("duedate")  ? 'update_bg' : '')}>
                         <h4>Срок действия договора</h4>
@@ -326,15 +331,16 @@ class MyDealsParent extends React.Component {
                     <div>
                     {(this.props.create_as_ip=='accept_as_ip')?(
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель' && this.props.create_as_ip=='accept_as_ip')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'> ИП</b></button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested' && this.state.status=='Индивидуальный предприниматель' && this.props.create_as_ip=='accept_as_ip')?(<button className="btn btn-success btn-block " onClick={this.acceptDealIp}>Принять текущие условия сделки как <b className='my_weight'> ИП </b></button>):(<div></div>)}
                     </div>):(
                     <div className="form-group">
-                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'> Физ. лицо</b></button>):(<div></div>)}
+                      {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-success btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки как <b className='my_weight'> Физ. лицо </b></button>):(<div></div>)}
                     </div>
                     )}
                     </div>
 
                     )}
+
                     <div className="form-group">
                       {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
@@ -361,52 +367,56 @@ class MyDealsParent extends React.Component {
                                     this.setState({reason: event.target.value})
                                     }}  type="text" className="form-control"   name="order"   autoComplete="off" />
                       </div>
-                      <button className="btn btn-primary btn-block " onClick={this.denyDeal}>Подтвердить</button>
+                      <button className="btn btn-primary btn-block "onClick={this.denyDeal}>Подтвердить</button>
                     </Modal>
                 </div>
               </div>
               <div className="col-md-6 update_bg_grey">
                 <div className="col-md-12">
                     <div className="form-group">
-                      <h3>Договор комиссии</h3>
+                      <h3>Договор подряда</h3>
                     </div>
                     <div className="form-group">
-                      <h3>Устаревшие ус-ия сделки</h3>
+                      <h4>Устаревшие условия сделки</h4>
                     </div>
                   {(Object.keys(this.props.olddeal).length != 0) ? (<div>
-                          <div className="form-group">
-                           <h4>Комитента</h4>
-                           <label className="form-control-label">{this.props.olddeal.principal.firstname} {this.props.olddeal.principal.lastname}</label>
-                       </div>
-                       <div className="form-group">
-                           <h4>Комиссионер</h4>
-                           <label className="form-control-label">{this.props.olddeal.agent.firstname} {this.props.olddeal.agent.lastname}</label>
-                       </div>
-                       <div className="form-group">
-                           <h4>Указания комитента</h4>
-                           <label className="form-control-label">{this.props.olddeal.instructionprincipal}</label>
-                       </div>
-                       <div className="form-group">
-                           <h4>Размер комиссионного вознаграждения</h4>
-                           <label className="form-control-label">{this.props.olddeal.sizeaward}</label>
-                       </div>
-                       <div className="form-group">
-                           <h4>Сроки и порядок оплаты комиссионного вознаграждения </h4>
-                           <label className="form-control-label">{this.props.olddeal.payday}</label>
-                       </div>
-                       <div className="form-group">
-                           <h4>Порядок возмещения расходов по исполнению комиссионного поручения</h4>
-                           <label className="form-control-label">{this.props.olddeal.order}</label>
-                       </div>
-                       <div className="form-group">
+                    <div className="form-group">
+                        <h4>Наниматель</h4>
+                        <label className="form-control-label">{this.props.olddeal.employee.firstname} {this.props.olddeal.employee.lastname}</label>
+                    </div>
+                    <div className="form-group">
+                        <h4>Наймодатель</h4>
+                        <label className="form-control-label">{this.props.olddeal.employer.firstname} {this.props.olddeal.employer.lastname}</label>
+                    </div>
+                    <div className="form-group ">
+                        <h4>Данные, позволяющие установить имущество, подлежащее передаче в аренду</h4>
+                        <label className="form-control-label">{this.props.olddeal.itemdata}</label>
+                    </div>
+                    <div className="form-group ">
+                        <h4>Cроки и порядок передачи/возврата имущества</h4>
+                        <label className="form-control-label">{this.props.olddeal.deadline}</label>
+                    </div>
+                    <div className="form-group ">
+                        <h4>Сроки и порядок оплаты</h4>
+                        <label className="form-control-label">{this.props.olddeal.payday}</label>
+                    </div>
+                    <div className="form-group ">
+                        <h4>Условия о содержании/улучшении имущества</h4>
+                        <label className="form-control-label">{this.props.olddeal.keepcondition}</label>
+                    </div>
+                    <div className="form-group ">
+                        <h4>Условия об использовании имущества (в т.ч. пределах распоряжения)</h4>
+                        <label className="form-control-label">{this.props.olddeal.usecondition}</label>
+                    </div>
+
+                      <div className="form-group">
                            <h4>Срок действия договора</h4>
                            <label className="form-control-label">{this.dateFormat(this.props.olddeal.duedate)}</label>
                        </div>
-                       <div className="form-group">
+                        <div className="form-group">
                            <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                            <label className="form-control-label">{this.props.olddeal.additional}</label>
                        </div>
-
                          </div>) :(<h1>пока нет изменений</h1>)}
                 </div>
               </div>
@@ -418,37 +428,40 @@ class MyDealsParent extends React.Component {
                       <div className="col-md-12">
                       <div className="row">
                        <div className="col-md-6">
-
-                          <div className="form-group">
-                              <h4>Комиссионер</h4>
-                           <label className="form-control-label">{this.props.data.agent.firstname} {this.props.data.agent.lastname}</label>
-                          </div>
+                       <div className="form-group">
+                           <h4>Наниматель</h4>
+                           <label className="form-control-label">{this.props.data.employee.firstname} {this.props.data.employee.lastname}</label>
+                       </div>
                           </div>
                           <div className="col-md-6">
                           <div className="form-group">
-                              <h4>Комитента</h4>
-                        <label className="form-control-label">{this.props.data.principal.firstname} {this.props.data.principal.lastname}</label>
+                              <h4>Наймодатель</h4>
+                              <label className="form-control-label">{this.props.data.employer.firstname} {this.props.data.employer.lastname}</label>
                           </div>
                           </div>
                       </div>
                          <div className="form-group">
-        <h4 className="form-control-label"  >Указания комитента</h4>
-        <input  onChange={this.deal865}  defaultValue={this.props.data.instructionprincipal} type="text" className="form-control"  name="instructionprincipal"   autoComplete="off" />
+        <h4 className="form-control-label"  >Данные, позволяющие установить имущество, подлежащее передаче в аренду</h4>
+        <input  onChange={this.deal540}  defaultValue={this.props.data.itemdata} type="text" className="form-control"  name="itemdata"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label"  >Размер комиссионного вознаграждения</h4>
-         <input onChange={this.deal865}  defaultValue={this.props.data.sizeaward} type="number" className="form-control"   name="sizeaward"   autoComplete="off" />
+        <h4 className="form-control-label"  >Cроки и порядок передачи/возврата имущества</h4>
+        <input onChange={this.deal540}  defaultValue={this.props.data.deadline} type="text" className="form-control" name="deadline"   autoComplete="off" />
       </div>
       <div className="form-group">
-        <h4 className="form-control-label"  >Сроки и порядок оплаты комиссионного вознаграждения </h4>
+        <h4 className="form-control-label"  >Сроки и порядок оплаты</h4>
+        <input onChange={this.deal540}  defaultValue={this.props.data.payday} type="text" className="form-control" name="payday"   autoComplete="off" />
+     </div>
+      <div className="form-group">
+        <h4 className="form-control-label"  >Условия о содержании/улучшении имущества</h4>
+        <input onChange={this.deal540}  defaultValue={this.props.data.keepcondition} type="text" className="form-control" name="keepcondition"   autoComplete="off" />
+      </div>
+      <div className="form-group">
+        <h4 className="form-control-label">Условия об использовании имущества (в т.ч. пределах распоряжения)</h4>
+                <input onChange={this.deal540}  defaultValue={this.props.data.usecondition} type="text" className="form-control" name="usecondition"   autoComplete="off" />
 
-            <input onChange={this.deal865}  defaultValue={this.props.data.payday} type="text" className="form-control"   name="payday"   autoComplete="off" />
       </div>
-      <div className="form-group">
-        <h4 className="form-control-label"  >Порядок возмещения расходов по исполнению комиссионного поручения</h4>
-        <input  onChange={this.deal865}  defaultValue={this.props.data.order} type="text" className="form-control"   name="order"   autoComplete="off" />
-      </div>
-      <div className="form-group">
+            <div className="form-group">
         <h4 className="form-control-label"  >Срок действия договора</h4>
          <label className="form-control-label">Текущие данные:  {this.dateFormat(this.props.data.duedate)}</label>
             <DatePickerInput    minDate={today}
@@ -458,11 +471,11 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
       </div>
        <div className="form-group">
-        <h4 className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)   </h4>
-        <input  onChange={this.deal865} type="text" className="form-control"  defaultValue={this.props.data.additional}   name="additional"  autoComplete="off" />
+        <h4 className="form-control-label"  >Дополнительные условия (не обязательное ус-ие)                            </h4>
+        <input  onChange={this.deal540} type="text" className="form-control"  defaultValue={this.props.data.additional}   name="additional"  autoComplete="off" />
       </div>
                           <div className="form-group">
-                              <button className="btn btn-primary btn-block " onClick={this.updateDeal865}>Внести изменения в сделку</button>
+                              <button className="btn btn-primary btn-block " onClick={this.updatedeal540}>Внести изменения в сделку</button>
                           </div>
                           <div className="form-group">
                               <button className="btn btn-primary btn-block " onClick={this.changeRender}>Отменить изменения</button>

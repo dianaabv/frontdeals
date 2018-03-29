@@ -5,7 +5,7 @@ import InputElement from 'react-input-mask';
 import './style.css';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-import 'moment/locale/ru.js' 
+import 'moment/locale/ru.js'
 import Auth from '../modules/Auth';
 import swal from 'sweetalert';
 import jwtDecode from 'jwt-decode';
@@ -121,7 +121,7 @@ import jwtDecode from 'jwt-decode';
       &&(this.state.deal688.payday.length>0)&&(this.state.duedate>0)&&(this.state.shippingday>0)){
 
 const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.state.deal688.сarrier}&sender=${this.state.deal688.sender}&duedate=${this.state.duedate}&shippingday=${this.state.shippingday}&lawid=${this.state.lawid}&status=${this.state.status}`;
-      
+
       axios.post('http://185.100.67.106:4040/create/createdeal688',formData,{
         responseType: 'json',
         headers: {
@@ -132,7 +132,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
           this.setState({
            message: res.data.message
           });
-          swal({text: this.state.message}).then(function(){window.location.reload()}) 
+          swal({text: this.state.message}).then(function(){window.location.reload()})
       })
       .catch(err => {
         if (err.response) {
@@ -148,7 +148,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
     }
   }
     updateRole(event){
-   
+
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
     if(event.target.value=='Перевозчик'){
@@ -196,7 +196,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
       <h4><b className="cust_weigh">Предмет договора: </b> Перевозчик обязуется доставить вверенный ему Отправителем груз в пункт назначения и выдать уполномоченному на получение груза лицу (получателю), а отправитель обязуется уплатить за перевозку груза плату на условиях, указанных в настоящем договоре.</h4>
       </div>
    <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
         <option value="Перевозчик">Перевозчиком</option>
@@ -205,7 +205,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
       </div>
       {(this.state.goreceiver=='ok')?(
       <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Отправитель</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Отправитель</label>
                            {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("sender")  ? 'input_err' : '')}  name="sender" onChange={this.deal688}>
@@ -213,7 +213,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -223,7 +223,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
 
         ) : (this.state.goreceiver=='neok')? (
       <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Перевозчик</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Перевозчик</label>
                    {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("сarrier")  ? 'input_err' : '')}  name="сarrier" onChange={this.deal688}>
@@ -231,7 +231,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -293,7 +293,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
             <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>
-            
+
         </select>
         </div>
         ):(<div></div>)}
@@ -302,7 +302,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
         <button   type="button" onClick={this.updateDeal.bind(this)} className="btn btn-primary btn-block btn-round">Создать сделку</button>
       </div>
     </div>
- 
+
                    );
   }
 }export default Deals;

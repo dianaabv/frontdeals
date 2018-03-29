@@ -22,8 +22,8 @@ class App extends Component {
         message: ''
     }
     // this.notifyMe=this.notifyMe.bind(this)
-    this.dateFormat=this.dateFormat.bind(this); 
-    this.changeIsOpen=this.changeIsOpen.bind(this); 
+    this.dateFormat=this.dateFormat.bind(this);
+    this.changeIsOpen=this.changeIsOpen.bind(this);
     this.ok = this.ok.bind(this)
    }
    //console.log(DealParent.privet())
@@ -35,7 +35,7 @@ class App extends Component {
       const socket = socketIOClient(this.state.endpoint);
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
-      socket.emit('change color', decoded.sub) 
+      socket.emit('change color', decoded.sub)
     }
    //ok()
     componentDidMount() {
@@ -61,7 +61,7 @@ class App extends Component {
             });
           }
         })
-      }     
+      }
     }
     changeIsOpen(event, id){
       //console.log(id, 'aaa')
@@ -71,7 +71,7 @@ class App extends Component {
           'Content-type': 'application/x-www-form-urlencoded',
           'Authorization': `bearer ${Auth.getToken()}`
       }
-      }).then(res => { 
+      }).then(res => {
           window.location.reload();
           // this.setState({
           //   message: res.data.message
@@ -107,15 +107,15 @@ class App extends Component {
   // // В противном случает мы запрашиваем разрешение
   // else if (Notification.permission !== 'denied') {
   //   Notification.requestPermission(function (permission) {
-  //     // Если пользователь разрешил, то создаем уведомление 
+  //     // Если пользователь разрешил, то создаем уведомление
   //     if (permission === "granted") {
   //       var notification = new Notification("Hi there!");
   //     }
   //   });
   // }
 
-  // // В конечном счете если пользователь отказался от получения 
-  // // уведомлений, то стоит уважать его выбор и не беспокоить его 
+  // // В конечном счете если пользователь отказался от получения
+  // // уведомлений, то стоит уважать его выбор и не беспокоить его
   // // по этому поводу .
   // }
   dateFormat(date){
@@ -140,9 +140,9 @@ class App extends Component {
       {(Auth.isUserAuthenticated())? (
         <nav className="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse bg-indigo-600" role="navigation">
                 <div className="navbar-header">
-         
+
                     <button type="button" className="navbar-toggler navbar-toggler-left hided mgtop" data-toggle="menubar">
-                  
+
                         <ul className="nav navbar-toolbar">
                                  <a className="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
                                               <i className="icon hamburger hamburger-arrow-left">
@@ -151,15 +151,15 @@ class App extends Component {
                                                </i>
                                            </a>
                                                             <div className="dropdown-menu" role="menu">
-                                                                <Link className="dropdown-item" to="/dashboard" role="menuitem"><i className="icon wb-user" aria-hidden="true" /> Личный Кабинет</Link>
+                                                            {   /* <Link className="dropdown-item" to="/dashboard" role="menuitem"><i className="icon wb-user" aria-hidden="true" /> Личный Кабинет</Link>*/}
                                                                 <Link className="dropdown-item" to="/deals" role="menuitem"><i className="icon fa fa-plus-circle" aria-hidden="true" /> Cоздать сделку</Link>
                                                                 <Link className="dropdown-item" to="/mydeals" role="menuitem"><i className="icon fa fa-spinner" aria-hidden="true" /> Текущие сделки</Link>
-                                                                <Link className="dropdown-item" to="/mydeals"role="menuitem"><i className="icon fa fa-check-square-o" aria-hidden="true" /> Завершеные сделки</Link>
+                                                                <Link className="dropdown-item" to="/finisheddeals"role="menuitem"><i className="icon fa fa-check-square-o" aria-hidden="true" /> Завершеные сделки</Link>
                                                                 <Link className="dropdown-item" to="/addkontragents" role="menuitem"><i className="icon fa fa-user-plus" aria-hidden="true" /> Добавить Контрагента</Link>
                                                                 <Link className="dropdown-item" to="/mykontragents" role="menuitem"><i className="icon fa fa-users" aria-hidden="true" /> Мои Контрагенты</Link>
                                                                 <Link className="dropdown-item" to="/kontragentrequest" role="menuitem"><i className="icon fa fa-exchange" aria-hidden="true" /> Заявки</Link>
                                                                 <Link className="dropdown-item" to="/dealhistory"  role="menuitem"><i className="icon fa fa-list-ul" aria-hidden="true" /> История сделок</Link>
-                                                                <Link className="dropdown-item" to="/mykontragents"role="menuitem"><i className="icon wb-payment" aria-hidden="true" /> Оплата</Link>
+                                                              {  /*<Link className="dropdown-item" to="/mykontragents"role="menuitem"><i className="icon wb-payment" aria-hidden="true" /> Оплата</Link>*/}
 
                                                                 <div className="dropdown-divider" role="presentation" />
                                                                 <Link to="/logout" className="dropdown-item" role="menuitem"><i className="icon wb-power" aria-hidden="true" /> Выйти</Link>
@@ -178,8 +178,8 @@ class App extends Component {
                     {/* Navbar Collapse */}
                     <div className="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
                         {/* Navbar Toolbar */}
-              
-                    
+
+
                         <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
 
                         {/* <li><Link to="/logout" className="waves-effect"><i className="fa fa-sign-out fa-lg icons" aria-hidden="true" ></i>
@@ -204,7 +204,7 @@ class App extends Component {
                                         <div data-role="container">
                                             <div >
 
-                                            {/*    
+                                            {/*
                                             {this.state.userTimeLines.length !=0 ?(
                                               <div className="">
 
@@ -294,12 +294,12 @@ class App extends Component {
                                                     </Link>
                                                 ):(<span></span>)}
                                                 </div>
-                       
+
                                                )}
                                               </div>) :(<p></p>)}
                                     <div>
                                     </div>
-                                        
+
 { /*                                               <a className="list-group-item dropdown-item" href="javascript:void(0)" role="menuitem">
                                                     <div className="media">
                                                         <div className="pr-10">
@@ -365,7 +365,7 @@ class App extends Component {
                                             Все Уведомления
                                         </a>
                                     </div>):(<span></span>)}
-                                 
+
                                 </div>
                             </li>
                             <li className="nav-item dropdown">
@@ -392,7 +392,7 @@ class App extends Component {
                     {/* End Site Navbar Seach */}
                 </div>
             </nav>) :(<div></div>)}
-    
+
       </div>
     );
   }

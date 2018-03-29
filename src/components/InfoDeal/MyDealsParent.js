@@ -11,6 +11,13 @@ import InfoDeal768 from './InfoDeal768'
 import InfoDeal688 from './InfoDeal688'
 import InfoDeal616 from './InfoDeal616'
 import InfoDeal683 from './InfoDeal683'
+import InfoDeal604 from './InfoDeal604'
+import InfoDeal540 from './InfoDeal540'
+import InfoDeal501 from './InfoDeal501'
+import InfoDeal846 from './InfoDeal846'
+import InfoDeal406 from './InfoDeal406'
+
+
 import swal from 'sweetalert'
 
 
@@ -217,12 +224,12 @@ class MyDealsParent extends React.Component {
                               <div className="panel-heading">
                                     <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Узнать подробнее</h3>
                                 </div>
-                              
+
                                   {(this.state.deals.length!=0)?(
         <div className="">
             {this.state.deals.map((deal, s) =>
                 <div  key={s} className="">
-                    
+
                         <div className="">
                             <div className="panel panel-bordered">
                                 <div className="panel-heading margin-left">
@@ -230,7 +237,7 @@ class MyDealsParent extends React.Component {
                                     <h5>{this.dateFormat(deal.duedate)}</h5>
                                 </div>
                                 <div className="panel-body">
-                                    
+
                                     <div className="rating-lg"  />
                                         <div style={{fontSize: '16px'}}>
                                         <div className="my_weight"><i id={s} aria-hidden="true" />Стороны договора: </div>
@@ -248,7 +255,7 @@ class MyDealsParent extends React.Component {
                                               ):(<p></p>)}
                                             </div>
                                             {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
-                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></div> 
+                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></div>
                                             <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
                                             {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
                                         </div>
@@ -256,7 +263,7 @@ class MyDealsParent extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    
+
                 )}
         </div>):(<div className="panel-heading">
                                 <h3 className="panel-title">У вас пока нет сделок</h3>
@@ -269,6 +276,14 @@ class MyDealsParent extends React.Component {
                                     <h3 className="panel-title"><i className="panel-title-icon icon fa-pencil-square-o" aria-hidden="true" />Полная информация о сделке</h3>
                                 </div>
                                 {(Object.keys(this.state.deal).length != 0) ? (<div>
+                                                                {(this.state.deal.lawid =='406')?(<InfoDeal406 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+
+                                                                {(this.state.deal.lawid =='846')?(<InfoDeal846 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+
+                                                                {(this.state.deal.lawid =='501')?(<InfoDeal501 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+
+                                                                {(this.state.deal.lawid =='540')?(<InfoDeal540 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
+                                                                {(this.state.deal.lawid =='604')?(<InfoDeal604 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='683')?(<InfoDeal683 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
 
                                                                 {(this.state.deal.lawid =='506')?(<InfoDeal506 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip}/>): (<h1></h1>)}

@@ -13,18 +13,18 @@ class App extends Component {
     const { className, ...props } = this.props;
     return (
         <div>
-           {(Auth.isUserAuthenticated())?(  
+           {(Auth.isUserAuthenticated())?(
       <div className="site-menubar site-menubar-light">
         <div>
                 <div className="site-menubar-body">
                     <ul className="site-menu" data-plugin="menu" style={{transform: 'translate3d(0px, -82.0631px, 0px)'}}>
-                        <li className="site-menu-item has-sub margtop" >
-                            <Link className="animsition-link" to="/dashboard">
-                                <i className="site-menu-icon fa fa-user-o" aria-hidden="true" />
-                                <span className="site-menu-title">Личный<br/>кабинет</span>
-                            </Link>
-                        </li>
-                        <li className="site-menu-item has-sub">
+        {/*              <li className="site-menu-item has-sub margtop" >
+                          <Link className="animsition-link" to="/dashboard">
+                              <i className="site-menu-icon fa fa-user-o" aria-hidden="true" />
+                              <span className="site-menu-title">Личный<br/>кабинет</span>
+                          </Link>
+                      </li>*/}
+                        <li className="site-menu-item has-sub margtop">
                             <a href="javascript:void(0)">
                                 <i className="site-menu-icon fa fa-handshake-o" aria-hidden="true" />
                                 <span className="site-menu-title">Сделки</span>
@@ -88,17 +88,17 @@ class App extends Component {
                                 <span className="site-menu-title">Настройки</span>
                             </Link>
                         </li>
-                        <li className="site-menu-item has-sub">
+                    { /*   <li className="site-menu-item has-sub">
                             <a href="/#/news">
                                 <i className="site-menu-icon fa-inbox" aria-hidden="true" />
                                 <span className="site-menu-title">Уведомления</span>
                             </a>
-                        </li>
+                        </li>*/}
                     </ul>
                 </div>
             </div>
         </div>):(<div></div>)}
-  
+
       </div>
     );
   }
