@@ -36,27 +36,27 @@ import jwtDecode from 'jwt-decode';
     componentWillMount(){
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
-    console.log(decoded.sub)
-    axios.get('http://185.100.67.106:4040/api/gettest',{
-    responseType: 'json',
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded',
-      'Authorization': `bearer ${Auth.getToken()}`
-    }
-    }).then(res => {
-        this.setState({
-         kontragents: res.data.kontragents
-        });
-    })
-    .catch(err => {
-      if (err.response) {
-        const errors = err.response ? err.response : {};
-        errors.summary = err.response.data.message;
-        this.setState({
-          errors
-        });
-      }
-    });
+    // console.log(decoded.sub)
+    // axios.get('http://185.100.67.106:4040/api/gettest',{
+    // responseType: 'json',
+    // headers: {
+    //   'Content-type': 'application/x-www-form-urlencoded',
+    //   'Authorization': `bearer ${Auth.getToken()}`
+    // }
+    // }).then(res => {
+    //     this.setState({
+    //      kontragents: res.data.kontragents
+    //     });
+    // })
+    // .catch(err => {
+    //   if (err.response) {
+    //     const errors = err.response ? err.response : {};
+    //     errors.summary = err.response.data.message;
+    //     this.setState({
+    //       errors
+    //     });
+    //   }
+    // });
     this.setState({
       status1: decoded.userstatus
     });
@@ -103,9 +103,16 @@ getMy(){
     'Authorization': `bearer ${Auth.getToken()}`
   }
   }).then(res => {
+      console.log(res.data.messages)
+    if(res.data.messages.length!=0){
+      console.log(res.data.messages)
       this.setState({
        messages: res.data.messages
       });
+    }else{
+      swal("You do not have secret messages")
+    }
+
   })
   .catch(err => {
     if (err.response) {
@@ -211,6 +218,29 @@ updateDeal(){
                               </div>
                           </div>
                           <div className="col-md-6">
+
+                          <div>
+                          {
+                                                   this.state.messages.length!=0 ?(
+                                            <div>
+                                                     <div className="panel-body">
+
+                                                         <div className="rating-lg"  />
+                                                         {this.state.messages.map((user, s) =>
+                                                             <div key={s} style={{fontSize: '16px'}}>
+                                                               <div className="my_weight"><i id={s} aria-hidden="true" />From:{user.from} </div>
+
+                                                                   <div><i id={s} aria-hidden="true" />{user.message}</div>
+                                                              </div>
+                                                            )}
+                                                        </div>
+                                                  </div>
+
+
+                                                   ):(
+                                                     <div></div>
+                                                   )}
+                                                   </div>
                           <div className="form-group">
                             <label className="form-control-label"><br/></label>
                             <button   type="button" onClick={this.getMy.bind(this)} className="btn btn-primary btn-block btn-round">Get my encrypted messages</button>
