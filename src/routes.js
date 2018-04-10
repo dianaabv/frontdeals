@@ -24,7 +24,7 @@ import FinishedDeals from './components/Main/finished_deals'
 //get info about deal
 import MyDealsParent from './components/InfoDeal/MyDealsParent'
 import MyDealsHistory from './components/InfoDeal/MyDealsHistory'
-import mymess from './components/Main/mymessages'
+//import mymess from './components/Main/mymessages'
 
 // import DealInfoRedirect from './components/InfoDeal/DealInfoRedirect'
 //not found doesnt work yets
@@ -95,7 +95,8 @@ const Routes = (props) => (
           )
         )} />
 
-   <Route path="/messages" component={mymess} />
+   {/*<Route path="/messages" component={mymess} />*/}
+
     <Route path="/color" component={Color} />
     <Route path="/logout" render={() => { Auth.deauthenticateUser(); return <Redirect to="/"/>; } }/>
     </div>

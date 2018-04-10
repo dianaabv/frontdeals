@@ -124,7 +124,7 @@ import swal from 'sweetalert'
           this.setState({
            message: res.data.message
           });
-           swal({text: this.state.message}).then(function(){window.location.reload()}) 
+           swal({text: this.state.message}).then(function(){window.location.reload()})
       })
       .catch(err => {
         if (err.response) {
@@ -191,7 +191,7 @@ import swal from 'sweetalert'
       <h4><b className="cust_weigh">Предмет договора: </b> Займодатель передает, а в случаях, предусмотренных настоящим договором, обязуется передать в собственность деньги или вещи, а заемщик обязуется своевременно возвратитьм займодателю такую же сумму денег или равное количество вещей того же рода и качества, на условиях указанных в настоящем договоре.</h4>
       </div>
        <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
         <option value="заимодатель">Заимодатель</option>
@@ -200,17 +200,17 @@ import swal from 'sweetalert'
       </div>
                   {(this.state.goreceiver=='ok')?(
          <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Заимодатель</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Заимодатель</label>
           {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm"
-                                                      className={"form-control " + (this.state.valid_err.includes("giver")  ? 'input_err' : '')} 
+                                                      className={"form-control " + (this.state.valid_err.includes("giver")  ? 'input_err' : '')}
                                                       name="giver" onChange={this.deal715}>
                                                     <option value=''>Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -220,18 +220,18 @@ import swal from 'sweetalert'
 
         ) : (this.state.goreceiver=='neok')? (
       <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Заемщик</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Заемщик</label>
         {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm"
-                                                     className={"form-control " + (this.state.valid_err.includes("borrower")  ? 'input_err' : '')} 
+                                                     className={"form-control " + (this.state.valid_err.includes("borrower")  ? 'input_err' : '')}
                                                      name="borrower"
                                                      onChange={this.deal715}>
                                                     <option value='' >Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -262,7 +262,7 @@ import swal from 'sweetalert'
       </div>
       <div className="form-group">
         <label className="form-control-label"  >Срок действия договора</label>
-            <DatePickerInput   
+            <DatePickerInput
             minDate={today}
                                  className={"my-react-datepicker " + (this.state.duedate_err=="1"  ? 'date_input_err' : '')}
                                 value={this.state.value}
@@ -282,11 +282,12 @@ import swal from 'sweetalert'
         </select>
         </div>
         ):(<div></div>)}
+          <label className="form-control-label"  >*Настоящий договор регулируется законодательством Республики Казахстана</label>
       <div className="form-group">
         <button     type="button" onClick={this.updateDeal715} className="btn btn-primary btn-block btn-round">Продолжить</button>
       </div>
     </div>
- 
+
                    );
   }
 }export default Deals;

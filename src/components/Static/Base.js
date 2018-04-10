@@ -88,12 +88,7 @@ class App extends Component {
                                 <span className="site-menu-title">Настройки</span>
                             </Link>
                         </li>
-                    { /*   <li className="site-menu-item has-sub">
-                            <a href="/#/news">
-                                <i className="site-menu-icon fa-inbox" aria-hidden="true" />
-                                <span className="site-menu-title">Уведомления</span>
-                            </a>
-                        </li>*/}
+  
                     </ul>
                 </div>
             </div>

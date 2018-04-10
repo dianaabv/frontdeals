@@ -5,7 +5,7 @@ import InputElement from 'react-input-mask';
 import './style.css';
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
 import 'rc-datepicker/lib/style.css';
-import 'moment/locale/ru.js' 
+import 'moment/locale/ru.js'
 import Auth from '../modules/Auth';
 import swal from 'sweetalert';
 import jwtDecode from 'jwt-decode';
@@ -136,7 +136,7 @@ import jwtDecode from 'jwt-decode';
           this.setState({
            message: res.data.message
           });
-          swal({text: this.state.message}).then(function(){window.location.reload()}) 
+          swal({text: this.state.message}).then(function(){window.location.reload()})
       })
       .catch(err => {
         if (err.response) {
@@ -200,7 +200,7 @@ import jwtDecode from 'jwt-decode';
       <h4><b className="cust_weigh">Предмет договора: </b> Хранитель обязуется хранить вещь, переданную на хранение Поклажедателем и возвратить эту вещь в сохранности на условиях, указанных в настоящем договоре.</h4>
       </div>
       <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
         <option value="Хранитель">Хранителем</option>
@@ -210,7 +210,7 @@ import jwtDecode from 'jwt-decode';
 
             {(this.state.goreceiver=='ok')?(
                   <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Поклажедатель</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Поклажедатель</label>
                                 {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("bailor")  ? 'input_err' : '')} name="bailor" onChange={this.deal768}>
@@ -218,7 +218,7 @@ import jwtDecode from 'jwt-decode';
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -228,7 +228,7 @@ import jwtDecode from 'jwt-decode';
 
         ) : (this.state.goreceiver=='neok')? (
               <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Хранитель</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Хранитель</label>
                     {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("keeper")  ? 'input_err' : '')} name="keeper" onChange={this.deal768}>
@@ -236,7 +236,7 @@ import jwtDecode from 'jwt-decode';
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -247,7 +247,7 @@ import jwtDecode from 'jwt-decode';
 <p></p>
         )}
 
- 
+
       <div className="form-group">
         <label className="form-control-label"  >Вещь, передаваемая на хранение</label>
         <input onChange={this.deal768}  type="text" className={"form-control " + (this.state.valid_err.includes("itemname")  ? 'input_err' : '')}   name="itemname"   autoComplete="off" />
@@ -290,16 +290,17 @@ import jwtDecode from 'jwt-decode';
         <select id="citySelectorAddShopForm" onChange={this.handleOptionChangeFiz.bind(this)}className="form-control">
             <option value='Физическое Лицо'>Физическое Лицо</option>
             <option value='Индивидуальный предприниматель'>Индивидуальный предприниматель</option>
-            
+
         </select>
         </div>
         ):(<div></div>)}
+          <label className="form-control-label"  >*Настоящий договор регулируется законодательством Республики Казахстана</label>
       <div className="form-group">
         <label className="form-control-label"><br/></label>
         <button type="button" onClick={this.updateDeal768.bind(this)} className="btn btn-primary btn-block btn-round">Cоздать сделку</button>
       </div>
     </div>
- 
+
                    );
   }
 }export default Deals;

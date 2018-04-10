@@ -10,10 +10,10 @@ import InputElement from 'react-input-mask';
 // import 'rc-datepicker/lib/style.css';
 // //import DatePicker from 'react-bootstrap-date-picker';
 
-// import 'moment/locale/ru.js' 
+// import 'moment/locale/ru.js'
 
 import { DatePicker, DatePickerInput } from 'rc-datepicker';
-const date = '2015-06-26' 
+const date = '2015-06-26'
 class SignupBuyer extends React.Component {
 
   constructor(props, context){
@@ -57,15 +57,15 @@ class SignupBuyer extends React.Component {
         if(this.state.person.password != this.state.person.password2){
             this.setState({
                 pass_err: 'Пароли должны совпадать'
-            }) 
+            })
         }
         else{
             this.setState({
                 pass_err: ''
-            }) 
-                
+            })
+
         }
-      
+
     }
     //остановилась здесь
     // if(field== 'email'){
@@ -91,7 +91,7 @@ class SignupBuyer extends React.Component {
     componentWillMount(){
         document.getElementById('root').className='animsition page-register-v2 layout-full ';
     }
-   
+
     submit(){
         var person1 =  {
              username: this.state.person.username,
@@ -158,17 +158,17 @@ class SignupBuyer extends React.Component {
           }).then((res) => {
               if (res.data.message==='Поздравляем! Вы успешно прошли регистрацию в роли Физ. лица.'
                 || res.data.message==='Поздравляем! Вы успешно прошли регистрацию в роли ИП.'){
-               setTimeout(function(){ 
+               setTimeout(function(){
                 swal("Поздравляем! Вы успешно прошли регистрацию.").then(function(){
                 browserHistory.push('/signin');
                 window.location.reload();
-                })         
+                })
             }, 1000);
               } else {
                   this.setState({message: res.data.message});
                   swal({ text: this.state.message})
               }
-            });  
+            });
         } else{
             swal("Проверьте поля")
         }
@@ -183,22 +183,22 @@ class SignupBuyer extends React.Component {
   render() {
     const today=new Date();
     const yesterday = new Date();
-    yesterday.setFullYear(yesterday.getFullYear() -18)   
+    yesterday.setFullYear(yesterday.getFullYear() -18)
     return (
           <div className="page col-md-4" data-animsition-in="fade-in" data-animsition-out="fade-out">
                 <div className="page-content">
                     <div className="page-brand-info">
                         <div className="brand">
                           {/*  <img className="brand-img" src="../../assets/images/logo@2x.png" alt="..." />
-                                                      */}                            
+                                                      */}
                           <h2 className="brand-text font-size-40">Сделки LegCo</h2>
                         </div>
                         <p className="font-size-20">Цифровой способ заключения сделок</p>
                     </div>
                     <div className="page-register-main animation-slide-left animation-duration-1">
-                       
+
                         <h3 className="font-size-24">Регистрация для физического лица</h3>
-                        <Link to="/signupip" className="font-size-24">Зарегестрироваться как ИП</Link>
+                        <Link to="/signupip" className="font-size-24">Зарегистрироваться как ИП</Link>
                         <p>Добро пожаловать</p>
                         <p>{this.state.message}</p>
                         <form >
@@ -207,36 +207,36 @@ class SignupBuyer extends React.Component {
                              placeholder="Введите номер телефона"
                       name="username"
                       onChange={this.changePerson} />
-                               
+
                                <p className="err_red">{this.state.username_err}</p>
                             </div>
                             <div className="form-group">
-                                
+
                                 <input onChange={this.changePerson} type="text" className={"form-control " + (this.state.valid_err.includes("firstname")  ? 'input_err' : '')} id="inputFirstname" name="firstname"  placeholder="Имя"/>
                             </div>
                             <div className="form-group">
-                                
-                                <input onChange={this.changePerson} 
+
+                                <input onChange={this.changePerson}
                                  type="text" className={"form-control " + (this.state.valid_err.includes("lastname")  ? 'input_err' : '')}  id="inputLastname" name="lastname" placeholder="Фамилия" />
                             </div>
                             <div className="form-group">
-                               
+
                                 <input onChange={(event)=>{this.setState({midname: event.target.value}) }}type="text" className="form-control" id="inputMidname" name="midname" placeholder="Отчество (не обяз.)" />
                             </div>
                             <div className="form-group">
-                               
-                                <input onChange={this.changePerson} className={"form-control " + ((this.state.email_err.length !=0 || this.state.valid_err.includes("email")) ? ('input_err') : (''))} 
+
+                                <input onChange={this.changePerson} className={"form-control " + ((this.state.email_err.length !=0 || this.state.valid_err.includes("email")) ? ('input_err') : (''))}
                                 value={this.state.person.email} type="email"  id="inputEmail" name="email" placeholder="Email" />
                                 <p className="err_red">{this.state.email_err}</p>
                             </div>
                                 <div className="form-group">
-                                
+
                                 <input onChange={this.changePerson}
-                                type="password" className={"form-control " + (this.state.valid_err.includes("password")  ? 'input_err' : '')} 
+                                type="password" className={"form-control " + (this.state.valid_err.includes("password")  ? 'input_err' : '')}
                                 name="password" id="password" name="password" placeholder="Пароль" />
                             </div>
                             <div className="form-group">
-                               
+
                                 <input onChange={this.changePerson}
                                  type="password" className={"form-control " + ((this.state.pass_err.length !=0 || this.state.valid_err.includes("password2")) ? ('input_err') : (''))}
                                 name="password2"  id="password2" name="password2" placeholder="Повторный пароль" />
@@ -244,7 +244,7 @@ class SignupBuyer extends React.Component {
                             </div>
 
                             <div className="form-group">
-                            <h4 >Дата рождения</h4>  
+                            <h4 >Дата рождения</h4>
                             <div className="row">
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("dob_day")) ? ('input_err') : (''))} onChange={this.changePerson} name="dob_day" >
@@ -420,7 +420,7 @@ class SignupBuyer extends React.Component {
                                                                  placeholder="Дата Рождения"/>*/}
                             </div>
                             <div className="form-group">
-                                    <InputElement mask="999999999" className={"form-control " + ((this.state.valid_err.includes("udv") || this.state.udv_err.length !=0)  ? ('input_err') : (''))} 
+                                    <InputElement mask="999999999" className={"form-control " + ((this.state.valid_err.includes("udv") || this.state.udv_err.length !=0)  ? ('input_err') : (''))}
                                 placeholder="№ Удостоверения личности" name="udv"
                                 onChange={this.changePerson}  />
                                  <p className="err_red">{this.state.udv_err}</p>
@@ -433,7 +433,7 @@ class SignupBuyer extends React.Component {
                                   </select>
                             </div>
                             <div className="form-group">
-                             <h4>Дата выдачи уд-ния личности</h4>  
+                             <h4>Дата выдачи уд-ния личности</h4>
                             <div className="row">
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("issueddate_day")) ? ('input_err') : (''))}  onChange={this.changePerson} name="issueddate_day"  >
@@ -623,7 +623,7 @@ class SignupBuyer extends React.Component {
                                                                placeholder="Дата выдачи уд-ния личности"/>*/}
                             </div>
                             <div className="form-group">
-                                <InputElement mask="999999999999" className={"form-control " + ((this.state.valid_err.includes("iin") ||this.state.iin_err.length!=0 ) ? ('input_err' ): (''))} 
+                                <InputElement mask="999999999999" className={"form-control " + ((this.state.valid_err.includes("iin") ||this.state.iin_err.length!=0 ) ? ('input_err' ): (''))}
                                 placeholder="ИИН" name="iin"
                                 onChange={this.changePerson} />
                                 <p className="err_red">{this.state.iin_err}</p>
@@ -634,20 +634,21 @@ class SignupBuyer extends React.Component {
                                 <input onChange={this.changePerson} type="text"
                                  className={"form-control " + (this.state.valid_err.includes("address")  ? 'input_err' : '')}  id="inputLastname" name="address" placeholder="Адрес регистрации (Область, город, улица, № дома, № квартиры)" />
                             </div>
-                                   <div className="form-group">
-                                <a href='policy.pdf'>Политика конфиденциальности</a><br/>
-                                    <Link to='agreement.pdf' target="_blank">Пользовательское соглашение</Link>
-                              </div>
+
                             <div className="form-group clearfix">
                                 <div className="checkbox-custom checkbox-inline checkbox-primary float-left">
                                     <input type="checkbox" id="inputCheckbox" name="term" checked={this.state.isChecked} onChange={this.toggleAgree.bind(this)} />
                                     <label htmlFor="inputCheckbox" />
                                 </div>
-                                <p className="ml-40">Регистрируясь, вы принимаете наши </p>
+                                <p className="ml-40">Регистрируясь, Вы принимаете следующие документы: </p>
                             </div>
+                            <div className="form-group">
+                                  <a href='http://legco.kz/css/new/privacy.pdf' target="_blank">Политика конфиденциальности</a><br/>
+                                      <a  href='http://legco.kz/css/new/agreement.pdf' target="_blank">Пользовательское соглашение</a >
+                                </div>
                             <button type="button" onClick={this.submit.bind(this)} className="btn btn-primary btn-block">Регистрация</button>
                         </form>
-                     
+
                         <p>У вас уже есть аккаунт? Пожалуйста,<Link to="/signin" className="waves-effect"  >войдите</Link></p>
                         <footer className="page-copyright">
                             <p>Сделки LegCo</p>

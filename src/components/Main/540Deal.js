@@ -276,6 +276,7 @@ if(event.target.value=='0'){
      </select>
      </div>
      ):(<div></div>)}
+       <label className="form-control-label"  >*Настоящий договор регулируется законодательством Республики Казахстана</label>
       <div className="form-group">
         <label className="form-control-label"><br/></label>
         <button   type="button"   onClick={this.updateDeal.bind(this)} className="btn btn-primary btn-block btn-round">Продолжить</button>

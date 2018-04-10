@@ -18,7 +18,7 @@ class MyDealsParent extends React.Component {
             isChangable: true,
             duedate:'',
             //workdeadline: '',
-            
+
             deal506: {
               presenter:'',
               receiver: '',
@@ -42,7 +42,7 @@ class MyDealsParent extends React.Component {
         this.acceptDeny = this.acceptDeny.bind(this)
         this.denyDeny = this.denyDeny.bind(this)
         this.getDenyReason = this.getDenyReason.bind(this)
-        this.dateFormat=this.dateFormat.bind(this); 
+        this.dateFormat=this.dateFormat.bind(this);
     }
     deal506(event){
       const field = event.target.name;
@@ -77,7 +77,7 @@ class MyDealsParent extends React.Component {
         onOpenModal = () => {
     this.setState({ open1: true });
   };
- 
+
   onCloseModal = () => {
     this.setState({ open1: false });
   };
@@ -105,7 +105,7 @@ class MyDealsParent extends React.Component {
           this.setState({
             message: res.data.message
           });
-          swal({text: this.state.message}).then(function(){window.location.reload()})  
+          swal({text: this.state.message}).then(function(){window.location.reload()})
         })
         .catch(err => {
         if (err.response) {
@@ -279,7 +279,7 @@ class MyDealsParent extends React.Component {
 
     render() {
       const today=new Date();
-      today.setDate(today.getDate() + 1)   
+      today.setDate(today.getDate() + 1)
       function compareDeals(new_deal, old_deal) {
         return Object.keys(new_deal).reduce(function(map1, k){
         if(new_deal[k]!=old_deal[k]) {
@@ -287,7 +287,7 @@ class MyDealsParent extends React.Component {
         }
         return map1;
         }, {})
-      } 
+      }
       var z = compareDeals(this.props.olddeal, this.props.data)
       var objKeys=Object.keys(z)
         return (
@@ -353,9 +353,9 @@ class MyDealsParent extends React.Component {
                     </div>
 
                     )}
-                
+
                     <div className="form-group">
-                      {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
+                      {(this.props.dealstatus=='requested' || this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
                       {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
@@ -382,7 +382,7 @@ class MyDealsParent extends React.Component {
                       </div>
                       <button className="btn btn-primary btn-block "onClick={this.denyDeal}>Подтвердить</button>
                     </Modal>
-              
+
 
                 </div>
               </div>
@@ -423,13 +423,13 @@ class MyDealsParent extends React.Component {
                         <h3>Дополнительные условия (не обязательное ус-ие)                            </h3>
                         <label className="form-control-label">{this.props.olddeal.additional}</label>
                     </div>
-                        </div>):(<h1>пока нет изменений</h1>)} 
+                        </div>):(<h1>пока нет изменений</h1>)}
                 </div>
-                
+
               </div>
             </div>
         </div>
-       
+
 ):(<div className="panel-body">
             <div className="row">
                 <div className="col-md-12">
@@ -438,7 +438,7 @@ class MyDealsParent extends React.Component {
 
                     <div className="form-group">
                         <h3>Даритель</h3>
-                        <label className="form-control-label">{this.props.data.presenter.firstname} {this.props.data.presenter.lastname}</label>    
+                        <label className="form-control-label">{this.props.data.presenter.firstname} {this.props.data.presenter.lastname}</label>
                     </div>
                     </div>
                     <div className="col-md-6">
@@ -458,7 +458,7 @@ class MyDealsParent extends React.Component {
                     </div>
                     <div className="form-group">
                         <h3>Сроки и порядок передачи дара(момент перехода права собственности)</h3>
-                      
+
                         <input type="text" defaultValue={this.props.data.deadline} name='deadline' onChange={this.deal506} className="form-control"   />
 
                     </div>
@@ -477,14 +477,14 @@ class MyDealsParent extends React.Component {
                                 locale='ru'/>
                     </div>
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block " onClick={this.updateDeal506}>Сохранить изменения</button>
+                        <button className="btn btn-primary btn-block " onClick={this.updateDeal506}>Внести изменения в сделку</button>
                     </div>
                     <div className="form-group">
 
                     <button className="btn btn-primary btn-block " onClick={this.changeRender}>Отменить изменения</button>
                   {/*<button className="btn btn-primary btn-block " onClick={this.changeRender}>Отменить Cделку</button>*/}
-                        
-                  
+
+
                     </div>
                 </div>
             </div>

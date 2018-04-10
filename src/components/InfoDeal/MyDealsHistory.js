@@ -22,12 +22,12 @@ class MyDealsParent extends React.Component {
 
         },
         this.dealRedirects=this.dealRedirects.bind(this)
-         this.dateFormat=this.dateFormat.bind(this); 
+         this.dateFormat=this.dateFormat.bind(this);
 
     }
     componentDidMount() {
      // window.location.reload()
-     console.log('ya tut')
+  
         axios.get('http://185.100.67.106:4040/api/getmydeals',{
         responseType: 'json',
         headers: {
@@ -99,12 +99,12 @@ class MyDealsParent extends React.Component {
                               <div className="panel-heading">
                                     <h3 className="panel-title"><i className="panel-title-icon icon fa-list-ul" aria-hidden="true" />Узнать подробнее</h3>
                                 </div>
-                              
+
                                   {(this.state.deals.length!=0)?(
         <div className="">
             {this.state.deals.map((deal, s) =>
                 <div  key={s} className="">
-                    
+
                         <div className="">
                             <div className="panel panel-bordered">
                                 <div className="panel-heading margin-left">
@@ -112,7 +112,7 @@ class MyDealsParent extends React.Component {
                                     <h5>{this.dateFormat(deal.duedate)}</h5>
                                 </div>
                                 <div className="panel-body">
-                                    
+
                                     <div className="rating-lg"  />
                                         <div style={{fontSize: '16px'}}>
                                          <div className="my_weight"><i id={s} aria-hidden="true" />Стороны договора: </div>
@@ -125,6 +125,9 @@ class MyDealsParent extends React.Component {
                                               {(deal.status=='requested')?(<p>Сделка запрошена</p>):(<span></span>)}
                                               {(deal.status=='requested_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
                                               {(deal.status=='request_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
+                                              {(deal.status=='finished')?(<p>Срок действия договора истек.</p>):(<span></span>)}
+                                              {(deal.status=='completed')?(<p>Сделка завершена.</p>):(<span></span>)}
+
 
                                               </div>
                                               ):(<p></p>)}
@@ -132,13 +135,13 @@ class MyDealsParent extends React.Component {
 
                                            {/* <div><i id={s} aria-hidden="true" />{deal.status}</div>
                                            <div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Подробнее</Link></div>*/}
-                                            <div className="col-md-6 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></div> 
+                                            <div className="col-md-6 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary btn-block d1"  onClick={(event) => this.dealRedirects(event)}>Подробнее</button></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
                 )}
         </div>):(<div className="panel-heading">
                                 <h3 className="panel-title">У вас пока нет сделок</h3>
@@ -155,17 +158,18 @@ class MyDealsParent extends React.Component {
 {this.state.time.map((tl, s) =>
    <TimelineEvent key ={s} title={tl.title}
                            createdAt={this.dateFormat(tl.date)}
-                           icon={<i className="fa fa-pencil"></i>}
-            >{tl.title=='Внесены изменения в сделку' ?(<p>В следущие поля были внесены изменения : {tl.fields}</p>): (<p></p>)}
-            <p>Инициатор действия : {tl.action_initiator.firstname} {tl.action_initiator.lastname}  </p>
-            {tl.role_status ? (<p>Статус: {tl.role_status}</p>) :(<span></span>) }
+                           icon={<i className="fa fa-pencil"></i>}>
+                           {(tl.finals)?(<p>Претензия : {tl.finals}</p>):(<p></p>)}
+                           {tl.title=='Внесены изменения в сделку' ?(<p>В следущие поля были внесены изменения : {tl.fields}</p>): (<p></p>)}
+                           {(tl.action_initiator)?(  <p>Инициатор действия : {tl.action_initiator.firstname} {tl.action_initiator.lastname}  </p>):(<p></p>)}
+                           {tl.role_status ? (<p>Статус: {tl.role_status}</p>) :(<span></span>)}
 
-            
-         
+
+
             </TimelineEvent>
 
 )}
-           
+
     </Timeline>
     ) :(<p></p>)}
                             </div>

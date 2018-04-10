@@ -74,7 +74,7 @@ class MyDealsParent extends React.Component {
         this.changeIp = this.changeIp.bind(this)
         this.changePassword = this.changePassword.bind(this)
         this.updatePassword = this.updatePassword.bind(this)
-        this.dateFormat=this.dateFormat.bind(this); 
+        this.dateFormat=this.dateFormat.bind(this);
         this.changeDob=this.changeDob.bind(this);
         this.changeIssuedDate=this.changeIssuedDate.bind(this);
         // checkContentIp =
@@ -106,7 +106,7 @@ class MyDealsParent extends React.Component {
           });
       }
   })
-        
+
     }
     Test(){
       axios.get('http://185.100.67.106:4040/api/test?test='+this.state.test,{
@@ -171,13 +171,13 @@ class MyDealsParent extends React.Component {
             if(this.state.password.password != this.state.password.password2){
             this.setState({
                 pass_err: 'Пароли должны совпадать'
-            }) 
+            })
         }
         else{
             this.setState({
                 pass_err: ''
-            }) 
-                
+            })
+
         }
         }
     }
@@ -212,7 +212,7 @@ class MyDealsParent extends React.Component {
         swal("Проверьте поля. Информация не обновлена")
     } else {
 
-        
+
         const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday.dob_day+'/'+this.state.birthday.dob_month+'/'+this.state.birthday.dob_year}&issueddate=${this.state.issueddate.issueddate_day+'/'+this.state.issueddate.issueddate_month+'/'+this.state.issueddate.issueddate_year}`;
         console.log(formData)
         axios.post('http://185.100.67.106:4040/api/updatepersonalinfo',formData,{
@@ -244,12 +244,12 @@ class MyDealsParent extends React.Component {
         })
         const field = event.target.name;
         const dob = this.state.birthday;
-        dob[field] = event.target.value; 
+        dob[field] = event.target.value;
                var birthday1 =  {
           dob_day: this.state.birthday.dob_day,
           dob_month: this.state.birthday.dob_month,
           dob_year: this.state.birthday.dob_year
-             
+
         }
       const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
       var mainobj=removeEmpty(birthday1)
@@ -264,12 +264,12 @@ class MyDealsParent extends React.Component {
         })
         const field = event.target.name;
         const issueddate = this.state.issueddate;
-        issueddate[field] = event.target.value; 
+        issueddate[field] = event.target.value;
                var birthday1 =  {
           issueddate_day: this.state.issueddate.issueddate_day,
           issueddate_month: this.state.issueddate.issueddate_month,
           issueddate_year: this.state.issueddate.issueddate_year
-             
+
         }
       const removeEmpty = (obj) => {Object.keys(obj).forEach((key) => (obj[key].length != 0) && delete obj[key]); return obj;}
       var mainobj=removeEmpty(birthday1)
@@ -286,7 +286,7 @@ class MyDealsParent extends React.Component {
         })
         const field = event.target.name;
         const ip = this.state.changeIp;
-        ip[field] = event.target.value; 
+        ip[field] = event.target.value;
     }
     changePerson(event){
         this.setState({
@@ -410,7 +410,7 @@ class MyDealsParent extends React.Component {
     render() {
         const today=new Date();
         const yesterday = new Date();
-        yesterday.setFullYear(yesterday.getFullYear() -18)  
+        yesterday.setFullYear(yesterday.getFullYear() -18)
         // console.log(this.state.status)
         //console.log(this.state.test)
         return (
@@ -470,7 +470,11 @@ class MyDealsParent extends React.Component {
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Орган, выдавший уд-ние личности</h4>
-                                                    <label className="form-control-label"> {this.state.user.issuedby} </label>
+                                                    {(this.state.user.issuedby=='mvd')?(
+                                                      <label className="form-control-label"> МВД РК </label>):(
+                                                                    <label className="form-control-label">Министерство юстиции Республики Казахстан </label>
+                                                      )}
+
                                                 </div>
                                                 <div className="form-group">
                                                     <h4>Дата выдачи уд-ния личности</h4>
@@ -487,7 +491,7 @@ class MyDealsParent extends React.Component {
                                                 <div className="form-group">
                                                     <button className="btn btn-primary btn-block " onClick={this.changeRender} >Редактировать</button>
                                                 </div>
-                                            </div>):(                                            
+                                            </div>):(
                                             <div className="col-12">
                                                 <div className="form-group">
                                                     <h4>Имя</h4>
@@ -509,7 +513,7 @@ class MyDealsParent extends React.Component {
                                                 <div className="form-group">
                                                     <h4>Дата Рождения</h4>
                                                     <label className="form-control-label">Текущие данные: {this.state.user.birthday}</label>
-                                                       
+
                             <div className="row">
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err.includes("dob_day")) ? ('input_err') : (''))} onChange={this.changeDob} name="dob_day" >
@@ -700,7 +704,7 @@ class MyDealsParent extends React.Component {
                                                 <div className="form-group">
                                                     <h4>Дата выдачи уд-ния личности</h4>
                                                     <label className="form-control-label">Текущие данные: {this.state.user.issueddate}</label>
-                                                          
+
                             <div className="row">
                                 <div className="col-md-4">
                                   <select className={"form-control " + (( this.state.valid_err1.includes("issueddate_day")) ? ('input_err') : (''))}  onChange={this.changeIssuedDate} name="issueddate_day"  >
@@ -1004,7 +1008,7 @@ class MyDealsParent extends React.Component {
                                                 <div className="form-group">
                                                     <h4>Повторите Новый Пароль</h4>
                                                     <input onChange={this.changePassword}  type="password"  name="password2"className={"form-control " + (this.state.pass_err.length !=0  ? 'input_err' : '')} placeholder="Повторный пароль" />
-                                                
+
                                                     <h5 className="err_red">{this.state.pass_err}</h5>
                                                 </div>
                                                  <div className="form-group">
@@ -1056,7 +1060,7 @@ class MyDealsParent extends React.Component {
                                         </div>
                                         <div className="form-group">
                                                     <h4>Дата гос. регистрации ИП</h4>
-    
+
                                                         <DatePickerInput
                                                         maxDate={today}
                                                         className='my-react-datepicker'
@@ -1073,14 +1077,14 @@ class MyDealsParent extends React.Component {
                                         </div>
                                     </div>
 )}
-                             
+
                                 </div>):(<div></div>)}
                             </div>
                         </div>
                     </div>
-                </div>   
-                              
-                            
+                </div>
+
+
 
         );
     }

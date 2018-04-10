@@ -16,6 +16,7 @@ import InfoDeal540 from './InfoDeal540'
 import InfoDeal501 from './InfoDeal501'
 import InfoDeal846 from './InfoDeal846'
 import InfoDeal406 from './InfoDeal406'
+import Satisfied from './Satisified'
 
 
 import swal from 'sweetalert'
@@ -27,26 +28,36 @@ class MyDealsParent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          satisfied:false,
+          satisfied_deal_id:'',
             deals: [],
             deal: {},
             userId:'',
             lawid: '',
             dealstatus: '',
             acceptor_status:'',
+            initiator_status: '',
             dealstatus: '',
             status: '',
             olddeal: {},
-            create_as_ip: ''
+            create_as_ip: '',
+
+
+            // dealSat:{
+            //   ans: '',
+            //   reason:''
+            // }
 
         },
         this.dealRedirects=this.dealRedirects.bind(this)
         this.createPdf = this.createPdf.bind(this)
         this.dateFormat=this.dateFormat.bind(this);
+        this.dealSatisfied = this.dealSatisfied.bind(this)
+    //    this.dealSat = this.dealSat.bind(this)
         //this.privet=this.privet.bind(this)
 
     }
     componentDidMount() {
-
       const { match: { params } } = this.props;
       if(params.deal_id){
         // console.log(params.deal_id)
@@ -62,9 +73,18 @@ class MyDealsParent extends React.Component {
         this.getinfodeal(params.lawid,params.deal_id)
         this.getmystatus(params.deal_id)
         this.getolddeal(params.lawid, params.deal_id)
-      } else {
-        console.log('net param')
       }
+      // else{
+      //   this.setState({
+      //     deal :{},
+      //     acceptor_status: '',
+      //     dealstatus: '',
+      //     status: '',
+      //     olddeal: {},
+      //     create_as_ip: ''
+      //   })
+      //   this.getmystatus(params.deal_id)
+      // }
 
      // this.privet()
         axios.get('http://185.100.67.106:4040/api/getmydeals',{
@@ -158,7 +178,8 @@ class MyDealsParent extends React.Component {
            status: res.data.status,
            dealstatus: res.data.dealstatus,
            acceptor_status: res.data.acceptor_status,
-           create_as_ip: res.data.create_as_ip
+           create_as_ip: res.data.create_as_ip,
+           initiator_status: res.data.initiator_status
           });
       })
       .catch(err => {
@@ -207,8 +228,45 @@ class MyDealsParent extends React.Component {
       this.getmystatus(event.target.value)
       this.getolddeal(event.target.name, event.target.value)
     }
+    dealSatisfied(event){
+      // if(this.state.satisfied==1){
+  this.setState({satisfied_deal_id: event.target.value})
+          const formData = `deal_id=${event.target.value}`;
+          axios.post('http://185.100.67.106:4040/api/needfinalsubmission', formData, {
+            responseType: 'json',
+            headers: {
+              'Content-type': 'application/x-www-form-urlencoded',
+              'Authorization': `bearer ${Auth.getToken()}`
+          }
+          }).then(res => {
+            // console.log(res.data)
+            // this.setState({ satisfied:!this.state.satisfied})
+            if(res.data.message.length!=0){
+              swal(res.data.message)
+            } else{
+              this.setState({ satisfied:!this.state.satisfied})
+            }
+          })
+          .catch(err => {
+            if (err.response) {
+              const errors = err.response ? err.response : {};
+              errors.summary = err.response.data.message;
+              this.setState({
+                errors
+              });
+            }
+          });
+      // } else {
+      //   this.setState({
+      //     satisfied:!this.state.satisfied,
+      //     satisfied_deal_id: event.target.value
+      //   })
+      // }
+    }
 
     render() {
+      //console.log(this.state.acceptor1, this.state.initiator1, '22222')
+
         return (
 
                 <div className="page">
@@ -250,14 +308,20 @@ class MyDealsParent extends React.Component {
                                               {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<span></span>)}
                                               {(deal.status=='requested')?(<p>Сделка запрошена</p>):(<span></span>)}
                                               {(deal.status=='requested_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
+                                              {(deal.status=='finished')?(<p>Срок действия договора истек.</p>):(<span></span>)}
+                                              {(deal.status=='completed')?(<p>Сделка завершена.</p>):(<span></span>)}
 
                                               </div>
                                               ):(<p></p>)}
                                             </div>
                                             {/*<div><Link to={`/dealredirect/${deal._id}/${deal.lawid}`} className="waves-effect" >Просмотреть условия</Link></div>*/}
+                                            {(deal.status=='finished')?(
+                                            <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-success  d1"
+                                             onClick={(event) => this.dealSatisfied(event)}>Удовлетворена ли сделка? (обяз)</button></div>
+                                            ):(<div></div>)}
                                             <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  d1"  onClick={(event) => this.dealRedirects(event)}>Просмотреть условия</button></div>
                                             <div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку</button></div>
-                                            {deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}
+                                        {    /*{deal.status=='finished' ? (<div className="col-md-8 pull-right"><button value={deal._id} name={deal.lawid} className="btn btn-primary  cst_btn d1"  onClick={(event) => this.createPdf(event)}>Запросить справку      </button></div> ) : (<p></p>)}*/}
                                         </div>
                                     </div>
                                 </div>
@@ -275,6 +339,9 @@ class MyDealsParent extends React.Component {
                                 <div className="panel-heading">
                                     <h3 className="panel-title"><i className="panel-title-icon icon fa-pencil-square-o" aria-hidden="true" />Полная информация о сделке</h3>
                                 </div>
+                                {(this.state.satisfied==1)?(
+<Satisfied  deal_id = {this.state.satisfied_deal_id} />
+                                ):(  <h3 className="panel-title">Пока ничего не выбрано</h3>)}
                                 {(Object.keys(this.state.deal).length != 0) ? (<div>
                                                                 {(this.state.deal.lawid =='406')?(<InfoDeal406 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
 
@@ -293,7 +360,7 @@ class MyDealsParent extends React.Component {
                                                                 {(this.state.deal.lawid =='688')?(<InfoDeal688 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 {(this.state.deal.lawid =='616')?(<InfoDeal616 data={this.state.deal} acceptor_status = {this.state.acceptor_status} dealstatus = {this.state.dealstatus} status = {this.state.status} olddeal={this.state.olddeal} create_as_ip={this.state.create_as_ip} />): (<h1></h1>)}
                                                                 </div>) :(<div className="panel-heading">
-                                    <h3 className="panel-title">Пока ничего не выбрано</h3>
+
                                 </div>)}
                             </div>
                             </div>

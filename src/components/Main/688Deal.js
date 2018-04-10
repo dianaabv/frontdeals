@@ -187,7 +187,8 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
   }
   render() {
       const today=new Date();
-    today.setDate(today.getDate() + 1)
+    // today.setDate(today.getDate() + 1)
+    today.setDate(today.getDate())
     return (
 
     <div className="col-md-6">
@@ -297,6 +298,7 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
         </select>
         </div>
         ):(<div></div>)}
+          <label className="form-control-label"  >*Настоящий договор регулируется законодательством Республики Казахстана</label>
       <div className="form-group">
         <label className="form-control-label"><br/></label>
         <button   type="button" onClick={this.updateDeal.bind(this)} className="btn btn-primary btn-block btn-round">Создать сделку</button>

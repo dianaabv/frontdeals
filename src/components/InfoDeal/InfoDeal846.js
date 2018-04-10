@@ -343,7 +343,7 @@ class MyDealsParent extends React.Component {
                     )}
 
                     <div className="form-group">
-                      {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
+                      {(this.props.dealstatus=='requested'|| this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
                       {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}

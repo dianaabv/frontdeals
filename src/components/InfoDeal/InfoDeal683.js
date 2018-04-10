@@ -19,7 +19,7 @@ class MyDealsParent extends React.Component {
             isChangable: true,
             duedate:'',
             deadline: '',
-            
+
             deal683: {
                employer: '',
 		        employee: '',
@@ -42,7 +42,7 @@ class MyDealsParent extends React.Component {
         this.acceptDeny = this.acceptDeny.bind(this)
         this.denyDeny = this.denyDeny.bind(this)
         this.getDenyReason = this.getDenyReason.bind(this)
-        this.dateFormat=this.dateFormat.bind(this); 
+        this.dateFormat=this.dateFormat.bind(this);
     }
    // componentDidMount() {
    //    var deal_id=this.props.data[0].deal_id
@@ -213,11 +213,11 @@ class MyDealsParent extends React.Component {
      onOpenModal = () => {
     this.setState({ open1: true });
   };
- 
+
   onCloseModal = () => {
     this.setState({ open1: false });
   };
- 
+
 
     changeRender(){
         this.setState({
@@ -225,7 +225,6 @@ class MyDealsParent extends React.Component {
         })
     }
     updatedeal(){
-      console.log(this.state.deal683)
       const formData = `deal683=${JSON.stringify(this.state.deal683)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&deadline=${this.state.deadline}`
 
         axios.post('http://185.100.67.106:4040/update/updateDeal683',formData, {
@@ -239,7 +238,7 @@ class MyDealsParent extends React.Component {
           this.setState({
             message: res.data.message
           });
-          swal({text: this.state.message}).then(function(){window.location.reload()})  
+          swal({text: this.state.message}).then(function(){window.location.reload()})
         })
         .catch(err => {
         if (err.response) {
@@ -268,7 +267,7 @@ class MyDealsParent extends React.Component {
         }
         return map1;
         }, {})
-      } 
+      }
       var z = compareDeals(this.props.olddeal, this.props.data)
       var objKeys=Object.keys(z)
       return (
@@ -342,9 +341,9 @@ class MyDealsParent extends React.Component {
                     </div>
 
                     )}
-                
+
                     <div className="form-group">
-                      {(this.props.dealstatus=='requested')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
+                      {(this.props.dealstatus=='requested' || this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.changeRender}>Внести изменения</button>):(<div></div>)}
                     </div>
                    <div className="form-group">
                       {(this.props.dealstatus=='accepted')?(<button className="btn btn-primary btn-block " onClick={this.onOpenModal} >Досрочное расторжение договора</button>):(<div></div>)}
@@ -418,18 +417,18 @@ class MyDealsParent extends React.Component {
                         <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.olddeal.additional}</label>
                     </div>
-                         </div>) :(<h1>пока нет изменений</h1>)} 
+                         </div>) :(<h1>пока нет изменений</h1>)}
                 </div>
               </div>
             </div>
         </div>
-       
+
 ):(<div className="panel-body">
          <div className="row">
                       <div className="col-md-12">
                       <div className="row">
                        <div className="col-md-6">
-        
+
                           <div className="form-group">
                               <h4>Исполнитель</h4>
                            <label className="form-control-label">{this.props.data.employee.firstname} {this.props.data.employee.lastname}</label>

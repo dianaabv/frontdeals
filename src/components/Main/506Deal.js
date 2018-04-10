@@ -56,7 +56,7 @@ import swal from 'sweetalert'
       status: event.target.value
     });
   }
-  componentDidMount() { 
+  componentDidMount() {
     swal("Cделка действительна только в случае дарения движимого имущества. В ином случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
       axios.get('http://185.100.67.106:4040/api/getmykontragents',{
       responseType: 'json',
@@ -171,7 +171,7 @@ import swal from 'sweetalert'
           this.setState({
            message: res.data.message
           });
-           swal({text: this.state.message}).then(function(){window.location.reload()}) 
+           swal({text: this.state.message}).then(function(){window.location.reload()})
       })
       .catch(err => {
         if (err.response) {
@@ -190,7 +190,7 @@ import swal from 'sweetalert'
 
   render() {
   const today=new Date();
-  today.setDate(today.getDate() + 1)   
+  today.setDate(today.getDate() + 1)
     return (
 
     <div className="col-md-6">
@@ -198,10 +198,10 @@ import swal from 'sweetalert'
         <h3>Договор дарения</h3>
         <h4><b className="cust_weigh">Предмет договора: </b> Даритель обязуется передать Одаряемому вещь в собственность либо имущественное право (требование) к себе или третьему лицу, либо освобождает или обязуется освободить ее от имущественной обязанности перед третьим лицом на условиях, указанных в настоящем договоре.</h4>
       </div>
-  
-   
+
+
       <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>  
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>
         <select className="form-control" name="role" onChange={this.updateRole}>
          <option value='0' >Выберите</option>
         <option value="Даритель">Дарителем</option>
@@ -218,7 +218,7 @@ import swal from 'sweetalert'
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -235,7 +235,7 @@ import swal from 'sweetalert'
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
                                                     )}
-                                                    </select>) : 
+                                                    </select>) :
                                                     ( <select id="citySelectorAddShopForm" className="form-control">
                                                     <option value=''>У вас пока нет контрагентов</option>
                                                     </select>
@@ -245,7 +245,7 @@ import swal from 'sweetalert'
         ) :(this.state.goreceiver=='')?(<p>Выберите роль</p>):(
 <p></p>
         )}
-  
+
       <div className="form-group">
         <label className="form-control-label"  >Наименование дара (вещи или имущественного права (требование) либо освобождения от имущественной обязанности)</label>
         <input onChange={this.deal506}  type="text" className={"form-control " + (this.state.valid_err.includes("itemname")  ? 'input_err' : '')}  name="itemname"  autoComplete="off" />
@@ -280,13 +280,14 @@ import swal from 'sweetalert'
         </select>
         </div>
         ):(<div></div>)}
+          <label className="form-control-label"  >*Настоящий договор регулируется законодательством Республики Казахстана</label>
       <div className="form-group">
         <label className="form-control-label"><br/></label>
         <button   type="button" onClick={this.updateDeal.bind(this)} className="btn btn-primary btn-block btn-round">Продолжить</button>
       </div>
-    
+
     </div>
- 
+
                    );
   }
 }export default Deals;
