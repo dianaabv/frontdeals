@@ -187,8 +187,8 @@ const formData = `deal688=${JSON.stringify(this.state.deal688)}&сarrier=${this.
   }
   render() {
       const today=new Date();
-    // today.setDate(today.getDate() + 1)
-    today.setDate(today.getDate())
+    today.setDate(today.getDate() + 1)
+    // today.setDate(today.getDate())
     return (
 
     <div className="col-md-6">
