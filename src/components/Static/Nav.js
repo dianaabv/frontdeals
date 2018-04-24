@@ -25,6 +25,7 @@ class App extends Component {
     this.dateFormat=this.dateFormat.bind(this);
     this.changeIsOpen=this.changeIsOpen.bind(this);
     this.ok = this.ok.bind(this)
+    this.send = this.send.bind(this)
    }
    //console.log(DealParent.privet())
    ok(){
