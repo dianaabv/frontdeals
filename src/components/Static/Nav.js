@@ -35,7 +35,9 @@ class App extends Component {
       const socket = socketIOClient(this.state.endpoint);
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
-      socket.emit('change color', decoded.sub)
+      socket.emit('change color', decoded.sub, , function (response) {
+        console.log(response)
+      })
     }
    //ok()
     componentDidMount() {
@@ -127,7 +129,7 @@ class App extends Component {
 
   render() {
     const socket = socketIOClient(this.state.endpoint)
-    socket.on('change color1', (dealtimelines) => {
+    socket.on('change color', (dealtimelines) => {
       this.setState({
         dealtimelines: dealtimelines
       });
