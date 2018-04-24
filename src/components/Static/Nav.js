@@ -33,10 +33,18 @@ class App extends Component {
     this.child.privet()
    }
     send() {
+      // .then(res => {
+      //     this.setState({
+      //       errors: {}
+      //     });
+      //     Auth.authenticateUser(res.data.token);
+      //     this.context.router.history.push('/')
+      //     window.location.reload()
+      // })
       const socket = socketIOClient(this.state.endpoint);
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
-      socket.emit('change color', decoded.sub, function (response) {
+      socket.emit('change color', decoded.sub, response => {
           this.setState({
             dealtimelines: response
           });
