@@ -127,7 +127,7 @@ class App extends Component {
 
   render() {
     const socket = socketIOClient(this.state.endpoint)
-    socket.on('change color', (dealtimelines) => {
+    socket.on('change color1', (dealtimelines) => {
       this.setState({
         dealtimelines: dealtimelines
       });
