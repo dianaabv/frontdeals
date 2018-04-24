@@ -28,7 +28,7 @@ class App extends Component {
    }
    //console.log(DealParent.privet())
    ok(){
-    console.log('okkkkk')
+  //  console.log('okkkkk')
     this.child.privet()
    }
     send() {
@@ -36,7 +36,10 @@ class App extends Component {
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
       socket.emit('change color', decoded.sub, function (response) {
-        console.log(response)
+          this.setState({
+            dealtimelines: response
+          });
+        //console.log(response)
       })
     }
    //ok()
@@ -128,12 +131,12 @@ class App extends Component {
   }
 
   render() {
-    const socket = socketIOClient(this.state.endpoint)
-    socket.on('change color', (dealtimelines) => {
-      this.setState({
-        dealtimelines: dealtimelines
-      });
-    })
+    // const socket = socketIOClient(this.state.endpoint)
+    // socket.on('change color', (dealtimelines) => {
+    //   this.setState({
+    //     dealtimelines: dealtimelines
+    //   });
+    // })
 
 
 
