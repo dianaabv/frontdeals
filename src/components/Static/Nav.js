@@ -35,7 +35,7 @@ class App extends Component {
       const socket = socketIOClient(this.state.endpoint);
       var token = Auth.getToken();
       var decoded = jwtDecode(token);
-      socket.emit('change color', decoded.sub, , function (response) {
+      socket.emit('change color', decoded.sub, function (response) {
         console.log(response)
       })
     }
