@@ -259,8 +259,7 @@ class MyDealsParent extends React.Component {
 
     render() {
       const today=new Date();
-      today.setDate(today.getDate() )
-      //today.setDate(today.getDate() + 1)
+      today.setDate(today.getDate() + 1)
       function compareDeals(new_deal, old_deal) {
         return Object.keys(new_deal).reduce(function(map1, k){
         if(new_deal[k]!=old_deal[k]) {
