@@ -33,13 +33,13 @@ class LoginPage extends React.Component {
         if(this.state.user.password != this.state.user.password2){
             this.setState({
                 pass_err: 'Пароли должны совпадать'
-            }) 
+            })
         }
         else{
             this.setState({
                 pass_err: ''
-            }) 
-                
+            })
+
         }
 
     }
@@ -77,6 +77,7 @@ class LoginPage extends React.Component {
           this.setState({
             message: res.data.message
           });
+          swal({text: res.data.message})
           // Auth.authenticateUser(res.data.token);
           // this.context.router.history.push('/')
           // window.location.reload()
@@ -103,13 +104,13 @@ class LoginPage extends React.Component {
 
                         <div className="page-brand-info">
                             <div className="brand">
-                               
+
                                 <h2 className="brand-text font-size-40">Сделки LegCo</h2>
                             </div>
                             <p className="font-size-20">Цифровой способ заключения сделок.</p>
                         </div>
                         <div className="page-login-main animation-slide-right animation-duration-1">
-                       
+
                             <h3 className="font-size-24">Восставновление Пароля</h3>
                             <form>
                                 <div className="form-group">
@@ -121,16 +122,16 @@ class LoginPage extends React.Component {
                       onChange={this.changeUser} />
                                 </div>
                                 <div className="form-group">
-                                    
+
                                     <input  value={this.state.user.password} onChange={this.changeUser}  type="password" className="form-control"
                                      id="inputPassword" name="password" placeholder="Новый Пароль" />
                                 </div>
                                  <div className="form-group">
-                                  
+
                                     <input  value={this.state.user.password2} onChange={this.changeUser}  type="password" className="form-control"
                                      id="inputPassword" name="password2" placeholder="Повторный пароль" />
                                 </div>
-                        
+
                                 <h4>{this.state.pass_err}</h4>
                                 <button onClick={this.submit.bind(this)} type="button" className="btn btn-primary btn-block">Cменить пароль</button>
                                 <p>{this.state.message}</p>
@@ -152,7 +153,7 @@ class LoginPage extends React.Component {
                                 </div>
                             </footer>
                         </div>
-         
+
         </div>
         </div>);
   }

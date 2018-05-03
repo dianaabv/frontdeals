@@ -307,9 +307,11 @@ class MyDealsParent extends React.Component {
                                               {(deal.status=='accepted')?(<p>Сделка вступила в силу </p>):(<span></span>)}
                                               {(deal.status=='denied')?(<p>Сделка отклонена</p>):(<span></span>)}
                                               {(deal.status=='requested')?(<p>Сделка запрошена</p>):(<span></span>)}
-                                              {(deal.status=='requested_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
+                                              {(deal.status=='request_deny')?(<p>Сделка запрошена на отклонение</p>):(<span></span>)}
                                               {(deal.status=='finished')?(<p>Срок действия договора истек.</p>):(<span></span>)}
                                               {(deal.status=='completed')?(<p>Сделка завершена.</p>):(<span></span>)}
+                                              {(deal.status=='completed')?(<p>Сделка завершена.</p>):(<span></span>)}
+
 
                                               </div>
                                               ):(<p></p>)}

@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import Auth from '../modules/Auth';
 import InputElement from 'react-input-mask';
 import 'rc-datepicker/lib/style.css';
+import Modal from 'react-responsive-modal';
+
 //import DatePicker from 'react-bootstrap-date-picker';
 
 import 'moment/locale/ru.js'
@@ -19,6 +21,9 @@ class SignupBuyer extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state={
+      smscode: '',
+      open1: false,
+      my_id: '',
       message: '',
       pass_err: '',
       email_err: '',
@@ -54,7 +59,77 @@ class SignupBuyer extends React.Component {
       valid_err: []
     };
    this.changePerson = this.changePerson.bind(this);
+   this.sendSmsCode = this.sendSmsCode.bind(this);
+   this.repeatSmsCode = this.repeatSmsCode.bind(this);
   }
+  repeatSmsCode(){
+    const formData = `user_id=${this.state.my_id}`
+    console.log(formData)
+    axios.post('http://185.100.67.106:4040/api/repeatsms',formData, {
+        responseType: 'json',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+
+        }
+    })
+    .then(res => {
+      this.setState({
+        message: res.data.message
+      });
+      swal({text: this.state.message})
+    })
+    .catch(err => {
+    if (err.response) {
+      const errors = err.response ? err.response : {};
+      errors.summary = err.response.data.message;
+      this.setState({
+        errors
+      });
+    }
+  });
+  }
+  sendSmsCode(){
+    if(this.state.smscode.length!=0){
+    const formData = `user_id=${this.state.my_id}&smscode=${this.state.smscode}`
+    axios.post('http://185.100.67.106:4040/api/verifysms',formData, {
+        responseType: 'json',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+
+        }
+    })
+    .then(res => {
+      this.setState({
+        message: res.data.message
+      });
+      if(res.data.message == 'Поздравляем! Вы успешно прошли регистрацию.'){
+        swal({text: this.state.message}).then(function(){window.location = "/signin";})
+      } else{
+        swal({text: this.state.message})
+      }
+
+    })
+    .catch(err => {
+    if (err.response) {
+      const errors = err.response ? err.response : {};
+      errors.summary = err.response.data.message;
+      this.setState({
+        errors
+      });
+    }
+  });} else{
+            swal({text: 'Проверьте поля'})
+  }
+  }
+  toggleAgree(){
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
+  }
+  onOpenModal = () => {
+ this.setState({ open1: true });
+};
+
   changePerson(event){
     const field = event.target.name;
     const person = this.state.person;
@@ -169,13 +244,14 @@ class SignupBuyer extends React.Component {
       }
 
       }).then((res) => {
-          if (res.data.message==='Вы зарегестрировались! Пройдите по ссылке'){
-           setTimeout(function(){
-            swal("Поздравляем! Вы успешно прошли регистрацию.").then(function(){
-            browserHistory.push('/signin');
-            window.location.reload();
-            })
-        }, 1000);
+          if (res.data.message==='Поздравляем! Вы успешно прошли регистрацию в роли Индивидуального предпринимателя'){
+            this.setState({ open1: true , my_id: res.data.my_id});
+        //    setTimeout(function(){
+        //     swal("Поздравляем! Вы успешно прошли регистрацию.").then(function(){
+        //     browserHistory.push('/signin');
+        //     window.location.reload();
+        //     })
+        // }, 1000);
           } else {
               this.setState({message: res.data.message});
               swal({text: this.state.message})
@@ -861,6 +937,17 @@ class SignupBuyer extends React.Component {
                             <a href='http://legco.kz/css/new/privacy.pdf' target="_blank">Политика конфиденциальности</a><br/>
                                 <a  href='http://legco.kz/css/new/agreement.pdf' target="_blank">Пользовательское соглашение</a >
                             </div>
+                            <Modal open={this.state.open1} onClose={this.onCloseModal} little>
+                              <h2>Код подтвеждения</h2>
+                              <div className="form-group">
+                                <h4 className="form-control-label"  >В течение минуты к вам придет смс подтверждение.</h4>
+                                <input  onChange={(event)=>{
+                                            this.setState({smscode: event.target.value})
+                                            }}  type="text" className="form-control"   name="order"   autoComplete="off" />
+                              </div>
+                              <button className="btn btn-primary btn-block " onClick={this.sendSmsCode}>Подтвердить регистрацию</button>
+                              <button className="btn "onClick={this.repeatSmsCode}>Отправить повторный код</button>
+                            </Modal>
                             <button type="button" onClick={this.submit.bind(this)} className="btn btn-primary btn-block">Регистрация</button>
                         </form>
 

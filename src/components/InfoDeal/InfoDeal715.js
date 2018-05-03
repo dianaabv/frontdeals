@@ -89,7 +89,7 @@ class MyDealsParent extends React.Component {
     updateDeal517(){
             const formData = `deal715=${JSON.stringify(this.state.deal715)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&loanterm=${this.state.loanterm}`
 
-      console.log(this.state.deal715)
+    //  console.log(this.state.deal715)
         axios.post('http://185.100.67.106:4040/update/updateDeal715',formData, {
             responseType: 'json',
             headers: {

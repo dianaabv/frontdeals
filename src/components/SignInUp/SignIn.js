@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Auth from '../modules/Auth';
 import InputElement from 'react-input-mask';
-import swal from 'sweetalert'
+import swal from 'sweetalert';
+import Modal from 'react-responsive-modal';
+
 
 class LoginPage extends React.Component {
 
@@ -17,10 +19,84 @@ class LoginPage extends React.Component {
       username:'',
       password: ''},
       errors: {},
-      checkContent: false
+      checkContent: false,
+      smscode: ''
     };
     this.changeUser = this.changeUser.bind(this);
+    this.sendSmsCode = this.sendSmsCode.bind(this);
+    this.repeatSmsCode = this.repeatSmsCode.bind(this);
 
+  }
+  repeatSmsCode(){
+
+    //const formData = `user_id=${this.state.user.username}`
+    var name=this.state.user.username.replace(/[{()}]/g, '')
+    name=name.replace(/[{ }]/g, '');
+    name=name.replace(/-/g, '');
+    name=name.slice(1)
+    console.log(name)
+    const formData = `user_id=${name}`
+    axios.post('http://185.100.67.106:4040/api/repeatsms1',formData, {
+        responseType: 'json',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+
+        }
+    })
+    .then(res => {
+      this.setState({
+        message: res.data.message
+      });
+      swal({text: this.state.message})
+    })
+    .catch(err => {
+    if (err.response) {
+      const errors = err.response ? err.response : {};
+      errors.summary = err.response.data.message;
+      this.setState({
+        errors
+      });
+    }
+  });
+  }
+  sendSmsCode(){
+    var name=this.state.user.username.replace(/[{()}]/g, '')
+    name=name.replace(/[{ }]/g, '');
+    name=name.replace(/-/g, '');
+    name=name.slice(1)
+    console.log(name)
+        if(this.state.smscode.length!=0){
+    const formData = `user_id=${name}&smscode=${this.state.smscode}`
+    axios.post('http://185.100.67.106:4040/api/verifysms1',formData, {
+        responseType: 'json',
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+
+        }
+    })
+    .then(res => {
+      this.setState({
+        message: res.data.message
+      });
+      if(res.data.message == 'Поздравляем! Вы успешно прошли регистрацию.'){
+        swal({text: this.state.message}).then(function(){window.location = "/signin";})
+      } else{
+        swal({text: this.state.message})
+      }
+
+    })
+    .catch(err => {
+    if (err.response) {
+      const errors = err.response ? err.response : {};
+      errors.summary = err.response.data.message;
+      this.setState({
+        errors
+      });
+    }
+  });
+}else{
+      swal({text: 'Проверьте поля'})
+}
   }
     changeUser(event){
     const field = event.target.name;
@@ -38,11 +114,17 @@ class LoginPage extends React.Component {
       })
     }
   }
+  onOpenModal = () => {
+ this.setState({ open1: true });
+};
+
+onCloseModal = () => {
+ this.setState({ open1: false });
+};
   submit(){
     var name=this.state.user.username.replace(/[{()}]/g, '')
     name=name.replace(/[{ }]/g, '');
     name=name.replace(/-/g, '');
-    console.log(username)
   const username = encodeURIComponent(name);
   const password = encodeURIComponent(this.state.user.password);
   const formData = `username=${username}&password=${password}`;
@@ -58,9 +140,20 @@ class LoginPage extends React.Component {
         this.setState({
           errors: {}
         });
-        Auth.authenticateUser(res.data.token);
-        this.context.router.history.push('/')
-        window.location.reload()
+        // if(res.data.user.user.isRegistered){
+          if(res.data.user.user.isRegistered==1){
+            Auth.authenticateUser(res.data.token);
+            this.context.router.history.push('/')
+            window.location.reload()
+          } else {
+            this.setState({ open1: true });
+          }
+        // } else{
+        //   Auth.authenticateUser(res.data.token);
+        //   this.context.router.history.push('/')
+        //   window.location.reload()
+        //
+        // }
     })
       .catch(error => {
       if (error.response) {
@@ -84,7 +177,7 @@ class LoginPage extends React.Component {
 
                         <div className="page-brand-info">
                             <div className="brand">
-                               
+
                                 <h2 className="brand-text font-size-40">Сделки LegCo</h2>
                             </div>
                             <p className="font-size-20">Цифровой способ заключения сделок.</p>
@@ -113,9 +206,21 @@ class LoginPage extends React.Component {
                                     </div>
                                     <Link to="/forgotpassword" className="float-right" >Забыли пароль?</Link>
                                 </div>
+                                <Modal open={this.state.open1} onClose={this.onCloseModal} little>
+                                  <h2>Вы не поддтвердили регистрацию</h2>
+                                  <div className="form-group">
+                                  <button className="btn "onClick={this.repeatSmsCode}>Отправить повторный код и закончить регистрацию</button>
+
+                                    <input  onChange={(event)=>{
+                                                this.setState({smscode: event.target.value})
+                                                }}  type="text" className="form-control"   name="order"   autoComplete="off" />
+                                  </div>
+                                  <button className="btn btn-primary btn-block " onClick={this.sendSmsCode}>Завершить регистрацию</button>
+                                </Modal>
                                 <button onClick={this.submit.bind(this)} type="button" className="btn btn-primary btn-block">Войти</button>
                                 <p>{this.state.message}</p>
                             </form>
+
                             <p>Нет аккаунта?  <Link to="/signup" className="waves-effect"  >Зарегистрируйтесь</Link></p>
                             <footer className="page-copyright">
                                 <p>Сделки LegCo</p>
@@ -133,10 +238,10 @@ class LoginPage extends React.Component {
                                 </div>
                             </footer>
                         </div>
-         
+
         </div>
         </div>
-        
+
 
         </div>);
   }
