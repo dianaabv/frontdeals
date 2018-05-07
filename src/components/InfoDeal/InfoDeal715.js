@@ -331,10 +331,6 @@ class MyDealsParent extends React.Component {
                         <h4>Дополнительные условия (не обязательное ус-ие)                            </h4>
                         <label className="form-control-label">{this.props.data.additional}</label>
                     </div>
-
-                    <div className="form-group">
-                        {(this.props.status=='acceptor' && this.props.acceptor_status=='requested')?(<button className="btn btn-primary btn-block " onClick={this.acceptDeal}>Принять текущие условия сделки</button>):(<div></div>)}
-                    </div>
                     {(this.props.create_as_ip.length==0)?(
                       <div>
                     <div className="form-group">
