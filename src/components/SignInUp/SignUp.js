@@ -9,6 +9,7 @@ import Auth from '../modules/Auth';
 import InputElement from 'react-input-mask';
 import Modal from 'react-responsive-modal';
 import SignIn from './SignIn';
+
 // import 'rc-datepicker/lib/style.css';
 // //import DatePicker from 'react-bootstrap-date-picker';
 
@@ -248,6 +249,7 @@ class SignupBuyer extends React.Component {
    this.setState({ open1: false });
  };
   render() {
+     console.log(process.env.PUBLIC_URL,'aaaa')
     const today=new Date();
     const yesterday = new Date();
     yesterday.setFullYear(yesterday.getFullYear() -18)
@@ -710,8 +712,9 @@ class SignupBuyer extends React.Component {
                                 <p className="ml-40">Регистрируясь, Вы принимаете следующие документы: </p>
                             </div>
                             <div className="form-group">
-                                  <a href='http://legco.kz/css/new/privacy.pdf' target="_blank">Политика конфиденциальности</a><br/>
-                                      <a  href='http://legco.kz/css/new/agreement.pdf' target="_blank">Пользовательское соглашение</a >
+                                  <a href={process.env.PUBLIC_URL + '/files/policy.pdf'} target="_blank">Политика конфиденциальности</a><br/>
+                                      <a  href={process.env.PUBLIC_URL + '/files/agreement.pdf'} target="_blank">Пользовательское соглашение</a ><br/>
+                                      <a  href={process.env.PUBLIC_URL + '/files/paid.pdf'} target="_blank">Соглашение об оказании платных услуг через веб-сервис сделки LegCo</a >
                                 </div>
                                 <Modal open={this.state.open1} onClose={this.onCloseModal} little>
                                   <h2>Код подтвеждения</h2>

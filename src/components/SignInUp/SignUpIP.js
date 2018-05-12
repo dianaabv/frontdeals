@@ -307,7 +307,7 @@ class SignupBuyer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}
-                                type="text"  className={"form-control " + (this.state.valid_err.includes("lastname")  ? 'input_err' : '')} id="inputLastname" name="lastname" placeholder="Фамилия" />
+                                type="text"  className={"form-control " + (this.state.valid_err.includes("lastname")  ? 'input_err' : '')} name="lastname" placeholder="Фамилия" />
                             </div>
                             <div className="form-group">
 
@@ -718,15 +718,15 @@ class SignupBuyer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}  type="text"
-                                 className={"form-control " + (this.state.valid_err.includes("address")  ? 'input_err' : '')}id="inputLastname" name="address" placeholder="Адрес регистрации (область, город, улица, № дома, № квартиры)" />
+                                 className={"form-control " + (this.state.valid_err.includes("address")  ? 'input_err' : '')} name="address" placeholder="Адрес регистрации (область, город, улица, № дома, № квартиры)" />
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}  type="text"
-                                  className={"form-control " + (( this.state.valid_err.includes("nameip")) ? ('input_err') : (''))} id="inputLastname" name="nameip" placeholder="Наименование ИП" />
+                                  className={"form-control " + (( this.state.valid_err.includes("nameip")) ? ('input_err') : (''))}  name="nameip" placeholder="Наименование ИП" />
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson}  type="number"
-                                className={"form-control " + (( this.state.valid_err.includes("noregip")) ? ('input_err') : (''))}  id="inputLastname" name="noregip" placeholder="Номер свидетельства о гос. регистрации ИП" />
+                                className={"form-control " + (( this.state.valid_err.includes("noregip")) ? ('input_err') : (''))}  name="noregip" placeholder="Номер свидетельства о гос. регистрации ИП" />
                             </div>
                             <div className="form-group">
                       <h4>Дата гос. регистрации ИП</h4>
@@ -920,7 +920,7 @@ class SignupBuyer extends React.Component {
                             </div>
                             <div className="form-group">
                                 <input onChange={this.changePerson} type="text"
-                                 className={"form-control " + (( this.state.valid_err.includes("addressregip")) ? ('input_err') : (''))} id="inputLastname" name="addressregip" placeholder="Адрес регистрации ИП (область, город, улица, № дома, № квартиры) " />
+                                 className={"form-control " + (( this.state.valid_err.includes("addressregip")) ? ('input_err') : (''))}  name="addressregip" placeholder="Адрес регистрации ИП (область, город, улица, № дома, № квартиры) " />
                             </div>
 
 
@@ -934,8 +934,9 @@ class SignupBuyer extends React.Component {
                                 <p className="ml-40">Регистрируясь, Вы принимаете следующие документы:</p>
                             </div>
                             <div className="form-group">
-                            <a href='http://legco.kz/css/new/privacy.pdf' target="_blank">Политика конфиденциальности</a><br/>
-                                <a  href='http://legco.kz/css/new/agreement.pdf' target="_blank">Пользовательское соглашение</a >
+                            <a href={process.env.PUBLIC_URL + '/files/policy.pdf'} target="_blank">Политика конфиденциальности</a><br/>
+                                <a  href={process.env.PUBLIC_URL + '/files/agreement.pdf'} target="_blank">Пользовательское соглашение</a ><br/>
+                                <a  href={process.env.PUBLIC_URL + '/files/paid.pdf'} target="_blank">Соглашение об оказании платных услуг через веб-сервис сделки LegCo</a >
                             </div>
                             <Modal open={this.state.open1} onClose={this.onCloseModal} little>
                               <h2>Код подтвеждения</h2>

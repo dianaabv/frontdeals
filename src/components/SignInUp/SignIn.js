@@ -128,7 +128,7 @@ onCloseModal = () => {
   const username = encodeURIComponent(name);
   const password = encodeURIComponent(this.state.user.password);
   const formData = `username=${username}&password=${password}`;
-  console.log(formData,'formData')
+  // console.log(formData,'formData')
   axios.post('http://185.100.67.106:4040/auth/login', formData, {
     responseType: 'json',
     headers: {
