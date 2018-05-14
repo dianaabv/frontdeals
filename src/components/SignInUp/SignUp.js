@@ -712,9 +712,9 @@ class SignupBuyer extends React.Component {
                                 <p className="ml-40">Регистрируясь, Вы принимаете следующие документы: </p>
                             </div>
                             <div className="form-group">
-                                  <a href={process.env.PUBLIC_URL + '/files/policy.pdf'} target="_blank">Политика конфиденциальности</a><br/>
-                                      <a  href={process.env.PUBLIC_URL + '/files/agreement.pdf'} target="_blank">Пользовательское соглашение</a ><br/>
-                                      <a  href={process.env.PUBLIC_URL + '/files/paid.pdf'} target="_blank">Соглашение об оказании платных услуг через веб-сервис сделки LegCo</a >
+                                  <a href={process.env.PUBLIC_URL + '/files/policy1.pdf'} target="_blank">Политика конфиденциальности</a><br/>
+                                      <a  href={process.env.PUBLIC_URL + '/files/agreement1.pdf'} target="_blank">Пользовательское соглашение</a ><br/>
+                                      <a  href={process.env.PUBLIC_URL + '/files/paid1.pdf'} target="_blank">Соглашение об оказании платных услуг через веб-сервис сделки LegCo</a >
                                 </div>
                                 <Modal open={this.state.open1} onClose={this.onCloseModal} little>
                                   <h2>Код подтвеждения</h2>

@@ -38,9 +38,9 @@ class MyKontragents extends React.Component {
           const socket = socketIOClient(this.state.endpoint);
           socket.emit('join room', this.state.roomname)
 
-          swal({text: this.state.message}).then(function(){ 
+          swal({text: this.state.message}).then(function(){
             browserHistory.push('/kontragentrequest');
-            window.location.reload()})   
+            window.location.reload()})
         }
       })
       .catch(err => {
@@ -55,7 +55,7 @@ class MyKontragents extends React.Component {
 
     }
 
-    
+
 
 
     componentDidMount() {
@@ -86,7 +86,7 @@ class MyKontragents extends React.Component {
 //       users = users.filter(function(el){
 
 //         return toString(el.lastname).toLowerCase().search(event.target.value.toLowerCase()) !== -1;
-          
+
 //       })
 // this.setState({
 //   users:users
@@ -117,10 +117,10 @@ class MyKontragents extends React.Component {
 
           else if(udv.startsWith(' '+searchQuery) ){
             return udv.startsWith(' '+searchQuery)
-          }  
+          }
           else if(username.startsWith(' '+searchQuery) ){
             return username.startsWith(' '+searchQuery)
-          }  
+          }
         });
         this.setState({
           users: users1
@@ -133,8 +133,8 @@ class MyKontragents extends React.Component {
     }
     render() {
       const socket = socketIOClient(this.state.endpoint);
-    
-      // socket.on('addtofriend', (push) => { 
+
+      // socket.on('addtofriend', (push) => {
       //   console.log(push)
       //   console.log('vas dobavili v druzya')
       // })
@@ -148,14 +148,14 @@ class MyKontragents extends React.Component {
                             </div>
                         </div>
                         <div className="row">
-                   
+
                             <div className="col-md-6">
                                 <div className="panel ">
                                     <div className="panel-heading">
                                         <h3 className="panel-title"><i className="panel-title-icon icon fa fa-user-plus" aria-hidden="true" />Добавить контакты</h3>
                                     </div>
                                     <div className="panel-body container-fluid">
-                                       
+
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group">
@@ -166,27 +166,24 @@ class MyKontragents extends React.Component {
                                                         <button type="button" className="input-search-close icon wb-close" data-target="#site-navbar-search" data-toggle="collapse" aria-label="Close" />
                                                     </div>
                                                 </div>
-                                                       {this.state.users.length!=0 ? (  <div className="row">{this.state.users.map((request, s) => 
+                                                       {this.state.users.length!=0 ? (  <div className="row">{this.state.users.map((request, s) =>
                                                                                        <div key={s} className="col-md-12 myborder">
                                                                                            <div className="form-group">
                                                                                                <h4>ФИО</h4>
                                                                                                <label className="form-control-label">{request.lastname} {request.firstname} {request.midname}</label>
                                                                                            </div>
-                                                                                           <div className="form-group">
-                                                                                               <h4>Сотовый</h4>
-                                                                                               <label className="form-control-label">{request.username} </label>
-                                                                                           </div>
+                                                                                      
                                                                                            <div className="form-group">
                                                                                                 <button name={request._id} onClick={this.addtofriend} className="btn">Добавить</button>
                                                                                            </div>
                                                                                        </div>
-                                                                                   )}</div>) : (  
+                                                                                   )}</div>) : (
                                                                                                    <div className="">
                                                                                                            <div className="form-group">
                                                                                                                <h4>Поиск ...</h4>
                                                                                                            </div>
                                                                                                    </div>
-                                                                                                 )} 
+                                                                                                 )}
 
                                             {/*    { this.state.users.map((user, s) =>
                                                                                               <div className="form-group">
@@ -200,15 +197,15 @@ class MyKontragents extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
 
                         </div>
                     </div>
-                </div>   
-                              
-                            
+                </div>
+
+
 
         );
     }
