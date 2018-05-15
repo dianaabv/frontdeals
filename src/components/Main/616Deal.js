@@ -188,6 +188,7 @@ import swal from 'sweetalert';
   }
 
   render() {
+      console.log(this.state.deal616)
   const today=new Date();
     today.setDate(today.getDate() + 1)
      //console.log(this.state.valid_err)
@@ -231,7 +232,7 @@ import swal from 'sweetalert';
         <label className="form-control-label" htmlFor="citySelectorAddShopForm">Подрядчик</label>
         {
                                                     this.state.kontragents.length!=0 ?
-                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("employer")  ? 'input_err' : '')}  onChange={this.deal616}>
+                                                    (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("employer")  ? 'input_err' : '')} name="employer"  onChange={this.deal616}>
                                                     <option value='' >Выберите контрагента</option>
                                                     {this.state.kontragents.map((user, s) =>
                                                       <option key={s} value={user.myfriend._id}>{user.myfriend.firstname} {user.myfriend.lastname}</option>
