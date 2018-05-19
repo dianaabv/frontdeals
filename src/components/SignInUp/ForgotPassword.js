@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Auth from '../modules/Auth';
 import InputElement from 'react-input-mask';
 import swal from 'sweetalert'
+import Modal from 'react-responsive-modal';
 
 class LoginPage extends React.Component {
 
@@ -13,6 +14,11 @@ class LoginPage extends React.Component {
     super(props, context);
 
     this.state = {
+      password:'',
+      password2: '',
+      smscode:'',
+      username:'',
+        open1: false,
       pass_err: '',
       user: {
       username:'',
@@ -23,8 +29,16 @@ class LoginPage extends React.Component {
       checkContent: false
     }
     this.changeUser = this.changeUser.bind(this);
+    this.sendSmsCode = this.sendSmsCode.bind(this)
 
   }
+  onOpenModal = () => {
+ this.setState({ open1: true });
+};
+
+onCloseModal = () => {
+ this.setState({ open1: false });
+};
     changeUser(event){
     const field = event.target.name;
     const user = this.state.user;
@@ -56,45 +70,101 @@ class LoginPage extends React.Component {
     }
   }
   submit(){
-    var name=this.state.user.username.replace(/[{()}]/g, '')
-    name=name.replace(/[{ }]/g, '');
-    name=name.replace(/-/g, '');
-    const formData = `username=${name}&password=${this.state.user.password}`;
-    if(name.length!=12 ){
-      swal("Проверьте сотовый")
-    }
-    if(this.state.pass_err.length!=0){
-      swal("Пароли должны совпадать.")
-    } else {
-      axios.post('http://185.100.67.106:4040/api/changepassword', formData, {
-      responseType: 'json',
-      headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Authorization': `bearer ${Auth.getToken()}`
-      }
-    })
-      .then(res => {
+       // this.setState({ open1: true })
+       //console.log(this.state.user.username.length)
+       if(this.state.user.username.length!=0){
+         //console.log(this.state.my_id)
+
+       var   username=this.state.user.username.replace(/[{()}]/g, '')
+       username=username.replace(/[{ }]/g, '');
+       username=username.replace(/-/g, '');
+       username=username.replace('+', '')
+         const formData = `user_id=${username}`
+           axios.post('http://185.100.67.106:4040/api/repeatsms1',formData, {
+           responseType: 'json',
+           headers: {
+               'Content-type': 'application/x-www-form-urlencoded',
+
+           }
+       })
+       .then(res => {
+         this.setState({
+           message: res.data.message
+         });
+
+   if(res.data.message =='Мы выслали вам повторный код.'){
+     // console.log('adasd')
+            this.setState({ open1: true })
+   } else{
+swal(res.data.message)
+   }
+
+
+
+
+       })
+       .catch(err => {
+       if (err.response) {
+         const errors = err.response ? err.response : {};
+         errors.summary = err.response.data.message;
+         this.setState({
+           errors
+         });
+       }
+       });
+
+       } else {
+         swal("Вы не ввели сотовый номер")
+       }
+
+  }
+sendSmsCode(){
+
+  if(this.state.password==this.state.password2){
+
+
+    var   username=this.state.user.username.replace(/[{()}]/g, '')
+    username=username.replace(/[{ }]/g, '');
+    username=username.replace(/-/g, '');
+    username=username.replace('+', '')
+    const formData = `username=${username}&password=${this.state.password}&smscode=${this.state.smscode}`;
+            axios.post('http://185.100.67.106:4040/api/changepassword',formData, {
+            responseType: 'json',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+
+            }
+        })
+        .then(res => {
           this.setState({
             message: res.data.message
           });
-          swal({text: res.data.message})
-          // Auth.authenticateUser(res.data.token);
-          // this.context.router.history.push('/')
-          // window.location.reload()
-      })
-        .catch(error => {
-        if (error.response) {
-          const errors = error.response ? error.response : {};
-          errors.summary = error.response.data.message;
+          if(res.data.message=='Пароль успешно изменен.'){
+              swal({text: res.data.message}).then(function(){window.location = "/signin";})
+          } else{
+            swal(res.data.message)
+          }
+
+
+        })
+        .catch(err => {
+        if (err.response) {
+          const errors = err.response ? err.response : {};
+          errors.summary = err.response.data.message;
           this.setState({
             errors
           });
-          console.log(errors.summary);
         }
         });
-    }
+
+  }else{
+    swal('Пароли должны совпадать')
   }
 
+
+
+
+}
   render() {
     // console.log(this.state.user.username)
     return (
@@ -121,7 +191,7 @@ class LoginPage extends React.Component {
                        value={this.state.user.username}
                       onChange={this.changeUser} />
                                 </div>
-                                <div className="form-group">
+                              { /* <div className="form-group">
 
                                     <input  value={this.state.user.password} onChange={this.changeUser}  type="password" className="form-control"
                                      id="inputPassword" name="password" placeholder="Новый Пароль" />
@@ -131,11 +201,36 @@ class LoginPage extends React.Component {
                                     <input  value={this.state.user.password2} onChange={this.changeUser}  type="password" className="form-control"
                                      id="inputPassword" name="password2" placeholder="Повторный пароль" />
                                 </div>
-
+*/}
                                 <h4>{this.state.pass_err}</h4>
                                 <button onClick={this.submit.bind(this)} type="button" className="btn btn-primary btn-block">Cменить пароль</button>
                                 <p>{this.state.message}</p>
                             </form>
+                            <Modal open={this.state.open1} onClose={this.onCloseModal} little>
+                              <h2>Код подтвеждения</h2>
+                              <div className="form-group">
+                                <h4 className="form-control-label"  >В течение минуты к вам придет смс подтверждение.</h4>
+                                <input  placeholder="Смс код" onChange={(event)=>{
+                                            this.setState({smscode: event.target.value})
+                                            }}  type="text" className="form-control"   name="order"   autoComplete="off" />
+                              </div>
+                              <div className="form-group">
+
+                                    <input   onChange={(event)=>{
+                                                this.setState({password: event.target.value})
+                                                }} type="password" className="form-control"
+                                     id="inputPassword" name="password" placeholder="Новый Пароль" />
+                                </div>
+                                 <div className="form-group">
+
+                                    <input   onChange={(event)=>{
+                                                this.setState({password2: event.target.value})
+                                                }}  type="password" className="form-control"
+                                     id="inputPassword" name="password2" placeholder="Повторный пароль" />
+                                </div>
+                              <button className="btn btn-primary btn-block " onClick={this.sendSmsCode}>Cменить пароль</button>
+                          {/*    <button className="btn "onClick={this.repeatSmsCode}>Отправить повторный код</button>*/}
+                            </Modal>
                             <p> <Link to="/signin" className="waves-effect"  >Войдите</Link></p>
                             <footer className="page-copyright">
                                 <p>Сделки LegCo</p>
