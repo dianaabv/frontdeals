@@ -204,6 +204,7 @@ import swal from 'sweetalert'
      <div className="form-group">
       <h3>Договор мены</h3>
       <h4><b className="cust_weigh">Предмет догвора: </b> Одна сторона передает другой и получает взамен имущество на условиях, указанных в настоящем договоре</h4>
+        <h4><b className="cust_weigh">Внимание: </b> при выборе недвижимого имущества (дом, квартира, офис, помещение и т.д.) сделка должна быть выполнена в письменном виде и зарегистрирована в установленном законодательством порядке</h4>
       </div>
       <div className="form-group">
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>

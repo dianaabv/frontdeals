@@ -274,7 +274,7 @@ class App extends Component {
                                                             <div className="media-body">
                                                                 <h6 className="media-heading">{user.title}</h6>
                                                                 <h6 className="media-heading">{user.action_initiator.firstname} {user.action_initiator.lastname}</h6>
-                                                                <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                                <time className="media-meta" dateTime={user.date}>{user.date}</time>
                                                             </div>
                                                         </div>
                                                     </Link>
@@ -288,7 +288,7 @@ class App extends Component {
                                                             <div className="media-body">
                                                                 <h6 className="media-heading">{user.title}</h6>
                                                                 <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
-                                                                <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                                <time className="media-meta" dateTime={user.date}>{user.date}</time>
                                                             </div>
                                                         </div>
                                                     </Link>
@@ -302,7 +302,7 @@ class App extends Component {
                                                           <div className="media-body">
                                                               <h6 className="media-heading">{user.title}</h6>
                                                               <h6 className="media-heading">{user.from.firstname} {user.from.lastname}</h6>
-                                                              <time className="media-meta" dateTime={user.date}>{this.dateFormat(user.date)}</time>
+                                                              <time className="media-meta" dateTime={user.date}>{user.date}</time>
                                                           </div>
                                                       </div>
                                                     </Link>
