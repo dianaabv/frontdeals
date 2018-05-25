@@ -194,8 +194,8 @@ import swal from 'sweetalert'
         <label className="form-control-label" htmlFor="citySelectorAddShopForm" >Я являюсь</label>
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
-        <option value="заимодатель">Заимодатель</option>
-        <option value="заемщик">Заемщику</option>
+        <option value="заимодатель">Заимодателем</option>
+        <option value="заемщик">Заемщиком</option>
         </select>
       </div>
                   {(this.state.goreceiver=='ok')?(

@@ -67,7 +67,7 @@ import swal from 'sweetalert';
       goreceiver: 'ok'
     })
     }
-    if(event.target.value=='Подрядчик'){
+    if(event.target.value=='Заказчик'){
       if(this.state.deal683.employee==0){
         this.state.deal683['employee']=''
       } else{
@@ -196,12 +196,12 @@ import swal from 'sweetalert';
         <select className="form-control" name="role" onChange={this.updateRole.bind(this)}>
          <option value='0' >Выберите</option>
         <option value="Исполнитель">Исполнителем</option>
-        <option value="Подрядчик">Подрядчиком</option>
+        <option value="Заказчик">Заказчиком</option>
         </select>
       </div>
             {(this.state.goreceiver=='ok')?(
          <div className="form-group">
-        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Подрядчик</label>
+        <label className="form-control-label" htmlFor="citySelectorAddShopForm">Заказчик</label>
           {
                                                     this.state.kontragents.length!=0 ?
                                                     (      <select id="citySelectorAddShopForm" className={"form-control " + (this.state.valid_err.includes("employer")  ? 'input_err' : '')} name="employer" onChange={this.deal683}>

@@ -201,7 +201,7 @@ import swal from 'sweetalert'
         <select className="form-control" name="role" onChange={this.updateRole}>
          <option value='0' >Выберите</option>
         <option value="Поверенный">Поверенным</option>
-        <option value="Доверитель">Доверитеем</option>
+        <option value="Доверитель">Доверителем</option>
         </select>
       </div>
       {(this.state.goreceiver=='ok')?(
