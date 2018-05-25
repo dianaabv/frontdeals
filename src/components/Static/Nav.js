@@ -173,7 +173,7 @@ class App extends Component {
                                                                 <Link className="dropdown-item" to="/mykontragents" role="menuitem"><i className="icon fa fa-users" aria-hidden="true" /> Мои Контрагенты</Link>
                                                                 <Link className="dropdown-item" to="/kontragentrequest" role="menuitem"><i className="icon fa fa-exchange" aria-hidden="true" /> Заявки</Link>
                                                                 <Link className="dropdown-item" to="/dealhistory"  role="menuitem"><i className="icon fa fa-list-ul" aria-hidden="true" /> История сделок</Link>
-                                                                <Link className="dropdown-item" to="/settings"  role="menuitem"><i className="icon fa fa-list-ul" aria-hidden="true" /> Личная информация</Link>
+                                                                <Link className="dropdown-item" to="/settings"  role="menuitem"><i className="icon fa fa-user-o" aria-hidden="true" /> Личная информация</Link>
                                                               {  /*<Link className="dropdown-item" to="/mykontragents"role="menuitem"><i className="icon wb-payment" aria-hidden="true" /> Оплата</Link>*/}
 
                                                                 <div className="dropdown-divider" role="presentation" />
