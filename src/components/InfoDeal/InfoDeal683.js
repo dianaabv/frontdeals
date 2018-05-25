@@ -278,13 +278,13 @@ class MyDealsParent extends React.Component {
             <div className="col-md-6">
                 <div className="col-md-12">
                     <div className="form-group">
-                      <h3>Договор подряда</h3>
+                      <h3>Договор возмездного оказания услуг</h3>
                     </div>
                     <div className="form-group">
                       <h4>Текущие условия сделки</h4>
                     </div>
                     <div className="form-group">
-                        <h4>Подрядчик</h4>
+                        <h4>Заказчик</h4>
                         <label className="form-control-label">{this.props.data.employer.firstname} {this.props.data.employer.lastname}</label>
                     </div>
                     <div className="form-group">
@@ -375,14 +375,14 @@ class MyDealsParent extends React.Component {
               <div className="col-md-6 update_bg_grey">
                 <div className="col-md-12">
                     <div className="form-group">
-                      <h3>Договор подряда</h3>
+                      <h3>Договор возмездного оказания услуга</h3>
                     </div>
                     <div className="form-group">
                       <h4>Устаревшие условия сделки</h4>
                     </div>
                   {(Object.keys(this.props.olddeal).length != 0) ? (<div>
                               <div className="form-group">
-                        <h4>Подрядчик</h4>
+                        <h4>Заказчик</h4>
                         <label className="form-control-label">{this.props.olddeal.employer.firstname} {this.props.olddeal.employer.lastname}</label>
                     </div>
                     <div className="form-group">
@@ -436,7 +436,7 @@ class MyDealsParent extends React.Component {
                           </div>
                           <div className="col-md-6">
                           <div className="form-group">
-                              <h4>Подрядчик</h4>
+                              <h4>Заказчик</h4>
                         <label className="form-control-label">{this.props.data.employer.firstname} {this.props.data.employer.lastname}</label>
                           </div>
                           </div>
