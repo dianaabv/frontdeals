@@ -54,7 +54,7 @@ handleOptionChangeFiz(event){
 }
   componentDidMount() {
     //swal("Cделка будет недействительной в случае найма недвижимого имущества на срок от одного года и более. В таком случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -109,7 +109,7 @@ updateDeal(){
     }
     if(valid_err.length == 0 && this.state.duedate_err!='1'){
       const formData = `deal540=${JSON.stringify(this.state.deal540)}&employer=${this.state.deal540.employer}&employee=${this.state.deal540.employee}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}`;
-      axios.post('http://185.100.67.106:4040/create/createdeal540',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/create/createdeal540',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

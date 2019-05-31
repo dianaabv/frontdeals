@@ -37,7 +37,7 @@ import jwtDecode from 'jwt-decode';
     var token = Auth.getToken();
     var decoded = jwtDecode(token);
     // console.log(decoded.sub)
-    // axios.get('http://185.100.67.106:4040/api/gettest',{
+    // axios.get('https://sdelkibackend.herokuapp.com/api/gettest',{
     // responseType: 'json',
     // headers: {
     //   'Content-type': 'application/x-www-form-urlencoded',
@@ -68,7 +68,7 @@ import jwtDecode from 'jwt-decode';
     });
   }
   componentDidMount() {
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -96,7 +96,7 @@ import jwtDecode from 'jwt-decode';
 
   }
 getMy(){
-  axios.get('http://185.100.67.106:4040/api/getmymessages',{
+  axios.get('https://sdelkibackend.herokuapp.com/api/getmymessages',{
   responseType: 'json',
   headers: {
     'Content-type': 'application/x-www-form-urlencoded',
@@ -127,7 +127,7 @@ getMy(){
 updateDeal(){
   const formData = `deal688=${JSON.stringify(this.state.deal688)}`;
 
-  axios.post('http://185.100.67.106:4040/api/test',formData,{
+  axios.post('https://sdelkibackend.herokuapp.com/api/test',formData,{
   responseType: 'json',
   headers: {
     'Content-type': 'application/x-www-form-urlencoded',

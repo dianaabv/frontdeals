@@ -52,7 +52,7 @@ import jwtDecode from 'jwt-decode';
     });
   }
   componentDidMount() {
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -152,7 +152,7 @@ import jwtDecode from 'jwt-decode';
     if((this.state.deal865.principal.length>0)&&(this.state.deal865.agent.length>0)&&(this.state.deal865.instructionprincipal.length>0)&&(this.state.deal865.sizeaward.length>0)&&(this.state.deal865.order.length>0)
       &&(this.state.duedate>0)){
       const formData = `deal865=${JSON.stringify(this.state.deal865)}&principal=${this.state.deal865.principal}&agent=${this.state.deal865.agent}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}`;
-      axios.post('http://185.100.67.106:4040/api/createdeal865',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/api/createdeal865',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

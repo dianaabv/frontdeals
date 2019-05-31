@@ -14,7 +14,7 @@ import swal from 'sweetalert'
     super(props);
 
     this.state = {
-      endpoint: "http://185.100.67.106:4040",
+      endpoint: "https://sdelkibackend.herokuapp.com",
       kontragents: [],
       duedate: '',
       //deadline: '',
@@ -58,7 +58,7 @@ import swal from 'sweetalert'
   }
   componentDidMount() {
   //  swal("Cделка действительна только в случае дарения движимого имущества. В ином случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -161,7 +161,7 @@ import swal from 'sweetalert'
       }
       if(valid_err.length == 0 && this.state.duedate_err!='1'){
         const formData = `deal506=${JSON.stringify(this.state.deal506)}&presenter=${this.state.deal506.presenter}&receiver=${this.state.deal506.receiver}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}`;
-        axios.post('http://185.100.67.106:4040/create/createdeal506',formData,{
+        axios.post('https://sdelkibackend.herokuapp.com/create/createdeal506',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

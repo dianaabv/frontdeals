@@ -59,7 +59,7 @@ class SignupBuyer extends React.Component {
   }
   repeatSmsCode(){
     const formData = `user_id=${this.state.my_id}`
-    axios.post('http://185.100.67.106:4040/api/repeatsms',formData, {
+    axios.post('https://sdelkibackend.herokuapp.com/api/repeatsms',formData, {
         responseType: 'json',
         headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -85,7 +85,7 @@ class SignupBuyer extends React.Component {
   sendSmsCode(){
         if(this.state.smscode.length!=0){
     const formData = `user_id=${this.state.my_id}&smscode=${this.state.smscode}`
-    axios.post('http://185.100.67.106:4040/api/verifysms',formData, {
+    axios.post('https://sdelkibackend.herokuapp.com/api/verifysms',formData, {
         responseType: 'json',
         headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -217,7 +217,7 @@ class SignupBuyer extends React.Component {
 
         const formData = `person=${JSON.stringify(this.state.person)}&midname=${this.state.midname}&username=${this.state.person.username}`;
         if((this.state.valid_err.length==0) && (this.state.pass_err.length ==0) && (this.state.email_err.length ==0) && (this.state.udv_err.length ==0) && (this.state.iin_err.length ==0)  && (this.state.username_err.length ==0) ){
-          axios.post('http://185.100.67.106:4040/api/signup',formData,{
+          axios.post('https://sdelkibackend.herokuapp.com/api/signup',formData,{
             responseType: 'json',
             headers: {
               'Content-type': 'application/x-www-form-urlencoded'

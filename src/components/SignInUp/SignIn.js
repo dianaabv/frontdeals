@@ -36,7 +36,7 @@ class LoginPage extends React.Component {
     name=name.slice(1)
     console.log(name)
     const formData = `user_id=${name}`
-    axios.post('http://185.100.67.106:4040/api/repeatsms1',formData, {
+    axios.post('https://sdelkibackend.herokuapp.com/api/repeatsms1',formData, {
         responseType: 'json',
         headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -67,7 +67,7 @@ class LoginPage extends React.Component {
     console.log(name)
         if(this.state.smscode.length!=0){
     const formData = `user_id=${name}&smscode=${this.state.smscode}`
-    axios.post('http://185.100.67.106:4040/api/verifysms1',formData, {
+    axios.post('https://sdelkibackend.herokuapp.com/api/verifysms1',formData, {
         responseType: 'json',
         headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -129,7 +129,7 @@ onCloseModal = () => {
   const password = encodeURIComponent(this.state.user.password);
   const formData = `username=${username}&password=${password}`;
   // console.log(formData,'formData')
-  axios.post('http://185.100.67.106:4040/auth/login', formData, {
+  axios.post('https://sdelkibackend.herokuapp.com/auth/login', formData, {
     responseType: 'json',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',

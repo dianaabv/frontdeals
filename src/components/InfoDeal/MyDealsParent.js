@@ -87,7 +87,7 @@ class MyDealsParent extends React.Component {
       // }
 
      // this.privet()
-        axios.get('http://185.100.67.106:4040/api/getmydeals',{
+        axios.get('https://sdelkibackend.herokuapp.com/api/getmydeals',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -119,7 +119,7 @@ class MyDealsParent extends React.Component {
     }
     createPdf(event){
       const formData = `lawid=${event.target.name}&dealid=${event.target.value}`;
-      axios.post('http://185.100.67.106:4040/pdf/createpdf',formData, {
+      axios.post('https://sdelkibackend.herokuapp.com/pdf/createpdf',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -145,7 +145,7 @@ class MyDealsParent extends React.Component {
     getinfodeal(lawid, dealid){
       const formData = `lawid=${lawid}&dealid=${dealid}`;
         //console.log(formData, 'formData')
-        axios.post('http://185.100.67.106:4040/api/getinfodeal',formData, {
+        axios.post('https://sdelkibackend.herokuapp.com/api/getinfodeal',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
@@ -167,7 +167,7 @@ class MyDealsParent extends React.Component {
       });
     }
     getmystatus(dealid){
-      axios.get('http://185.100.67.106:4040/api/getmystatus?deal_id='+dealid,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmystatus?deal_id='+dealid,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -194,7 +194,7 @@ class MyDealsParent extends React.Component {
     }
     getolddeal(lawid, dealid){
       const formData = `lawid=${lawid}&dealid=${dealid}`;
-      axios.post('http://185.100.67.106:4040/api/getolddeal', formData, {
+      axios.post('https://sdelkibackend.herokuapp.com/api/getolddeal', formData, {
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -232,7 +232,7 @@ class MyDealsParent extends React.Component {
       // if(this.state.satisfied==1){
   this.setState({satisfied_deal_id: event.target.value})
           const formData = `deal_id=${event.target.value}`;
-          axios.post('http://185.100.67.106:4040/api/needfinalsubmission', formData, {
+          axios.post('https://sdelkibackend.herokuapp.com/api/needfinalsubmission', formData, {
             responseType: 'json',
             headers: {
               'Content-type': 'application/x-www-form-urlencoded',

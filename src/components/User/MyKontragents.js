@@ -27,7 +27,7 @@ class MyKontragents extends React.Component {
 
 
     componentDidMount() {
-        axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+        axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

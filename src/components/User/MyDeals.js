@@ -35,7 +35,7 @@ import 'moment/locale/ru.js'
 
   }
   componentDidMount() {
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded'}
@@ -91,7 +91,7 @@ import 'moment/locale/ru.js'
   }
   updateDeal506(event){
       const formData = `deal506=${JSON.stringify(this.state.deal506)}&duedate=${this.state.duedate}&deadline=${this.state.deadline}`;
-      axios.post('http://185.100.67.106:4040/api/createdeal506',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/api/createdeal506',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded'

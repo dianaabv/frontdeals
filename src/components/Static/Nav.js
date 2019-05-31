@@ -15,7 +15,7 @@ class App extends Component {
    constructor(){
     super();
     this.state={
-        endpoint: "http://185.100.67.106:4040",
+        endpoint: "https://sdelkibackend.herokuapp.com",
         userTimeLines: [],
         dealtimelines: [],
         firstname:'',
@@ -55,7 +55,7 @@ class App extends Component {
     componentDidMount() {
       if(Auth.isUserAuthenticated()){
          this.send();
-         axios.get('http://185.100.67.106:4040/api/getmyname',{
+         axios.get('https://sdelkibackend.herokuapp.com/api/getmyname',{
           responseType: 'json',
           headers: {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -79,7 +79,7 @@ class App extends Component {
     }
     changeIsOpen(event, id){
       //console.log(id, 'aaa')
-      axios.get('http://185.100.67.106:4040/api/handleisOpen?id='+id,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/handleisOpen?id='+id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

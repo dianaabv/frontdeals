@@ -60,7 +60,7 @@ import swal from 'sweetalert'
   }
   componentDidMount() {
   //  swal("Cделка будет недействительной в случае передачи в безвозмездное пользование недвижимого имущества на срок от одного года и более. В таком случае необходимо заключить письменный договор и обратиться в Центр обслуживания населения по местонахождению недвижимого имущества для целей государственной регистрации такого договора.")
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -161,7 +161,7 @@ import swal from 'sweetalert'
       }
           if(valid_err.length == 0 && this.state.duedate_err!='1' && this.state.usedeadline_err!='1'){
             const formData = `deal604=${JSON.stringify(this.state.deal604)}&lender=${this.state.deal604.lender}&borrower=${this.state.deal604.borrower}&duedate=${this.state.duedate}&usedeadline=${this.state.usedeadline}&lawid=${this.state.lawid}&status=${this.state.status}`;
-            axios.post('http://185.100.67.106:4040/create/createdeal604',formData,{
+            axios.post('https://sdelkibackend.herokuapp.com/create/createdeal604',formData,{
             responseType: 'json',
             headers: {
               'Content-type': 'application/x-www-form-urlencoded',

@@ -5,7 +5,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      endpoint: "http://185.100.67.106:4040",
+      endpoint: "https://sdelkibackend.herokuapp.com",
       
       ///
       color: 'white'

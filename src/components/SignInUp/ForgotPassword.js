@@ -80,7 +80,7 @@ onCloseModal = () => {
        username=username.replace(/-/g, '');
        username=username.replace('+', '')
          const formData = `user_id=${username}`
-           axios.post('http://185.100.67.106:4040/api/repeatsms1',formData, {
+           axios.post('https://sdelkibackend.herokuapp.com/api/repeatsms1',formData, {
            responseType: 'json',
            headers: {
                'Content-type': 'application/x-www-form-urlencoded',
@@ -128,7 +128,7 @@ sendSmsCode(){
     username=username.replace(/-/g, '');
     username=username.replace('+', '')
     const formData = `username=${username}&password=${this.state.password}&smscode=${this.state.smscode}`;
-            axios.post('http://185.100.67.106:4040/api/changepassword',formData, {
+            axios.post('https://sdelkibackend.herokuapp.com/api/changepassword',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',

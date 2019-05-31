@@ -56,7 +56,7 @@ class MyDealsParent extends React.Component {
    }
    acceptDeal(){
       var deal_id=this.props.data.deal_id
-      axios.get('http://185.100.67.106:4040/api/acceptdeal?deal_id='+deal_id,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/acceptdeal?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -90,7 +90,7 @@ class MyDealsParent extends React.Component {
             const formData = `deal715=${JSON.stringify(this.state.deal715)}&deal_id=${this.props.data.deal_id}&duedate=${this.state.duedate}&loanterm=${this.state.loanterm}`
 
     //  console.log(this.state.deal715)
-        axios.post('http://185.100.67.106:4040/update/updateDeal715',formData, {
+        axios.post('https://sdelkibackend.herokuapp.com/update/updateDeal715',formData, {
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -126,7 +126,7 @@ class MyDealsParent extends React.Component {
     })
     var deal_id=this.props.data.deal_id
     const formData = `deal_id=${deal_id}&status=${this.state.status}`
-      axios.post('http://185.100.67.106:4040/api/acceptdeal',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/api/acceptdeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -152,7 +152,7 @@ class MyDealsParent extends React.Component {
       // console.log(this.state.status)
       var deal_id=this.props.data.deal_id
       const formData = `deal_id=${deal_id}&status=${'Физическое Лицо'}`
-      axios.post('http://185.100.67.106:4040/api/acceptdeal',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/api/acceptdeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -177,7 +177,7 @@ class MyDealsParent extends React.Component {
     denyDeal() {
     var deal_id=this.props.data.deal_id
     const formData = `deal_id=${deal_id}&reason=${this.state.reason}`
-      axios.post('http://185.100.67.106:4040/api/denydeal',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/api/denydeal',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -201,7 +201,7 @@ class MyDealsParent extends React.Component {
    }
       acceptDeny(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://185.100.67.106:4040/api/acceptdeny?deal_id='+deal_id,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/acceptdeny?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -225,7 +225,7 @@ class MyDealsParent extends React.Component {
    }
       denyDeny(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://185.100.67.106:4040/api/denydeny?deal_id='+deal_id,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/denydeny?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -249,7 +249,7 @@ class MyDealsParent extends React.Component {
    }
       getDenyReason(){
     var deal_id=this.props.data.deal_id
-      axios.get('http://185.100.67.106:4040/api/getdenyreason?deal_id='+deal_id,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getdenyreason?deal_id='+deal_id,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

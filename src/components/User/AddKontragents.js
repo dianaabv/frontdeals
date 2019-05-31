@@ -18,7 +18,7 @@ class MyKontragents extends React.Component {
             message: '',
             users: [],
             allusers: [],
-            endpoint: "http://185.100.67.106:4040",
+            endpoint: "https://sdelkibackend.herokuapp.com",
             roomname: ''
         },
         this.handleSearch=this.handleSearch.bind(this)
@@ -26,7 +26,7 @@ class MyKontragents extends React.Component {
 
     }
     addtofriend(event){
-      axios.get('http://185.100.67.106:4040/api/addtofriend?friend_id='+event.target.name,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/addtofriend?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -59,7 +59,7 @@ class MyKontragents extends React.Component {
 
 
     componentDidMount() {
-      axios.get('http://185.100.67.106:4040/api/searchmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/searchmykontragents',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

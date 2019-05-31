@@ -55,7 +55,7 @@ import swal from 'sweetalert';
     });
   }
   componentDidMount() {
-      axios.get('http://185.100.67.106:4040/api/getmykontragents',{
+      axios.get('https://sdelkibackend.herokuapp.com/api/getmykontragents',{
       responseType: 'json',
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
@@ -161,7 +161,7 @@ import swal from 'sweetalert';
     &&(this.state.duedate>0)&&(this.state.workdeadline>0)){
       const formData = `deal616=${JSON.stringify(this.state.deal616)}&employer=${this.state.deal616.employer}&employee=${this.state.deal616.employee}&duedate=${this.state.duedate}&lawid=${this.state.lawid}&status=${this.state.status}&workdeadline=${this.state.workdeadline}`;
 
-      axios.post('http://185.100.67.106:4040/create/createdeal616',formData,{
+      axios.post('https://sdelkibackend.herokuapp.com/create/createdeal616',formData,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

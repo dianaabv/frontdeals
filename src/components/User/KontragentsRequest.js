@@ -15,7 +15,7 @@ class MyKontragents extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          endpoint: "http://185.100.67.106:4040",
+          endpoint: "https://sdelkibackend.herokuapp.com",
             message: '',
             in_requests: [],
             out_requests: []
@@ -29,7 +29,7 @@ class MyKontragents extends React.Component {
 
 
     componentDidMount() {
-        axios.get('http://185.100.67.106:4040/api/getmyrequests',{
+        axios.get('https://sdelkibackend.herokuapp.com/api/getmyrequests',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -52,7 +52,7 @@ class MyKontragents extends React.Component {
       });
     }
     acceptfriendship(event){
-      axios.get('http://185.100.67.106:4040/api/acceptfriendship?friend_id='+event.target.name,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/acceptfriendship?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -78,7 +78,7 @@ class MyKontragents extends React.Component {
       });
     }
     refusefriendship(event){
-      axios.get('http://185.100.67.106:4040/api/refusefriendship?friend_id='+event.target.name,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/refusefriendship?friend_id='+event.target.name,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',

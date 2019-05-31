@@ -64,7 +64,7 @@ class MyDealsParent extends React.Component {
        console.log(this.state.sat)
        const formData = `sat=${JSON.stringify(this.state.sat)}&deal_id=${this.props.deal_id}`;
        //   //console.log(formData, 'formData')
-         axios.post('http://185.100.67.106:4040/api/updatefinisheddeal',formData, {
+         axios.post('https://sdelkibackend.herokuapp.com/api/updatefinisheddeal',formData, {
              responseType: 'json',
              headers: {
                  'Content-type': 'application/x-www-form-urlencoded',

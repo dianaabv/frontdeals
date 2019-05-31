@@ -27,7 +27,7 @@ class MyDealsParent extends React.Component {
         });
     }
     componentDidMount() {
-      //   axios.get('http://185.100.67.106:4040/api/getmydashboard',{
+      //   axios.get('https://sdelkibackend.herokuapp.com/api/getmydashboard',{
       //   responseType: 'json',
       //   headers: {
       //     'Content-type': 'application/x-www-form-urlencoded',

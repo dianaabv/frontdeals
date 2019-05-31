@@ -86,7 +86,7 @@ class MyDealsParent extends React.Component {
       return d + "/" + m + "/" + fDate.getFullYear()
     }
     GetTest(){
-        axios.get('http://185.100.67.106:4040/api/gettest',{
+        axios.get('https://sdelkibackend.herokuapp.com/api/gettest',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -109,7 +109,7 @@ class MyDealsParent extends React.Component {
 
     }
     Test(){
-      axios.get('http://185.100.67.106:4040/api/test?test='+this.state.test,{
+      axios.get('https://sdelkibackend.herokuapp.com/api/test?test='+this.state.test,{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
@@ -136,7 +136,7 @@ class MyDealsParent extends React.Component {
         if(this.state.pass_err.length!=0){
             swal("Пароли не совпадают. Информация не обновлена")
         } else {
-            axios.post('http://185.100.67.106:4040/api/updatepassword',formData,{
+            axios.post('https://sdelkibackend.herokuapp.com/api/updatepassword',formData,{
                 responseType: 'json',
                 headers: {
                     'Content-type': 'application/x-www-form-urlencoded',
@@ -185,7 +185,7 @@ class MyDealsParent extends React.Component {
         // console.log(this.state.changeIp)
         // console.log(this.state.dateregip)
         const formData = `changeIp=${JSON.stringify(this.state.changeIp)}&dateregip=${this.state.dateregip}`;
-        axios.post('http://185.100.67.106:4040/api/updateipinfo',formData,{
+        axios.post('https://sdelkibackend.herokuapp.com/api/updateipinfo',formData,{
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -215,7 +215,7 @@ class MyDealsParent extends React.Component {
 
         const formData = `person=${JSON.stringify(this.state.person)}&birthday=${this.state.birthday.dob_day+'/'+this.state.birthday.dob_month+'/'+this.state.birthday.dob_year}&issueddate=${this.state.issueddate.issueddate_day+'/'+this.state.issueddate.issueddate_month+'/'+this.state.issueddate.issueddate_year}`;
         console.log(formData)
-        axios.post('http://185.100.67.106:4040/api/updatepersonalinfo',formData,{
+        axios.post('https://sdelkibackend.herokuapp.com/api/updatepersonalinfo',formData,{
             responseType: 'json',
             headers: {
                 'Content-type': 'application/x-www-form-urlencoded',
@@ -362,7 +362,7 @@ class MyDealsParent extends React.Component {
             this.setState({
                 email_err: ''
             })
-            axios.get('http://185.100.67.106:4040/api/updateemail?email='+this.state.email,{
+            axios.get('https://sdelkibackend.herokuapp.com/api/updateemail?email='+this.state.email,{
                 responseType: 'json',
                 headers: {
                   'Content-type': 'application/x-www-form-urlencoded',
@@ -385,7 +385,7 @@ class MyDealsParent extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://185.100.67.106:4040/api/getmydashboard',{
+        axios.get('https://sdelkibackend.herokuapp.com/api/getmydashboard',{
         responseType: 'json',
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
