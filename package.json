@@ -12,7 +12,7 @@
     "moment": "^2.20.1",
     "morgan": "^1.9.0",
     "node-cron": "^1.2.1",
-    "node-notifier": "^5.2.1",
+    "node-notifier": "^8.0.1",
     "prop-types": "^15.6.0",
     "rc-datepicker": "^5.0.10",
     "react": "^16.2.0",
